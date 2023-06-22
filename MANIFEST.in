@@ -1,0 +1,8 @@
+include LICENSE
+include pclab/schema.sql
+graft pclab/api
+graft pclab/assets
+graft pclab/layout
+graft pclab/pages
+graft pclab/utils
+global-exclude *.pyc
