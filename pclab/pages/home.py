@@ -20,6 +20,7 @@ from pclab.db import get_db
 from pclab.utils.figure import create_figure
 from pclab.utils.common import get_files
 from pclab.utils.common import to_binary
+from pclab.utils.common import to_image
 
 register_page(
     __name__,
@@ -140,20 +141,24 @@ def update_figure(pattern):
 @callback(
     Output("label", "value"),
     Output("label", "disabled"),
+    Output("image", "src"),
     Input("graph", "clickData"),
     prevent_initial_call=True,
 )
-def update_clicked_label(data):
+def update_clicked(data):
     if not isinstance(data, dict):
-        None, True
+        None, True, None
     id = data["points"][0]["customdata"]
     row = get_db().execute(
         """
         SELECT
-            label_id
+            label_id,
+            blob
         FROM sample WHERE id = ? 
         """,
         (id,)
     ).fetchone()
     value = dict(row)["label_id"]
-    return value, False
+    blob = dict(row)["blob"]
+    src = to_image(blob) 
+    return value, False, src
