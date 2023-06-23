@@ -7,13 +7,45 @@ from dash import Input
 from dash import Output
 from dash import page_container
 from dash import State
+from dash_iconify import DashIconify
+from dash_mantine_components import ActionIcon
 from dash_mantine_components import Container
+from dash_mantine_components import Group
+from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
 from dash_mantine_components import NotificationsProvider
+from dash_mantine_components import Text
+
+header = Header(
+    height=28,
+    fixed=True,
+    children=[
+        Group(
+            position="apart",
+            children=[
+                Text(
+                    children=[
+                        DashIconify(icon="raphael:lab"),
+                        "PC Lab",
+                    ], 
+                ),
+                ActionIcon(
+                    id="color-scheme-toggle",
+                    children=[
+                        DashIconify(
+                            icon="radix-icons:blending-mode",
+                        ),
+                    ]
+                ),
+            ],
+        ),
+    ]
+)
 
 wrapper = Container(
     id="wrapper",
     fluid=True,
+    pt=28,
     children=page_container,
 )
 
@@ -56,7 +88,7 @@ def layout():
                 children=[
                     dcc.Store(id="theme-store", storage_type="local"),
                     NotificationsProvider(
-                        children=[wrapper],
+                        children=[header, wrapper],
                     ),
                 ],
             )
