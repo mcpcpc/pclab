@@ -35,7 +35,7 @@ register_page(
 )
 
 layout = [
-    html.Div(id="notifications"),
+    html.Div(id="notify"),
     Grid(
         children=[
             Col(
@@ -121,9 +121,12 @@ def update_label(value):
 
 
 @callback(
-    Output("pattern", "value"),
-    Input("load", "n_clicks"),
-    State("pattern", "value"),
+    output=Output("notify", "children"),
+    inputs=[
+        Input("load", "n_clicks"),
+        State("pattern", "value"),
+    ],
+    background=True, 
     prevent_initial_call=True,
 )
 def load_files(n_clicks, pattern):
@@ -142,13 +145,31 @@ def load_files(n_clicks, pattern):
                 (path, blob),
             )
             db.commit()
-        except db.ProgrammingError:
-            print("Missing parameter(s).")
-        except db.IntegrityError:
-            print("Invalid parameter(s).")
-        else:
-            print(f"`{path}` successfully inserted!")
-    return no_update
+        except Error as error:
+            return Notification(
+                id="warning",
+                icon=DashIconify(icon="ic:baseline-warning"),
+                title="Warning",
+                message=f"{error}",
+                color="yellow",
+                action="show",
+            )
+        return Notification(
+            id="warning",
+            icon=DashIconify(icon="ic:baseline-check"),
+            title="Success",
+            message=f"{path} successfully loaded.",
+            color="green",
+            action="show",
+        )
+    return Notification(
+        id="complete",
+        icon=DashIconify(icon="ic:round-celebration"),
+        title="Complete",
+        message="All images processed.",
+        color="blue",
+        action="show",
+    )
 
 
 @callback(
