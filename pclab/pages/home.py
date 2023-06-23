@@ -47,7 +47,7 @@ layout = [
                 ]
             ),
             Col(
-                span=2,
+                span="auto",
                 px=0,
                 children=[
                     Image(
