@@ -88,7 +88,7 @@ layout = [
                                 id="pattern",
                                 icon=DashIconify(icon="carbon:image-search"),
                                 placeholder="Absolute path or GLOB pattern...",
-                                value="./instance/**/*.png",
+                                value="./instance/*/*.PNG",
                             ),
                             Button(
                                 id="load",
