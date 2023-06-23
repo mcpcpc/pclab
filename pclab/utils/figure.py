@@ -34,6 +34,7 @@ def create_figure(data: list):
         Scatter(
             x=list(map(lambda x: x[0], pcs)),
             y=list(map(lambda x: x[1], pcs)),
+            mode="markers",
         ),
     )
     return figure
