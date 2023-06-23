@@ -23,23 +23,39 @@ header = Header(
         Group(
             position="apart",
             children=[
-                Text(
-                    size="xs",
+                Group(
                     children=[
                         DashIconify(
                             icon="raphael:lab",
                             inline=True,
                         ),
-                        "PC Lab",
-                    ], 
-                ),
-                ActionIcon(
-                    id="color-scheme-toggle",
-                    children=[
-                        DashIconify(
-                            icon="radix-icons:blending-mode",
+                        Text(
+                            size="xs",
+                            children=[
+                                "PC Lab",
+                            ], 
                         ),
-                    ]
+                    ],
+                ),
+                Group(
+                    children=[
+                        ActionIcon(
+                            id="color-scheme-toggle",
+                            children=[
+                                DashIconify(
+                                    icon="radix-icons:blending-mode",
+                                ),
+                            ]
+                        ),
+                        ActionIcon(
+                            id="source",
+                            children=[
+                                DashIconify(
+                                    icon="radix-icons:github-logo",
+                                ),
+                            ]
+                        ),
+                    ],
                 ),
             ],
         ),
