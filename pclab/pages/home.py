@@ -94,6 +94,10 @@ layout = [
                                 id="reload",
                                 children="Reload",
                             ),
+                            Button(
+                                id="color-scheme-toggle",
+                                children="Mode",
+                            ),
                         ]
                     )
                 ],
@@ -113,7 +117,7 @@ def update_label(value):
         SELECT title, id FROM label
         """
     ).fetchall()
-    data = [{"label": r["title"], "value": r["id"]} for r in rows]
+    data = [{"label": r["title"], "value": str(r["id"])} for r in rows]
     return data
 
 
@@ -178,7 +182,7 @@ def update_clicked(data):
         """,
         (id,)
     ).fetchone()
-    value = dict(row)["label_id"]
+    label_id = str(dict(row)["label_id"])
     blob = dict(row)["blob"]
     src = to_image(blob) 
-    return value, False, src
+    return label_id, False, src
