@@ -144,8 +144,8 @@ def load_files(n_clicks, pattern):
             db.execute(
                 """
                 INSERT INTO sample (
-                    blob, label_id
-                ) VALUES (?, 1)
+                    blob
+                ) VALUES (?)
                 """,
                 (blob,),
             )
