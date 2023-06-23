@@ -137,17 +137,17 @@ def update_label(value):
 def load_files(n_clicks, pattern):
     paths = get_files(pattern)
     db = get_db()
-    db.execute("PRAGMA foreign_keys = ON")
     for path in paths:
         blob = to_binary(path)
         try:
+            db.execute("PRAGMA foreign_keys = ON")
             db.execute(
                 """
                 INSERT INTO sample (
-                    path, blob, label_id
-                ) VALUES (?, ?, 1)
+                    blob, label_id
+                ) VALUES (?, 1)
                 """,
-                (path, blob),
+                (blob,),
             )
             db.commit()
         except db.Error as error:
