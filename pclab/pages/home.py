@@ -126,7 +126,10 @@ def update_label(value):
         Input("load", "n_clicks"),
         State("pattern", "value"),
     ],
-    background=True, 
+    background=True,
+    running=[
+        (Output("load", "loading"), True, False),
+    ],
     prevent_initial_call=True,
 )
 def load_files(n_clicks, pattern):
