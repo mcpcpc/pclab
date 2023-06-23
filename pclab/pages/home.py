@@ -3,6 +3,7 @@
 
 from dash import callback
 from dash import dcc
+from dash import html
 from dash import Input
 from dash import Output
 from dash import no_update
@@ -16,6 +17,7 @@ from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import NavLink
+from dash_mantine_components import Notification
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import TextInput
 
@@ -33,7 +35,7 @@ register_page(
 )
 
 layout = [
-    dcc.Interval(id="interval", max_intervals=0),
+    html.Div(id="notifications"),
     Grid(
         children=[
             Col(
@@ -130,15 +132,22 @@ def load_files(n_clicks, pattern):
     db.execute("PRAGMA foreign_keys = ON")
     for path in paths:
         blob = to_binary(path)
-        db.execute(
-            """
-            INSERT INTO sample (
-                path, blob, label_id
-            ) VALUES (?, ?, 1)
-            """,
-            (path, blob),
-        )
-    db.commit()
+        try:
+            db.execute(
+                """
+                INSERT INTO sample (
+                    path, blob, label_id
+                ) VALUES (?, ?, 1)
+                """,
+                (path, blob),
+            )
+            db.commit()
+        except db.ProgrammingError:
+            print("Missing parameter(s).")
+        except db.IntegrityError:
+            print("Invalid parameter(s).")
+        else:
+            print(f"`{path}` successfully inserted!")
     return no_update
 
 

@@ -8,8 +8,6 @@ from flask import Flask
 from dash import Dash
 from dash import page_registry
 
-#from pclab.api.sample import sample
-#from pclab.api.vector import vector
 from pclab.db import init_app
 from pclab.layout.default import layout
 
@@ -31,8 +29,6 @@ def create_app(test_config=None):
     except OSError:
         pass
     init_app(app)
-    #app.register_blueprint(sample)
-    #app.register_blueprint(vector)
     dashapp = Dash(
         __name__,
         server=app,
