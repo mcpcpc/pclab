@@ -23,23 +23,18 @@ header = Header(
         Group(
             position="apart",
             children=[
-                Group(
-                    spacing="xs",
+                Text(
+                    size="xs",
                     children=[
                         DashIconify(
                             icon="raphael:lab",
                             inline=True,
                         ),
-                        Text(
-                            size="xs",
-                            children=[
-                                "PC Lab",
-                            ], 
-                        ),
-                    ],
+                        "PC Lab",
+                    ], 
                 ),
                 Group(
-                    spacing="xs",
+                    spacing=0,
                     children=[
                         ActionIcon(
                             id="color-scheme-toggle",
