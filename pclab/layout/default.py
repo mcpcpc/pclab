@@ -24,7 +24,7 @@ header = Header(
             position="apart",
             children=[
                 Text(
-                    size"xs",
+                    size="xs",
                     children=[
                         DashIconify(
                             icon="raphael:lab",
