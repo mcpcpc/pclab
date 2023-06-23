@@ -13,7 +13,7 @@ from dash_mantine_components import NotificationsProvider
 
 wrapper = Container(
     id="wrapper",
-    pt=28,
+    fluid=True,
     children=page_container,
 )
 

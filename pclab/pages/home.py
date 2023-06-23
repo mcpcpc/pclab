@@ -9,9 +9,11 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Button
 from dash_mantine_components import Col
 from dash_mantine_components import Image
 from dash_mantine_components import Grid
+from dash_mantine_components import Group
 from dash_mantine_components import NavLink
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import TextInput
@@ -34,25 +36,14 @@ layout = [
     Grid(
         children=[
             Col(
-                span=12,
-                px=0,
-                children=(
-                    TextInput(
-                        id="pattern",
-                        placeholder="Absolute path or GLOB pattern...",
-                        value="./instance/**/*.png",
-                    )
-                )
-            ),
-            Col(
-                span=9,
+                span=10,
                 px=0,
                 children=[
                     dcc.Graph(id="graph"),
                 ]
             ),
             Col(
-                span=3,
+                span=2,
                 px=0,
                 children=[
                     Image(
@@ -69,24 +60,45 @@ layout = [
                     ),
                     NavLink(
                         id="previous",
-                        icon=DashIconify(icon="carbon:previous-filled"),
+                        icon=DashIconify(icon="carbon:previous-outline"),
                         label="Previous",
                     ),
                     NavLink(
                         id="next",
-                        icon=DashIconify(icon="carbon:next-filled"),
+                        icon=DashIconify(icon="carbon:next-outline"),
                         label="Next",
                     ),
                     NavLink(
                         id="reload",
-                        icon=DashIconify(icon="carbon:next-filled"),
+                        icon=DashIconify(icon="carbon:reset"),
                         label="Reload",
                     ),
                 ]
             ),
+            Col(
+                span=12,
+                px=0,
+                children=[
+                    Group(
+                        children=[
+                            TextInput(
+                                id="pattern",
+                                icon=DashIconify(icon="carbon:image-search"),
+                                placeholder="Absolute path or GLOB pattern...",
+                                value="./instance/**/*.png",
+                            ),
+                            Button(
+                                id="load",
+                                children="Load",
+                            ),
+                        ]
+                    )
+                ],
+            ),
         ],
     )
 ]
+
 
 @callback(
     Output("label", "data"),
@@ -104,10 +116,11 @@ def update_label(value):
 
 @callback(
     Output("pattern", "value"),
-    Input("pattern", "value"),
+    Input("load", "n_clicks"),
+    State("pattern", "value"),
     prevent_initial_call=True,
 )
-def load_files(pattern):
+def load_files(n_clicks, pattern):
     paths = get_files(pattern)
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
