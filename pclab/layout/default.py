@@ -28,7 +28,7 @@ header = Header(
                     children=[
                         DashIconify(
                             icon="raphael:lab",
-                            inline=True,
+                            #inline=True,
                         ),
                         "PC Lab",
                     ], 
