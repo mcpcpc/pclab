@@ -68,11 +68,6 @@ layout = [
                         icon=DashIconify(icon="carbon:next-outline"),
                         label="Next",
                     ),
-                    NavLink(
-                        id="reload",
-                        icon=DashIconify(icon="carbon:reset"),
-                        label="Reload",
-                    ),
                 ]
             ),
             Col(
@@ -90,6 +85,10 @@ layout = [
                             Button(
                                 id="load",
                                 children="Load",
+                            ),
+                            Button(
+                                id="reload",
+                                children="Reload",
                             ),
                         ]
                     )
@@ -140,8 +139,7 @@ def load_files(n_clicks, pattern):
 
 @callback(
     Output("graph", "figure"),
-    Input("pattern", "value"),
-    prevent_initial_call=True,
+    Input("reload", "n_clicks"),
 )
 def update_figure(pattern):
     rows = get_db().execute(

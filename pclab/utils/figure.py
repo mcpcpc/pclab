@@ -20,18 +20,20 @@ def to_inputs(data: list) -> tuple:
 
 
 def create_figure(data: list):
+    figure = Figure()
+    figure.update_layout(margin=dict(t=0, r=0, b=0, l=0))
+    figure.update_layout(modebar_orientation="v")
+    figure.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
+    figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
+    if len(data) < 1:
+        return figure
     ids, labels, blobs = to_inputs(data)
     values = list(map(to_array, blobs))
     pcs = create_components(values)
-    figure = Figure()
     figure.add_trace(
         Scatter(
             x=list(map(lambda x: x[0], pcs)),
             y=list(map(lambda x: x[1], pcs)),
         ),
     )
-    figure.update_layout(margin=dict(t=0, r=0, b=0, l=0))
-    figure.update_layout(modebar_orientation="v")
-    figure.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
-    figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
     return figure
