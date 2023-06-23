@@ -14,6 +14,7 @@ from dash_mantine_components import Col
 from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
+from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import NavLink
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import TextInput
@@ -39,7 +40,9 @@ layout = [
                 span=10,
                 px=0,
                 children=[
-                    dcc.Graph(id="graph"),
+                    LoadingOverlay(
+                        children=dcc.Graph(id="graph"),
+                    )
                 ]
             ),
             Col(
