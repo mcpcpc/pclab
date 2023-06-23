@@ -129,6 +129,7 @@ def update_label(value):
     background=True,
     running=[
         (Output("load", "loading"), True, False),
+        (Output("pattern", "disabled"), True, False),
     ],
     prevent_initial_call=True,
 )
