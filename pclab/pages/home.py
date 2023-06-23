@@ -20,7 +20,7 @@ from pclab.db import get_db
 from pclab.utils.figure import create_figure
 from pclab.utils.common import get_files
 from pclab.utils.common import to_binary
-from pclab.utils.common import to_image
+from pclab.utils.preprocess import to_image
 
 register_page(
     __name__,
@@ -77,6 +77,11 @@ layout = [
                         icon=DashIconify(icon="carbon:next-filled"),
                         label="Next",
                     ),
+                    NavLink(
+                        id="reload",
+                        icon=DashIconify(icon="carbon:next-filled"),
+                        label="Reload",
+                    ),
                 ]
             ),
         ],
@@ -130,12 +135,12 @@ def update_figure(pattern):
         """
         SELECT
             id,
+            label_id,
             blob
         FROM sample
         """,
     ).fetchall()
-    print(list(map(dict, rows)))
-    figure = create_figure(None)
+    figure = create_figure(rows)
     return figure
 
 @callback(

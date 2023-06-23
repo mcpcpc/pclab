@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from base64 import b64encode
 from glob import glob
-from io import BytesIO
+from functools import reduce
+from pathlib import Path
+from typing import Callable
 
-from PIL import Image
+Preprocessor = Callable[[list[dict]], list[dict]]
+
+
+def compose(*functions: Preprocessor) -> Preprocessor:
+    return reduce(lambda f, g: lambda x: g(f(x)), functions)
 
 
 def get_files(pattern) -> list:
@@ -16,9 +21,3 @@ def to_binary(filename: str):
     with open(filename, 'rb') as file:
         blob = file.read()
     return blob
-
-
-def to_image(blob) -> Image:
-    binary_stream = BytesIO(blob)
-    image = Image.open(binary_stream)
-    return image
