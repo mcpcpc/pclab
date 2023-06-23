@@ -35,6 +35,7 @@ def create_figure(data: list):
             x=list(map(lambda x: x[0], pcs)),
             y=list(map(lambda x: x[1], pcs)),
             mode="markers",
+            customdata=ids,
         ),
     )
     return figure
