@@ -149,7 +149,7 @@ def load_files(n_clicks, pattern):
                 (path, blob),
             )
             db.commit()
-        except Error as error:
+        except db.Error as error:
             return Notification(
                 id="warning",
                 icon=DashIconify(icon="ic:baseline-warning"),
