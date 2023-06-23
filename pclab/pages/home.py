@@ -94,10 +94,6 @@ layout = [
                                 id="reload",
                                 children="Reload",
                             ),
-                            Button(
-                                id="color-scheme-toggle",
-                                children="Mode",
-                            ),
                         ]
                     )
                 ],
