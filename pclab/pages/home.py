@@ -42,7 +42,7 @@ layout = [
                 children=[
                     LoadingOverlay(
                         children=dcc.Graph(id="graph"),
-                        #loaderProps={"variant": "bars"},
+                        loaderProps={"variant": "bars"},
                     )
                 ]
             ),

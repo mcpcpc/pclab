@@ -26,7 +26,10 @@ header = Header(
                 Text(
                     size"xs",
                     children=[
-                        DashIconify(icon="raphael:lab"),
+                        DashIconify(
+                            icon="raphael:lab",
+                            inline=True,
+                        ),
                         "PC Lab",
                     ], 
                 ),
