@@ -154,14 +154,6 @@ def load_files(n_clicks, pattern):
                 color="yellow",
                 action="show",
             )
-        return Notification(
-            id="warning",
-            icon=DashIconify(icon="ic:baseline-check"),
-            title="Success",
-            message=f"{path} successfully loaded.",
-            color="green",
-            action="show",
-        )
     return Notification(
         id="complete",
         icon=DashIconify(icon="ic:round-celebration"),
