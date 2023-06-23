@@ -111,7 +111,7 @@ layout = [
     Output("label", "data"),
     Input("label", "data"),
 )
-def update_label(value):
+def update_label_data(value):
     rows = get_db().execute(
         """
         SELECT title, id FROM label
@@ -143,9 +143,7 @@ def load_files(n_clicks, pattern):
             db.execute("PRAGMA foreign_keys = ON")
             db.execute(
                 """
-                INSERT INTO sample (
-                    blob
-                ) VALUES (?)
+                INSERT INTO sample (blob) VALUES (?)
                 """,
                 (blob,),
             )
@@ -176,11 +174,7 @@ def load_files(n_clicks, pattern):
 def update_figure(pattern):
     rows = get_db().execute(
         """
-        SELECT
-            id,
-            label_id,
-            blob
-        FROM sample
+        SELECT id, label_id, blob FROM sample
         """,
     ).fetchall()
     figure = create_figure(rows)
@@ -199,10 +193,7 @@ def update_clicked(data):
     id = data["points"][0]["customdata"]
     row = get_db().execute(
         """
-        SELECT
-            label_id,
-            blob
-        FROM sample WHERE id = ? 
+        SELECT label_id, blob FROM sample WHERE id = ? 
         """,
         (id,)
     ).fetchone()
