@@ -24,6 +24,7 @@ header = Header(
             position="apart",
             children=[
                 Group(
+                    spacing="xs",
                     children=[
                         DashIconify(
                             icon="raphael:lab",
@@ -38,9 +39,11 @@ header = Header(
                     ],
                 ),
                 Group(
+                    spacing="xs",
                     children=[
                         ActionIcon(
                             id="color-scheme-toggle",
+                            variant="transparent",
                             children=[
                                 DashIconify(
                                     icon="radix-icons:blending-mode",
@@ -49,9 +52,19 @@ header = Header(
                         ),
                         ActionIcon(
                             id="source",
+                            variant="transparent",
                             children=[
                                 DashIconify(
                                     icon="radix-icons:github-logo",
+                                ),
+                            ]
+                        ),
+                        ActionIcon(
+                            id="settings",
+                            variant="transparent",
+                            children=[
+                                DashIconify(
+                                    icon="radix-icons:gear",
                                 ),
                             ]
                         ),
