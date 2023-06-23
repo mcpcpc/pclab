@@ -39,7 +39,8 @@ layout = [
     Grid(
         children=[
             Col(
-                span=10,
+                sm=10,
+                xs=12,
                 px=0,
                 children=[
                     LoadingOverlay(
@@ -49,8 +50,8 @@ layout = [
                 ]
             ),
             Col(
-                span=2,
-                px=0,
+                sm=2,
+                xs=12,
                 children=[
                     Image(
                         id="image",
