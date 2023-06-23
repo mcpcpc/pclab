@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from plotly.graph_objects import Figure
-from plotly.graph_objects import Scatter
+from plotly.graph_objects import Scattergl
 from sklearn.decomposition import PCA
 
 from pclab.utils.preprocess import to_array
@@ -32,9 +32,7 @@ def create_figure(data: list):
     pcs = create_components(values)
     for label in set(labels):
         figure.add_trace(
-            Scatter(
-                #x=list(map(lambda x: x[0], pcs)),
-                #y=list(map(lambda x: x[1], pcs)),
+            Scattergl(
                 x=[pc[0] for pc, l in zip(pcs, labels) if label == l],
                 y=[pc[1] for pc, l in zip(pcs, labels) if label == l],
                 mode="markers",

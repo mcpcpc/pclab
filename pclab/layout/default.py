@@ -30,8 +30,9 @@ header = Header(
                         DashIconify(
                             icon="raphael:lab",
                             inline=True,
+                            color="green",
                         ),
-                        "PC Lab ~ Principle Component Analysis Labeler",
+                        "PC Lab",
                     ], 
                 ),
                 Group(
@@ -110,7 +111,7 @@ def layout():
         children=[
             MantineProvider(
                 theme={
-                    "primaryColor": "indigo",
+                    "primaryColor": "green",
                     "fontFamily": "'Roboto', system-ui, sans-serif",
                 },
                 inherit=True,
