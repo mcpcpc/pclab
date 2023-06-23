@@ -25,7 +25,7 @@ def create_figure(data: list):
     figure.update_layout(modebar_orientation="v")
     figure.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
     figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
-    figure.update_layout(clickmode='event+select')
+    figure.update_layout(clickmode="event+select")
     if len(data) < 1:
         return figure
     ids, labels, blobs = to_inputs(data)

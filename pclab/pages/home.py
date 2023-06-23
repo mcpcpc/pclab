@@ -158,10 +158,10 @@ def update_figure(pattern):
     Output("label", "value"),
     Output("label", "disabled"),
     Output("image", "src"),
-    Input("graph", "clickData"),
+    Input("graph", "selectedData"),
     prevent_initial_call=True,
 )
-def update_clicked(data):
+def update_selected(data):
     if not isinstance(data, dict):
         None, True, None
     id = data["points"][0]["customdata"]
