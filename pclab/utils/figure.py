@@ -30,12 +30,15 @@ def create_figure(data: list):
     ids, labels, blobs = to_inputs(data)
     values = list(map(to_array, blobs))
     pcs = create_components(values)
-    figure.add_trace(
-        Scatter(
-            x=list(map(lambda x: x[0], pcs)),
-            y=list(map(lambda x: x[1], pcs)),
-            mode="markers",
-            customdata=ids,
-        ),
-    )
+    for label in set(labels):
+        figure.add_trace(
+            Scatter(
+                #x=list(map(lambda x: x[0], pcs)),
+                #y=list(map(lambda x: x[1], pcs)),
+                x=[pc[0] for pc, l in zip(pcs, labels) if label == l],
+                y=[pc[1] for pc, l in zip(pcs, labels) if label == l],
+                mode="markers",
+                customdata=ids,
+            ),
+        )
     return figure

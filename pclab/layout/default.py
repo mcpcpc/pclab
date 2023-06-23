@@ -18,6 +18,7 @@ from dash_mantine_components import Text
 
 header = Header(
     height=28,
+    px=5,
     fixed=True,
     children=[
         Group(
@@ -30,7 +31,7 @@ header = Header(
                             icon="raphael:lab",
                             inline=True,
                         ),
-                        "PC Lab",
+                        "PC Lab ~ Principle Component Analysis Labeler",
                     ], 
                 ),
                 Group(
