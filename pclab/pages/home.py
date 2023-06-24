@@ -150,7 +150,14 @@ def load_files(n_clicks, pattern):
         blob = to_binary(path)
         try:
             db.execute("PRAGMA foreign_keys = ON")
-            db.execute("INSERT INTO sample (blob) VALUES (?)", (blob,))
+            db.execute(
+                """
+                INSERT INTO sample (
+                    filename, blob
+                ) VALUES (?, ?)
+                """,
+                (path, blob)
+            )
             db.commit()
         except db.Error as error:
             return Notification(
