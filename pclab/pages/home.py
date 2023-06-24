@@ -43,7 +43,6 @@ layout = [
         children=[
             Col(
                 md=3,
-                sm=2,
                 xs=12,
                 p="md",
                 children=[
@@ -85,7 +84,7 @@ layout = [
             ),
             Col(
                 md=6,
-                sm=8,
+                sm=9,
                 xs=12,
                 children=[
                     LoadingOverlay(
@@ -96,7 +95,7 @@ layout = [
             ),
             Col(
                 md=3,
-                sm=2,
+                sm=3,
                 xs=12,
                 children=[
                     Image(
