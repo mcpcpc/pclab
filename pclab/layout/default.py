@@ -30,7 +30,7 @@ header = Header(
                         DashIconify(
                             icon="raphael:lab",
                             inline=True,
-                            color="teal",
+                            color="indigo",
                         ),
                         "PC Lab",
                     ], 
