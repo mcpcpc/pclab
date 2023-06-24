@@ -225,6 +225,8 @@ def update_figure(n_clicks):
         FROM sample
         """
     ).fetchall()
+    if len(rows) < 1:
+        return no_update
     model = create_model()
     ids, labels, blobs = zip(*map(lambda x: dict(x).values(), rows))
     pcs = model.fit_transform(list(map(to_array, blobs)))
