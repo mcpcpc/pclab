@@ -16,6 +16,7 @@ from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
+from dash_mantine_components import NavLink
 from dash_mantine_components import Notification
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import TextInput
@@ -40,8 +41,50 @@ layout = [
     Grid(
         children=[
             Col(
-                md=9,
-                sm=10,
+                md=3,
+                sm=2,
+                xs=12,
+                px=0,
+                children=[
+                    Group(
+                        position="center",
+                        p="lg",
+                        children=[
+                            TextInput(
+                                id="pattern",
+                                size="xs",
+                                icon=DashIconify(icon="carbon:image-search"),
+                                placeholder="Absolute path or GLOB pattern...",
+                                value="./instance/*/*.PNG",
+                            ),
+                            Button(
+                                id="load",
+                                size="xs",
+                                children="Load",
+                            ),
+                        ]
+                    ),
+                    NavLink(
+                        id="clear",
+                        label="Clear",
+                    ),
+                    NavLink(
+                        id="refresh",
+                        label="Refresh",
+                    ),
+                    NavLink(
+                        id="previous",
+                        label="Previous",
+                    ),
+                    NavLink(
+                        id="next",
+                        label="Next",
+                    ),
+                ],
+            ),
+            Col(
+                md=6,
+                sm=8,
                 xs=12,
                 px=0,
                 children=[
@@ -61,7 +104,7 @@ layout = [
                         id="image",
                         withPlaceholder=True,
                         fit="contain",
-                        height=160,
+                        height=200,
                     ),
                     SegmentedControl(
                         id="label",
@@ -71,38 +114,6 @@ layout = [
                         data=[],
                     ),
                 ]
-            ),
-            Col(
-                span=12,
-                px=0,
-                children=[
-                    Group(
-                        children=[
-                            TextInput(
-                                id="pattern",
-                                icon=DashIconify(icon="carbon:image-search"),
-                                placeholder="Absolute path or GLOB pattern...",
-                                value="./instance/*/*.PNG",
-                            ),
-                            Button(
-                                id="load",
-                                children="Load",
-                            ),
-                            Button(
-                                id="reload",
-                                children="Reload",
-                            ),
-                            Button(
-                                id="previous",
-                                children="Previous",
-                            ),
-                            Button(
-                                id="next",
-                                children="Next",
-                            ),
-                        ]
-                    )
-                ],
             ),
         ],
     )
@@ -210,7 +221,7 @@ def update_selected(selected_data):
 
 @callback(
     Output("graph", "figure"),
-    Input("reload", "n_clicks"),
+    Input("refresh", "n_clicks"),
 )
 def update_figure(n_clicks):
     rows = get_db().execute(
@@ -229,3 +240,14 @@ def update_figure(n_clicks):
     pcs = model.fit_transform(list(map(to_array, blobs)))
     figure = create_pca_figure(ids, labels, pcs)
     return figure
+
+
+@callback(
+    Output("clear", "disabled"),
+    Input("clear", "n_clicks"),
+)
+def update_cleared(n_clicks):
+    db = get_db()
+    db.execute("DELETE FROM sample")
+    db.commit()
+    return no_update
