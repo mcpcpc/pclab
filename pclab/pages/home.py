@@ -51,7 +51,6 @@ layout = [
                         id="pattern",
                         label="Directory Pattern",
                         description="Accepts absolute or relative path.",
-                        size="xs",
                         pb="md",
                         icon=DashIconify(icon="carbon:image-search"),
                         placeholder="i.e. ./instance/*/*.PNG",
