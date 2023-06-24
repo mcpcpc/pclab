@@ -245,6 +245,7 @@ def update_figure(n_clicks):
 @callback(
     Output("clear", "disabled"),
     Input("clear", "n_clicks"),
+    prevent_initial_call=True,
 )
 def update_cleared(n_clicks):
     db = get_db()
