@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from dash import callback
-from dash import ctx
 from dash import dcc
 from dash import html
 from dash import Input
@@ -36,7 +35,8 @@ register_page(
 )
 
 layout = [
-    html.Div(id="notify"),
+    html.Div(id="notify_load"),
+    dcc.Store(id="selection_cache"),
     Grid(
         children=[
             Col(
@@ -123,7 +123,7 @@ def update_label_data(value):
 
 
 @callback(
-    output=Output("notify", "children"),
+    output=Output("notify_load", "children"),
     inputs=[
         Input("load", "n_clicks"),
         State("pattern", "value"),
@@ -169,40 +169,63 @@ def load_files(n_clicks, pattern):
 
 
 @callback(
-    Output("graph", "figure"),
+    Output("selection_cache", "data"),
+    Input("graph", "selectedData"),
+)
+def update_selection_cache(selected_data):
+    if not isinstance(selected_data, dict):
+        return None
+    return selected_data["points"][0]["customdata"]
+    
+
+@callback(
+    Output("graph", "selectedData"),
+    Input("label", "value"),
+    State("selection_cache", "data"),
+)
+def update_selected_label(label_id, id):
+    if id is None:
+        return no_update
+    if id == {}:
+        return no_update
+    db = get_db()
+    db.execute("PRAGMA foreign_keys = ON")
+    db.execute(
+        """
+        UPDATE sample SET
+            updated_at = CURRENT_TIMESTAMP,
+            label_id = ?
+        WHERE id = ?
+        """,
+        (label_id, id),
+    )
+    db.commit()
+    return no_update
+
+
+@callback(
     Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
-    Input("reload", "n_clicks"),
-    Input("label", "value"),
-    Input("graph", "selectedData"),
+    Input("selection_cache", "data"),
 )
-def update_figure(n_clicks, label_id, selected_data):
-    db = get_db()
-    src = no_update
-    figure = no_update
-    disabled = no_update
-    label_id_current = no_update
-    triggered_id = ctx.triggered_id
-    print(triggered_id)
-    if triggered_id == "graph" and isinstance(selected_data, dict):
-        id = selected_data["points"][0]["customdata"]
-        row = get_db().execute("SELECT label_id, blob FROM sample WHERE id = ?", (id,)).fetchone()
-        label_id_current = str(dict(row)["label_id"])
-        blob = dict(row)["blob"]
-        src = to_image(blob)
-        disabled = False
-    elif triggered_id == "graph" and selected_data is None:
-        src = None
-        disabled = True
-    elif triggered_id == "label" and isinstance(selected_data, dict):
-        id = selected_data["points"][0]["customdata"]
-        db.execute("PRAGMA foreign_keys = ON")
-        db.execute("UPDATE sample set label_id = ? WHERE id = ?", (label_id, id))
-        db.commit()
-        rows = db.execute("SELECT id, label_id, blob FROM sample").fetchall()
-        figure = create_figure(rows)
-    elif triggered_id == "reload":
-        rows = db.execute("SELECT id, label_id, blob FROM sample").fetchall()
-        figure = create_figure(rows)        
-    return figure, src, label_id_current, disabled
+def update_selected(id):
+    if id is None:
+        return None, None, True
+    row = get_db().execute(
+        "SELECT label_id, blob FROM sample WHERE id = ?",
+        (id,)
+    ).fetchone()
+    label_id = str(dict(row)["label_id"])
+    src = to_image(dict(row)["blob"])
+    return src, label_id, False
+
+
+@callback(
+    Output("graph", "figure"),
+    Input("reload", "n_clicks"),
+)
+def update_figure(n_clicks):
+    rows = get_db().execute("SELECT id, label_id, blob FROM sample").fetchall()
+    figure = create_figure(rows)
+    return figure
