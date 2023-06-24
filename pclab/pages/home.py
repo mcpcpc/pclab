@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from dash import callback
+from dash import ctx
 from dash import dcc
 from dash import html
 from dash import Input
@@ -169,35 +170,39 @@ def load_files(n_clicks, pattern):
 
 @callback(
     Output("graph", "figure"),
-    Input("reload", "n_clicks"),
-)
-def update_figure(pattern):
-    rows = get_db().execute(
-        """
-        SELECT id, label_id, blob FROM sample
-        """,
-    ).fetchall()
-    figure = create_figure(rows)
-    return figure
-
-@callback(
+    Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
-    Output("image", "src"),
-    Input("graph", "clickData"),
-    prevent_initial_call=True,
+    Input("reload", "n_clicks"),
+    Input("label", "value"),
+    Input("graph", "selectedData"),
 )
-def update_clicked(data):
-    if not isinstance(data, dict):
-        None, True, None
-    id = data["points"][0]["customdata"]
-    row = get_db().execute(
-        """
-        SELECT label_id, blob FROM sample WHERE id = ? 
-        """,
-        (id,)
-    ).fetchone()
-    label_id = str(dict(row)["label_id"])
-    blob = dict(row)["blob"]
-    src = to_image(blob) 
-    return label_id, False, src
+def update_figure(n_clicks, label_id, selected_data):
+    db = get_db()
+    src = no_update
+    figure = no_update
+    disabled = no_update
+    label_id_current = no_update
+    triggered_id = ctx.triggered_id
+    print(triggered_id)
+    if triggered_id == "graph" and isinstance(selected_data, dict):
+        id = selected_data["points"][0]["customdata"]
+        row = get_db().execute("SELECT label_id, blob FROM sample WHERE id = ?", (id,)).fetchone()
+        label_id_current = str(dict(row)["label_id"])
+        blob = dict(row)["blob"]
+        src = to_image(blob)
+        disabled = False
+    elif triggered_id == "graph" and selected_data is None:
+        src = None
+        disabled = True
+    elif triggered_id == "label" and isinstance(selected_data, dict):
+        id = selected_data["points"][0]["customdata"]
+        db.execute("PRAGMA foreign_keys = ON")
+        db.execute("UPDATE sample set label_id = ? WHERE id = ?", (label_id, id))
+        db.commit()
+        rows = db.execute("SELECT id, label_id, blob FROM sample").fetchall()
+        figure = create_figure(rows)
+    elif triggered_id == "reload":
+        rows = db.execute("SELECT id, label_id, blob FROM sample").fetchall()
+        figure = create_figure(rows)        
+    return figure, src, label_id_current, disabled
