@@ -39,6 +39,7 @@ layout = [
     Grid(
         children=[
             Col(
+                md=9,
                 sm=10,
                 xs=12,
                 px=0,
@@ -50,6 +51,7 @@ layout = [
                 ]
             ),
             Col(
+                md=3,
                 sm=2,
                 xs=12,
                 px=0,
