@@ -24,17 +24,7 @@ header = Header(
         Group(
             position="apart",
             children=[
-                Text(
-                    size="xs",
-                    children=[
-                        DashIconify(
-                            icon="raphael:lab",
-                            inline=True,
-                            color="indigo",
-                        ),
-                        "PC Lab",
-                    ], 
-                ),
+                Text(size="xs", children="PC Lab"),
                 Group(
                     spacing=0,
                     children=[
