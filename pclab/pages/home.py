@@ -44,43 +44,44 @@ layout = [
                 md=3,
                 sm=2,
                 xs=12,
-                px=0,
+                p="md",
                 children=[
-                    Group(
-                        position="center",
-                        p="lg",
-                        children=[
-                            TextInput(
-                                id="pattern",
-                                size="xs",
-                                icon=DashIconify(icon="carbon:image-search"),
-                                placeholder="Absolute path or GLOB pattern...",
-                                value="./instance/*/*.PNG",
-                            ),
-                            Button(
-                                id="load",
-                                size="xs",
-                                children="Load",
-                            ),
-                        ]
+                    TextInput(
+                        id="pattern",
+                        label="Directory Pattern",
+                        description="Accepts absolute or relative path.",
+                        size="xs",
+                        py="xl",
+                        icon=DashIconify(icon="carbon:image-search"),
+                        placeholder="i.e. ./instance/*/*.PNG",
+                        value="./instance/*/*.PNG",
+                    ),
+                    NavLink(
+                        id="load",
+                        icon=DashIconify(icon="ic:outline-upload-file"),
+                        label="Load Files",
                     ),
                     NavLink(
                         id="clear",
-                        label="Clear",
+                        icon=DashIconify(icon="ic:baseline-clear"),
+                        label="Clear Database",
                     ),
                     NavLink(
                         id="refresh",
-                        label="Refresh",
+                        icon=DashIconify(icon="ic:baseline-refresh"),
+                        label="Refresh Plot",
                     ),
                     NavLink(
                         id="previous",
+                        icon=DashIconify(icon="ic:baseline-arrow-back"),
                         label="Previous",
                     ),
                     NavLink(
                         id="next",
+                        icon=DashIconify(icon="ic:baseline-arrow-forward"),
                         label="Next",
                     ),
-                ],
+                ]
             ),
             Col(
                 md=6,
@@ -138,8 +139,10 @@ def update_label_data(value):
     ],
     background=True,
     running=[
-        (Output("load", "loading"), True, False),
         (Output("pattern", "disabled"), True, False),
+        (Output("load", "disabled"), True, False),
+        (Output("clear", "disabled"), True, False),
+        (Output("refresh", "disabled"), True, False),
     ],
     prevent_initial_call=True,
 )
