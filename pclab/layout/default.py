@@ -111,7 +111,7 @@ def layout():
         children=[
             MantineProvider(
                 theme={
-                    "primaryColor": "teal",
+                    "primaryColor": "indigo",
                     "fontFamily": "'Roboto', system-ui, sans-serif",
                 },
                 inherit=True,
