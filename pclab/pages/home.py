@@ -39,6 +39,7 @@ register_page(
 layout = [
     html.Div(id="notify_load"),
     Grid(
+        p="lg",
         children=[
             Col(
                 md=3,
@@ -87,7 +88,6 @@ layout = [
                 md=6,
                 sm=8,
                 xs=12,
-                px=0,
                 children=[
                     LoadingOverlay(
                         children=dcc.Graph(id="graph"),
@@ -99,7 +99,6 @@ layout = [
                 md=3,
                 sm=2,
                 xs=12,
-                px=0,
                 children=[
                     Image(
                         id="image",
