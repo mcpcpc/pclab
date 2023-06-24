@@ -36,8 +36,8 @@ def create_figure(data: list):
             Scattergl(
                 x=[pc[0] for pc, l in zip(pcs, labels) if label == l],
                 y=[pc[1] for pc, l in zip(pcs, labels) if label == l],
+                customdata=[id for id, l in zip(ids, labels) if label == l],
                 mode="markers",
-                customdata=ids,
             ),
         )
     return figure
