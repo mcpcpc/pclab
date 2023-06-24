@@ -36,7 +36,6 @@ register_page(
 
 layout = [
     html.Div(id="notify_load"),
-    dcc.Store(id="selection_cache"),
     Grid(
         children=[
             Col(
@@ -167,26 +166,17 @@ def load_files(n_clicks, pattern):
         color="blue",
         action="show",
     )
-
-
-@callback(
-    Output("selection_cache", "data"),
-    Input("graph", "selectedData"),
-)
-def update_selection_cache(selected_data):
-    if not isinstance(selected_data, dict):
-        return None
-    return selected_data["points"][0]["customdata"]
     
 
 @callback(
     Output("graph", "selectedData"),
     Input("label", "value"),
-    State("selection_cache", "data"),
+    State("graph", "selectedData"),
 )
-def update_selected_label(label_id, id):
-    if id is None:
+def update_selected_label(label_id, selected_data):
+    if selected_data is None:
         return no_update
+    id = selected_data["points"][0]["customdata"]
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
     db.execute(
@@ -206,11 +196,12 @@ def update_selected_label(label_id, id):
     Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
-    Input("selection_cache", "data"),
+    Input("graph", "selectedData"),
 )
-def update_selected(id):
-    if id is None:
+def update_selected(selected_data):
+    if selected_data is None:
         return None, None, True
+    id = selected_data["points"][0]["customdata"]
     row = get_db().execute(
         "SELECT label_id, blob FROM sample WHERE id = ?",
         (id,)
