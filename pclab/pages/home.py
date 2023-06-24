@@ -53,6 +53,7 @@ layout = [
             Col(
                 sm=2,
                 xs=12,
+                px=0,
                 children=[
                     Image(
                         id="image",
