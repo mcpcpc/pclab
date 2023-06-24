@@ -3,34 +3,17 @@
 
 from plotly.graph_objects import Figure
 from plotly.graph_objects import Scattergl
-from sklearn.decomposition import PCA
-
-from pclab.utils.preprocess import to_array
 
 
-def create_components(array: list) -> list:
-    pca = PCA(n_components=2, random_state=0)
-    return pca.fit_transform(array)
-
-
-def to_inputs(data: list) -> tuple:
-    records = list(map(dict, data))
-    unpacked = zip(*map(lambda x: x.values(), records))
-    return tuple(unpacked)
-
-
-def create_figure(data: list):
+def create_figure(ids: list, labels: list, pcs: list):
     figure = Figure()
     figure.update_layout(margin=dict(t=0, r=0, b=0, l=0))
     figure.update_layout(modebar_orientation="v", showlegend=False)
     figure.update_layout(clickmode="event+select")
     figure.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
     figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
-    if len(data) < 1:
+    if len(ids) < 1:
         return figure
-    ids, labels, blobs = to_inputs(data)
-    values = list(map(to_array, blobs))
-    pcs = create_components(values)
     for label in set(labels):
         figure.add_trace(
             Scattergl(

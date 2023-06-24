@@ -25,6 +25,8 @@ from pclab.db import get_db
 from pclab.utils.figure import create_figure
 from pclab.utils.common import get_files
 from pclab.utils.common import to_binary
+from pclab.utils.model import create_model
+from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
 
 register_page(
@@ -223,5 +225,8 @@ def update_figure(n_clicks):
         FROM sample
         """
     ).fetchall()
-    figure = create_figure(rows)
+    model = create_model()
+    ids, labels, blobs = zip(*map(lambda x: dict(x).values(), rows))
+    pcs = model.fit_transform(list(map(to_array, blobs)))
+    figure = create_figure(ids, labels, pcs)
     return figure
