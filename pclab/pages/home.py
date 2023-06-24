@@ -113,11 +113,7 @@ layout = [
     Input("label", "data"),
 )
 def update_label_data(value):
-    rows = get_db().execute(
-        """
-        SELECT title, id FROM label
-        """
-    ).fetchall()
+    rows = get_db().execute("SELECT title, id FROM label").fetchall()
     data = [{"label": r["title"], "value": str(r["id"])} for r in rows]
     return data
 
@@ -142,12 +138,7 @@ def load_files(n_clicks, pattern):
         blob = to_binary(path)
         try:
             db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                """
-                INSERT INTO sample (blob) VALUES (?)
-                """,
-                (blob,),
-            )
+            db.execute("INSERT INTO sample (blob) VALUES (?)", (blob,))
             db.commit()
         except db.Error as error:
             return Notification(
