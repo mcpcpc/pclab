@@ -194,7 +194,12 @@ def update_selected(selected_data):
         return None, None, True
     id = selected_data["points"][0]["customdata"]
     row = get_db().execute(
-        "SELECT label_id, blob FROM sample WHERE id = ?",
+        """
+        SELECT
+            label_id,
+            blob
+        FROM sample WHERE id = ?
+        """,
         (id,)
     ).fetchone()
     label_id = str(dict(row)["label_id"])
@@ -207,6 +212,14 @@ def update_selected(selected_data):
     Input("reload", "n_clicks"),
 )
 def update_figure(n_clicks):
-    rows = get_db().execute("SELECT id, label_id, blob FROM sample").fetchall()
+    rows = get_db().execute(
+        """
+        SELECT
+            id,
+            label_id,
+            blob
+        FROM sample
+        """
+    ).fetchall()
     figure = create_figure(rows)
     return figure
