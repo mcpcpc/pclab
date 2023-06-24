@@ -39,7 +39,7 @@ register_page(
 layout = [
     html.Div(id="notify_load"),
     Grid(
-        p="lg",
+        p="md",
         children=[
             Col(
                 md=3,
@@ -52,7 +52,7 @@ layout = [
                         label="Directory Pattern",
                         description="Accepts absolute or relative path.",
                         size="xs",
-                        py="xl",
+                        pb="md",
                         icon=DashIconify(icon="carbon:image-search"),
                         placeholder="i.e. ./instance/*/*.PNG",
                         value="./instance/*/*.PNG",
