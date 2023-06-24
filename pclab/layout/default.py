@@ -39,15 +39,6 @@ header = Header(
                     spacing=0,
                     children=[
                         ActionIcon(
-                            id="color-scheme-toggle",
-                            variant="transparent",
-                            children=[
-                                DashIconify(
-                                    icon="radix-icons:blending-mode",
-                                ),
-                            ]
-                        ),
-                        ActionIcon(
                             id="source",
                             variant="transparent",
                             children=[
@@ -57,11 +48,11 @@ header = Header(
                             ]
                         ),
                         ActionIcon(
-                            id="settings",
+                            id="color-scheme-toggle",
                             variant="transparent",
                             children=[
                                 DashIconify(
-                                    icon="radix-icons:gear",
+                                    icon="radix-icons:blending-mode",
                                 ),
                             ]
                         ),
