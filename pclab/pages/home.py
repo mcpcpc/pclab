@@ -16,7 +16,6 @@ from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
-from dash_mantine_components import NavLink
 from dash_mantine_components import Notification
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import TextInput
@@ -71,16 +70,6 @@ layout = [
                         disabled=True,
                         data=[],
                     ),
-                    NavLink(
-                        id="previous",
-                        icon=DashIconify(icon="carbon:previous-outline"),
-                        label="Previous",
-                    ),
-                    NavLink(
-                        id="next",
-                        icon=DashIconify(icon="carbon:next-outline"),
-                        label="Next",
-                    ),
                 ]
             ),
             Col(
@@ -102,6 +91,14 @@ layout = [
                             Button(
                                 id="reload",
                                 children="Reload",
+                            ),
+                            Button(
+                                id="previous",
+                                children="Previous",
+                            ),
+                            Button(
+                                id="next",
+                                children="Next",
                             ),
                         ]
                     )
