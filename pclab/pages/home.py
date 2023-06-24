@@ -187,8 +187,6 @@ def update_selection_cache(selected_data):
 def update_selected_label(label_id, id):
     if id is None:
         return no_update
-    if id == {}:
-        return no_update
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
     db.execute(
