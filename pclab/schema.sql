@@ -8,7 +8,7 @@ CREATE TABLE label (
     id INTEGER PRIMARY KEY,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
-    color TEXT NOT NULL,
+    color TEXT NOT NULL
 );
 
 INSERT INTO label (slug, title, color) VALUES
