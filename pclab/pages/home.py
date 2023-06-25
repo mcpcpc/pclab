@@ -152,8 +152,12 @@ def update_selected(selected_data):
 
 
 @callback(
-    Output("graph", "figure"),
-    Input("refresh", "n_clicks"),
+    output=Output("graph", "figure"),
+    inputs=Input("refresh", "n_clicks"),
+    background=True,
+    running=[
+        (Output("refresh", "disabled"), True, False),
+    ],
 )
 def update_figure(n_clicks):
     rows = get_db().execute(
