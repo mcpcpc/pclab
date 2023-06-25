@@ -19,7 +19,7 @@ from dash_mantine_components import NavLink
 from dash_mantine_components import SegmentedControl
 
 from pclab.db import get_db
-from pclab.utils.figure import create_pca_figure
+from pclab.utils.figure import create_figure
 from pclab.utils.model import create_model
 from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
@@ -172,5 +172,5 @@ def update_figure(n_clicks):
     model = create_model()
     ids, labels, blobs, titles = zip(*map(lambda x: dict(x).values(), rows))
     pcs = model.fit_transform(list(map(to_array, blobs)))
-    figure = create_pca_figure(ids, labels, pcs, titles)
+    figure = create_figure(ids, labels, pcs, titles)
     return figure
