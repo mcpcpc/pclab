@@ -137,9 +137,6 @@ def update_selected(selected_data):
     output=Output("graph", "figure"),
     inputs=Input("graph", "figure"),
     background=True,
-    running=[
-        (Output("refresh", "disabled"), True, False),
-    ],
 )
 def update_figure(figure):
     print(n_intervals)
