@@ -25,7 +25,7 @@ def create_sample():
             ) VALUES (?, ?)
             """,
             (
-                request.form.get("filename"),
+                request.files.get("file").filename,
                 request.files.get("file"),
             ),
         )
