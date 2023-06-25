@@ -33,7 +33,7 @@ register_page(
 layout = [
     dcc.Interval(
         id="interval",
-        max_intervals=0,
+        max_intervals=1,
     ),
     Grid(
         p="md",
@@ -140,6 +140,7 @@ def update_selected(selected_data):
 @callback(
     output=Output("graph", "figure"),
     inputs=Input("interval", "n_intervals"),
+    prevent_initial_call=True,
     background=True,
     running=[
         (Output("refresh", "disabled"), True, False),
