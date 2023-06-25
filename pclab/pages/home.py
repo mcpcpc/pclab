@@ -63,8 +63,8 @@ layout = [
                 xs=12,
                 children=[
                     LoadingOverlay(
-                        children=dcc.Graph(id="graph"),
                         loaderProps={"variant": "bars"},
+                        children=dcc.Graph(id="graph"),
                     )
                 ]
             ),
@@ -74,13 +74,14 @@ layout = [
                 xs=12,
                 children=[
                     LoadingOverlay(
-                        Image(
+                        loaderProps={"variant": "bars"},
+                        children=Image(
                             id="image",
                             withPlaceholder=True,
                             #fit="contain",
                             fit="cover",
                             height=200,
-                        ),
+                        ), 
                     ),
                     SegmentedControl(
                         id="label",
