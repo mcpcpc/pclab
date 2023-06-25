@@ -43,7 +43,7 @@ layout = [
                     NavLink(
                         id="refresh",
                         icon=DashIconify(icon="ic:baseline-refresh"),
-                        label="Refresh Plot",
+                        label="Refresh",
                     ),
                     NavLink(
                         id="previous",
