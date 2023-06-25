@@ -7,12 +7,13 @@ DROP TABLE IF EXISTS sample;
 CREATE TABLE label (
     id INTEGER PRIMARY KEY,
     slug TEXT UNIQUE NOT NULL,
-    title TEXT NOT NULL
+    title TEXT NOT NULL,
+    color TEXT NOT NULL,
 );
 
-INSERT INTO label (slug, title) VALUES
-    ("normal", "Normal"),
-    ("anomaly", "Anomaly");
+INSERT INTO label (slug, title, color) VALUES
+    ("normal", "Normal", "#3B5BDB"),
+    ("anomaly", "Anomaly", "#C2255C");
 
 CREATE TABLE sample (
     id INTEGER PRIMARY KEY,

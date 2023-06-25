@@ -166,7 +166,8 @@ def update_figure(n_clicks):
             sample.id AS id,
             sample.label_id AS label_id,
             sample.blob AS blob,
-            label.title as label_title
+            label.title AS label_title,
+            label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
         """
@@ -174,7 +175,7 @@ def update_figure(n_clicks):
     if len(rows) < 1:
         return no_update
     model = create_model()
-    ids, labels, blobs, titles = zip(*map(lambda x: dict(x).values(), rows))
+    ids, labels, blobs, titles, colors = zip(*map(lambda x: dict(x).values(), rows))
     pcs = model.fit_transform(list(map(to_array, blobs)))
-    figure = create_figure(ids, labels, pcs, titles)
+    figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
