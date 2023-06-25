@@ -6,6 +6,7 @@ from io import BytesIO
 from flask import Blueprint
 from flask import request
 from flask import send_file
+from werkzeug.utils import secure_filename
 
 from pclab.db import get_db
 
@@ -15,6 +16,8 @@ sample = Blueprint("sample", __name__, url_prefix="/api")
 @sample.post("/sample")
 def create_sample():
     try:
+        file = request.files.get("file")
+        filename = secure_filename(file.filename)
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
@@ -24,10 +27,7 @@ def create_sample():
                 blob
             ) VALUES (?, ?)
             """,
-            (
-                request.files.get("file").filename,
-                request.files.get("file"),
-            ),
+            (filename, file),
         )
         db.commit()
     except db.ProgrammingError:
@@ -55,6 +55,8 @@ def read_sample(id: int):
 @sample.put("/sample/<int:id>")
 def update_sample(id: int):
     try:
+        file = request.files.get("file")
+        filename = secure_filename(file.filename)
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
@@ -65,11 +67,7 @@ def update_sample(id: int):
                 blob = ?
             WHERE id = ?
             """,
-            (
-                request.files.get("file"),
-                request.form.get("filename"),
-                id,
-            ),
+            (filename, file, id),
         )
         db.commit()
     except db.ProgrammingError:
