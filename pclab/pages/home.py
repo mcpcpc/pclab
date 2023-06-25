@@ -15,7 +15,6 @@ from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
-from dash_mantine_components import NavLink
 from dash_mantine_components import SegmentedControl
 
 from pclab.db import get_db
@@ -32,33 +31,14 @@ register_page(
 )
 
 layout = [
+    dcc.Interval(
+        id="interval",
+        max_intervals=0,
+    ),
     Grid(
         p="md",
         children=[
             Col(
-                md=3,
-                xs=12,
-                p="md",
-                children=[
-                    NavLink(
-                        id="refresh",
-                        icon=DashIconify(icon="ic:baseline-refresh"),
-                        label="Refresh",
-                    ),
-                    NavLink(
-                        id="previous",
-                        icon=DashIconify(icon="ic:baseline-arrow-back"),
-                        label="Previous",
-                    ),
-                    NavLink(
-                        id="next",
-                        icon=DashIconify(icon="ic:baseline-arrow-forward"),
-                        label="Next",
-                    ),
-                ]
-            ),
-            Col(
-                md=6,
                 sm=9,
                 xs=12,
                 children=[
@@ -69,7 +49,6 @@ layout = [
                 ]
             ),
             Col(
-                md=3,
                 sm=3,
                 xs=12,
                 children=[
@@ -160,13 +139,13 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("refresh", "n_clicks"),
+    inputs=Input("interval", "n_intervals"),
     background=True,
     running=[
         (Output("refresh", "disabled"), True, False),
     ],
 )
-def update_figure(n_clicks):
+def update_figure(n_intervals):
     rows = []
     cursor = get_db().execute(
         """
