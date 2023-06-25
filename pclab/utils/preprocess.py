@@ -16,6 +16,10 @@ def greyscale(image: Image) -> Image:
     return image.convert("L")
 
 
+def resize(image: Image) -> Image:
+    return image.resize((20, 20))
+
+
 def get_greyscale_values(image: Image) -> list:
     return list(image.getdata())
 
@@ -24,6 +28,7 @@ def to_array(blob: str) -> list:
     preprocessor = compose(
         to_image,
         greyscale,
+        resize,
         get_greyscale_values
     )
     return preprocessor(blob)
