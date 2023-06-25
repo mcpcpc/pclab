@@ -73,12 +73,14 @@ layout = [
                 sm=3,
                 xs=12,
                 children=[
-                    Image(
-                        id="image",
-                        withPlaceholder=True,
-                        #fit="contain",
-                        fit="cover",
-                        height=200,
+                    LoadingOverlay(
+                        Image(
+                            id="image",
+                            withPlaceholder=True,
+                            #fit="contain",
+                            fit="cover",
+                            height=200,
+                        ),
                     ),
                     SegmentedControl(
                         id="label",
