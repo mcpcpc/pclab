@@ -31,10 +31,6 @@ register_page(
 )
 
 layout = [
-    dcc.Interval(
-        id="interval",
-        max_intervals=0,
-    ),
     Grid(
         p="md",
         children=[
@@ -139,14 +135,13 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("interval", "n_intervals"),
-    prevent_initial_call=True,
+    inputs=Input("graph", "figure"),
     background=True,
     running=[
         (Output("refresh", "disabled"), True, False),
     ],
 )
-def update_figure(n_intervals):
+def update_figure(figure):
     print(n_intervals)
     rows = []
     cursor = get_db().execute(
