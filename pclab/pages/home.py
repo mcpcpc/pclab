@@ -53,7 +53,6 @@ layout = [
                         children=Image(
                             id="image",
                             withPlaceholder=True,
-                            #fit="contain",
                             fit="cover",
                             height=200,
                         ), 
