@@ -19,7 +19,7 @@ sample = Blueprint(
 
 @sample.post("/sample")
 def create_sample():
-    file = request.files['file']
+    file = request.files.get("file")
     filename = secure_filename(file.filename)
     try:
         db = get_db()
@@ -58,7 +58,7 @@ def read_sample(id: int):
 
 @sample.put("/sample/<int:id>")
 def update_sample(id: int):
-    file = request.files['file']
+    file = request.files("file")
     filename = secure_filename(file.filename)
     try:
         db = get_db()
