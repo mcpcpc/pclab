@@ -15,6 +15,7 @@ def create_figure(ids: list, labels: list, pcs: list, titles: list, colors: list
     if len(ids) < 1:
         return figure
     for title, label, color in set(zip(titles, labels, colors)):
+        print(color)
         figure.add_trace(
             Scattergl(
                 x=[pc[0] for pc, l in zip(pcs, labels) if label == l],
@@ -22,10 +23,10 @@ def create_figure(ids: list, labels: list, pcs: list, titles: list, colors: list
                 customdata=[id for id, l in zip(ids, labels) if label == l],
                 name=title,
                 mode="markers",
-                marker={
-                    "line_width": 1,
-                    "color": color,
-                }
+                #marker={
+                #    "line_width": 1,
+                #    "color": color,
+                #}
             ),
         )
     return figure
