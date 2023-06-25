@@ -129,6 +129,7 @@ def update_selected_label(label_id, selected_data):
 
 
 @callback(
+    Output("image", "alt"),
     Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
@@ -136,20 +137,22 @@ def update_selected_label(label_id, selected_data):
 )
 def update_selected(selected_data):
     if selected_data is None:
-        return None, None, True
+        return None, None, None, True
     id = selected_data["points"][0]["customdata"]
     row = get_db().execute(
         """
         SELECT
             label_id,
+            path,
             blob
         FROM sample WHERE id = ?
         """,
         (id,)
     ).fetchone()
     label_id = str(dict(row)["label_id"])
+    alt = dict(row)["path"]
     src = to_image(dict(row)["blob"])
-    return src, label_id, False
+    return alt, src, label_id, False
 
 
 @callback(
