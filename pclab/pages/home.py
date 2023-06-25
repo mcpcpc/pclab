@@ -167,7 +167,8 @@ def update_selected(selected_data):
     ],
 )
 def update_figure(n_clicks):
-    rows = get_db().execute(
+    rows = []
+    cursor = get_db().execute(
         """
         SELECT
             sample.id AS id,
@@ -178,7 +179,12 @@ def update_figure(n_clicks):
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
         """
-    ).fetchall()
+    )
+    while True:
+        row = cursor.fetchone()
+        if row is None:
+            break
+        rows.append(row)
     if len(rows) < 1:
         return no_update
     model = create_model()
