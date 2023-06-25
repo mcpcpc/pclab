@@ -139,7 +139,6 @@ def update_selected(selected_data):
     background=True,
 )
 def update_figure(figure):
-    print(n_intervals)
     rows = []
     cursor = get_db().execute(
         """
