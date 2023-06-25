@@ -76,7 +76,8 @@ layout = [
                     Image(
                         id="image",
                         withPlaceholder=True,
-                        fit="contain",
+                        #fit="contain",
+                        fit="cover",
                         height=200,
                     ),
                     SegmentedControl(
