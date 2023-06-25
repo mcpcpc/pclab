@@ -23,8 +23,8 @@ def create_figure(ids: list, labels: list, pcs: list, titles: list, colors: list
                 name=title,
                 mode="markers",
                 marker={
-                    line_width=1,
-                    color=color,
+                    "line_width": 1,
+                    "color": color,
                 }
             ),
         )
