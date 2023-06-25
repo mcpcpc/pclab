@@ -23,10 +23,10 @@ def create_figure(ids: list, labels: list, pcs: list, titles: list, colors: list
                 customdata=[id for id, l in zip(ids, labels) if label == l],
                 name=title,
                 mode="markers",
-                #marker={
-                #    "line_width": 1,
-                #    "color": color,
-                #}
+                marker={
+                    "line_width": 1,
+                    "color": color,
+                }
             ),
         )
     return figure
