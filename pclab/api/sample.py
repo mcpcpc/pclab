@@ -15,9 +15,9 @@ sample = Blueprint("sample", __name__, url_prefix="/api")
 
 @sample.post("/sample")
 def create_sample():
+    file = request.files.get("file")
+    filename = secure_filename(file.filename)
     try:
-        file = request.files.get("file")
-        filename = secure_filename(file.filename)
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
@@ -54,9 +54,9 @@ def read_sample(id: int):
 
 @sample.put("/sample/<int:id>")
 def update_sample(id: int):
+    file = request.files.get("file")
+    filename = secure_filename(file.filename)
     try:
-        file = request.files.get("file")
-        filename = secure_filename(file.filename)
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
