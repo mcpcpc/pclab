@@ -10,12 +10,16 @@ from werkzeug.utils import secure_filename
 
 from pclab.db import get_db
 
-sample = Blueprint("sample", __name__, url_prefix="/api")
+sample = Blueprint(
+    "sample",
+    __name__,
+    url_prefix="/api"
+)
 
 
 @sample.post("/sample")
 def create_sample():
-    file = request.files.get("file")
+    file = request.files['file']
     filename = secure_filename(file.filename)
     try:
         db = get_db()
@@ -54,7 +58,7 @@ def read_sample(id: int):
 
 @sample.put("/sample/<int:id>")
 def update_sample(id: int):
-    file = request.files.get("file")
+    file = request.files['file']
     filename = secure_filename(file.filename)
     try:
         db = get_db()
