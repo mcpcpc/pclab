@@ -143,14 +143,14 @@ def update_selected(selected_data):
         """
         SELECT
             label_id,
-            path,
+            filename,
             blob
         FROM sample WHERE id = ?
         """,
         (id,)
     ).fetchone()
     label_id = str(dict(row)["label_id"])
-    alt = dict(row)["path"]
+    alt = dict(row)["filename"]
     src = to_image(dict(row)["blob"])
     return alt, src, label_id, False
 
