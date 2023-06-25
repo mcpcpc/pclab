@@ -12,8 +12,8 @@ CREATE TABLE label (
 );
 
 INSERT INTO label (slug, title, color) VALUES
-    ("normal", "Normal", "#3B5BDB"),
-    ("anomaly", "Anomaly", "#C2255C");
+    ("normal", "Normal", "#5C7CFA"),
+    ("anomaly", "Anomaly", "#F06595");
 
 CREATE TABLE sample (
     id INTEGER PRIMARY KEY,
