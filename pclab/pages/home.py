@@ -146,6 +146,7 @@ def update_selected(selected_data):
     ],
 )
 def update_figure(n_intervals):
+    print(n_intervals)
     rows = []
     cursor = get_db().execute(
         """
