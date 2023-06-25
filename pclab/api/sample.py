@@ -31,7 +31,7 @@ def create_sample():
                 blob
             ) VALUES (?, ?)
             """,
-            (filename, file.stream),
+            (filename, file.stream.read()),
         )
         db.commit()
     except db.ProgrammingError:
@@ -71,7 +71,7 @@ def update_sample(id: int):
                 blob = ?
             WHERE id = ?
             """,
-            (filename, file.stream, id),
+            (filename, file.stream.read(), id),
         )
         db.commit()
     except db.ProgrammingError:
