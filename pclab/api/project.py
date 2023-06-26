@@ -36,7 +36,7 @@ def create_project():
     return "Project successfully created.", 201
 
 
-@project.get("/project/<id:int>")
+@project.get("/project/<int:id>")
 def read_project(id: int):
     row = get_db().execute(
         "SELECT * FROM project WHERE id = ?",
@@ -47,7 +47,7 @@ def read_project(id: int):
     return dict(row), 200
 
 
-@project.update("/project/<id:int>")
+@project.put("/project/<int:id>")
 def update_project(id: int):
     form = request.form.copy().to_dict()
     form["id"] = id
@@ -72,7 +72,7 @@ def update_project(id: int):
     return "Project successfully updated.", 201
 
 
-@project.delete("/project/<id:int>")
+@project.delete("/project/<int:id>")
 def delete_project(id: int):
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

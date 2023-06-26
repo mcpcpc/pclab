@@ -165,3 +165,15 @@ def update_figure(figure):
     pcs = model.fit_transform(list(map(to_array, blobs)))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
+
+
+@callback(
+    Output("select", "data"),
+    Input("select", "data"),
+)
+def update_select(data):
+    rows = get_db().execute("SELECT title, slug FROM project")
+    if rows is None:
+        return no_update
+    data = [{"label": dict(row)["title"], "value": dict(row)["slug"]} for row in rows]
+    return data

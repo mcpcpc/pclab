@@ -8,6 +8,7 @@ from flask import Flask
 from dash import Dash
 from dash import page_registry
 
+from pclab.api.project import project
 from pclab.api.sample import sample
 from pclab.cache import create_cache_manager
 from pclab.db import init_app
@@ -32,6 +33,7 @@ def create_app(test_config=None):
     except OSError:
         pass
     init_app(app)
+    app.register_blueprint(project)
     app.register_blueprint(sample)
     manager = create_cache_manager(app)
     dashapp = Dash(
