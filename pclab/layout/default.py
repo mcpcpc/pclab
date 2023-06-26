@@ -75,11 +75,7 @@ footer = Footer(
                     "CC BY-SA 4.0",
                     href="http://creativecommons.org/licenses/by-sa/4.0"
                 ),
-                "; code under ",
-                Anchor(
-                    "MIT",
-                    href="https://github.com/mcpcpc/ormer/blob/main/LICENSE"
-                )
+                "; code under BSD-3-Clause",
             ]
         ),
     ],
