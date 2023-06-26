@@ -114,6 +114,18 @@ clientside_callback(
     State("theme-store", "data"),
 )
 
+clientside_callback(
+    """
+    function(value) {
+        if (value) {
+            return value
+        }
+    }
+    """,
+    Output("url", "search"),
+    Input("select", "value"),
+)
+
 def layout(navigation_values):
     return MantineProvider(
         id="theme-provider",
