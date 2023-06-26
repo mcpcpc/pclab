@@ -19,6 +19,7 @@ sample = Blueprint(
 
 @sample.post("/sample")
 def create_sample():
+    project_id = request.form.get("project_id")
     file = request.files.get("file")
     filename = secure_filename(file.filename)
     try:
@@ -28,10 +29,15 @@ def create_sample():
             """
             INSERT INTO sample (
                 filename,
-                blob
-            ) VALUES (?, ?)
+                blob,
+                project_id
+            ) VALUES (?, ?, ?)
             """,
-            (filename, file.stream.read()),
+            (
+                filename,
+                file.stream.read(),
+                project_id
+            ),
         )
         db.commit()
     except db.ProgrammingError:
@@ -48,7 +54,7 @@ def read_sample(id: int):
         (id,),
     ).fetchone()
     if not row:
-        return "sample does not exist.", 404
+        return "Sample does not exist.", 404
     return send_file(
         BytesIO(dict(row)["blob"]),
         download_name=dict(row)["filename"],
@@ -95,8 +101,18 @@ def delete_sample(id: int):
 
 @sample.get("/sample")
 def list_samples():
+    if not request.args.get("project_id"):
+        return "Missing project_id", 404
     rows = get_db().execute(
-        """SELECT id, filename, label_id FROM sample"""
+        """
+        SELECT
+            id,
+            filename,
+            label_id
+        FROM sample
+        WHERE project_id = ?
+        """,
+        (request.args.get("project_id"),),
     ).fetchall()
     if not rows:
         return "Samples do not exist.", 404
