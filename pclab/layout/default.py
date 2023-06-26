@@ -9,7 +9,9 @@ from dash import page_container
 from dash import State
 from dash_iconify import DashIconify
 from dash_mantine_components import ActionIcon
+from dash_mantine_components import Anchor
 from dash_mantine_components import Container
+from dash_mantine_components import Footer
 from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
@@ -58,6 +60,29 @@ wrapper = Container(
     fluid=True,
     pt=28,
     children=page_container,
+)
+
+footer = Footer(
+    height=28,
+    children=[
+        Text(
+            color="dimmed",
+            size="xs",
+            align="center",
+            children=[
+                "Licenses: content under ",
+                Anchor(
+                    "CC BY-SA 4.0",
+                    href="http://creativecommons.org/licenses/by-sa/4.0"
+                ),
+                "; code under ",
+                Anchor(
+                    "MIT",
+                    href="https://github.com/mcpcpc/ormer/blob/main/LICENSE"
+                )
+            ]
+        ),
+    ],
 )
 
 clientside_callback(
