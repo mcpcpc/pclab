@@ -13,7 +13,7 @@ from pclab.cache import create_cache_manager
 from pclab.db import init_app
 from pclab.layout.default import layout
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 def create_app(test_config=None):
@@ -41,5 +41,6 @@ def create_app(test_config=None):
         update_title=None,
         background_callback_manager=manager,
     )
-    dashapp.layout = layout()
+    values = page_registry.values()
+    dashapp.layout = layout(values)
     return dashapp.server

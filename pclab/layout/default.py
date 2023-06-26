@@ -9,7 +9,9 @@ from dash import page_container
 from dash import State
 from dash_iconify import DashIconify
 from dash_mantine_components import ActionIcon
+from dash_mantine_components import Anchor
 from dash_mantine_components import Container
+from dash_mantine_components import Footer
 from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
@@ -17,16 +19,15 @@ from dash_mantine_components import NotificationsProvider
 from dash_mantine_components import Text
 
 header = Header(
-    height=28,
-    px=5,
+    height=70,
+    p="lg",
     fixed=True,
     children=[
         Group(
             position="apart",
             children=[
-                Text(size="xs", children="PC Lab"),
+                Text(children="PC Lab"),
                 Group(
-                    spacing=0,
                     children=[
                         ActionIcon(
                             id="source",
@@ -56,8 +57,28 @@ header = Header(
 wrapper = Container(
     id="wrapper",
     fluid=True,
-    pt=28,
+    pt=70,
     children=page_container,
+)
+
+footer = Footer(
+    height=50,
+    p="sm",
+    children=[
+        Text(
+            color="dimmed",
+            size="xs",
+            align="center",
+            children=[
+                "Licenses: content under ",
+                Anchor(
+                    "CC BY-SA 4.0",
+                    href="http://creativecommons.org/licenses/by-sa/4.0"
+                ),
+                "; code under BSD-3-Clause",
+            ]
+        ),
+    ],
 )
 
 clientside_callback(
@@ -83,7 +104,7 @@ clientside_callback(
     State("theme-store", "data"),
 )
 
-def layout():
+def layout(navigation_values):
     return MantineProvider(
         id="theme-provider",
         theme={"colorScheme": "light"},
@@ -99,7 +120,7 @@ def layout():
                 children=[
                     dcc.Store(id="theme-store", storage_type="local"),
                     NotificationsProvider(
-                        children=[header, wrapper],
+                        children=[header, wrapper, footer],
                     ),
                 ],
             )
