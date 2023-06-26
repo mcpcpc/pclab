@@ -34,6 +34,8 @@ header = Header(
                             id="select",
                             searchable=True,
                             clearable=True,
+                            nothingFound="No match found",
+                            refresh="callback-nav",
                             icon=DashIconify(
                                 icon="radix-icons:magnifying-glass"
                             ),
