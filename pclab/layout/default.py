@@ -63,7 +63,7 @@ wrapper = Container(
 )
 
 footer = Footer(
-    height=28,
+    height=24,
     children=[
         Text(
             color="dimmed",
