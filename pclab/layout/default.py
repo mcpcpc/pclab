@@ -104,7 +104,7 @@ clientside_callback(
     State("theme-store", "data"),
 )
 
-def layout():
+def layout(navigation_values):
     return MantineProvider(
         id="theme-provider",
         theme={"colorScheme": "light"},

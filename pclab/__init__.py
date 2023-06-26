@@ -41,5 +41,6 @@ def create_app(test_config=None):
         update_title=None,
         background_callback_manager=manager,
     )
-    dashapp.layout = layout()
+    values = page_registry.values()
+    dashapp.layout = layout(values)
     return dashapp.server
