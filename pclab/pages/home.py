@@ -33,7 +33,8 @@ register_page(
 layout = [
     dcc.Interval(id="interval", max_intervals=0),
     Grid(
-        p="md",
+        px="sm",
+        py="lg",
         children=[
             Col(
                 sm=9,

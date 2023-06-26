@@ -19,16 +19,15 @@ from dash_mantine_components import NotificationsProvider
 from dash_mantine_components import Text
 
 header = Header(
-    height=28,
-    px=5,
+    height=70,
+    p="lg",
     fixed=True,
     children=[
         Group(
             position="apart",
             children=[
-                Text(size="xs", children="PC Lab"),
+                Text(children="PC Lab"),
                 Group(
-                    spacing=0,
                     children=[
                         ActionIcon(
                             id="source",
@@ -58,12 +57,13 @@ header = Header(
 wrapper = Container(
     id="wrapper",
     fluid=True,
-    pt=28,
+    pt=70,
     children=page_container,
 )
 
 footer = Footer(
-    height=20,
+    height=50,
+    p="sm",
     children=[
         Text(
             color="dimmed",
