@@ -16,6 +16,7 @@ from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
 from dash_mantine_components import NotificationsProvider
+from dash_mantine_components import Select
 from dash_mantine_components import Text
 
 header = Header(
@@ -29,6 +30,14 @@ header = Header(
                 Text(children="PC Lab"),
                 Group(
                     children=[
+                        Select(
+                            id="select",
+                            searchable=True,
+                            clearable=True,
+                            icon=DashIconify(
+                                icon="radix-icons:magnifying-glass"
+                            ),
+                        ),
                         ActionIcon(
                             id="source",
                             variant="transparent",
@@ -46,7 +55,7 @@ header = Header(
                                     icon="radix-icons:blending-mode",
                                 ),
                             ]
-                        ),
+                        ), 
                     ],
                 ),
             ],
