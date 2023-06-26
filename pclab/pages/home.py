@@ -31,6 +31,7 @@ register_page(
 )
 
 layout = [
+    dcc.Interval(id="interval", max_intervals=0),
     Grid(
         p="md",
         children=[
@@ -82,7 +83,7 @@ def update_label_data(value):
     
 
 @callback(
-    Output("graph", "selectedData"),
+    Output("interval", "n_intervals"),
     Input("label", "value"),
     State("graph", "selectedData"),
 )
@@ -134,7 +135,7 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("graph", "figure"),
+    inputs=Input("interval", "n_intervals"),
     background=True,
 )
 def update_figure(figure):
