@@ -118,7 +118,7 @@ clientside_callback(
     """
     function(value) {
         if (value) {
-            return value
+            return "?slug=" + value
         }
     }
     """,
