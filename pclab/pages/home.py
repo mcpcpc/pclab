@@ -157,11 +157,11 @@ def update_figure(figure):
         row = cursor.fetchone()
         if row is None:
             break
-        rows.append(row)
+        rows.append(dict(row))
     if len(rows) < 1:
         return no_update
     model = create_model()
-    ids, labels, blobs, titles, colors = zip(*map(lambda x: dict(x).values(), rows))
+    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), rows))
     pcs = model.fit_transform(list(map(to_array, blobs)))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
