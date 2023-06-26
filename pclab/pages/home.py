@@ -175,5 +175,6 @@ def update_select(data):
     rows = get_db().execute("SELECT title, slug FROM project")
     if rows is None:
         return no_update
-    data = [{"label": dict(row)["title"], "value": dict(row)["slug"]} for row in rows]
+    records = map(dict, rows)
+    data = [dict(label=r["title"], value=r["slug"]) for r in records]
     return data
