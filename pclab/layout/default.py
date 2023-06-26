@@ -124,7 +124,7 @@ def layout():
                 children=[
                     dcc.Store(id="theme-store", storage_type="local"),
                     NotificationsProvider(
-                        children=[header, wrapper],
+                        children=[header, wrapper, footer],
                     ),
                 ],
             )
