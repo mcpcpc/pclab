@@ -35,7 +35,6 @@ header = Header(
                             searchable=True,
                             clearable=True,
                             nothingFound="No match found",
-                            refresh="callback-nav",
                             icon=DashIconify(
                                 icon="radix-icons:magnifying-glass"
                             ),
@@ -130,6 +129,7 @@ def layout(navigation_values):
                 inherit=True,
                 children=[
                     dcc.Store(id="theme-store", storage_type="local"),
+                    dcc.Location(id="url", refresh="callback-nav"),
                     NotificationsProvider(
                         children=[header, wrapper, footer],
                     ),
