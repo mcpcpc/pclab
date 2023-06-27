@@ -73,8 +73,6 @@ wrapper = Container(
 
 footer = Footer(
     height=50,
-    mt="100vh",
-    fixed=True,
     p="sm",
     children=[
         Text(
