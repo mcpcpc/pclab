@@ -160,7 +160,7 @@ def update_figure(project_id):
         (project_id,),
     )
     while True:
-        row = cursor.fetchone()
+        row = cursor.fetchmany(1000)
         if row is None:
             break
         records.append(dict(row))
