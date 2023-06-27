@@ -18,15 +18,19 @@ def create_cache_manager(app):
             __name__,
             broker=app.config.get("REDIS_URL"),
             backend=app.config.get("REDIS_URL"),
+        )
+        manager = CeleryManager(
+            celery_app,
             cache_by=[lambda: launch_uid],
             expire=60,
         )
-        manager = CeleryManager(celery_app)
     else:
         cache = Cache(
             path.join(app.instance_path, ".cache"),
+        )
+        manager = DiskcacheManager(
+            cache,
             cache_by=[lambda: launch_uid],
             expire=60,
         )
-        manager = DiskcacheManager(cache)
     return manager
