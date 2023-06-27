@@ -47,7 +47,7 @@ def header(version):
                         children=Group(
                             spacing="xs",
                             children=[
-                                Text(children="PC Lab", size="lg", weight=600, variant="gradient"),
+                                Text(children="PCL", size="lg", weight=600, variant="gradient"),
                             ]
                         ),
                     ),
