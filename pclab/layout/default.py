@@ -33,7 +33,6 @@ header = Header(
                         Select(
                             id="select",
                             searchable=True,
-                            clearable=True,
                             nothingFound="No match found",
                             icon=DashIconify(
                                 icon="radix-icons:magnifying-glass"
