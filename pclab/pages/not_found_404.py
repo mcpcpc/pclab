@@ -25,7 +25,7 @@ layout = [
                     ".",
                 ]
             ),
-            Anchor("Go back to home ->", href="/labeler/1", underline=False),
+            Anchor("Go back to home ->", href="/project/1", underline=False),
         ],
     )
 ]
