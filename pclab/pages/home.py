@@ -160,10 +160,11 @@ def update_figure(project_id):
         (project_id,),
     )
     while True:
-        row = cursor.fetchmany(1000)
-        if row is None:
+        rows = cursor.fetchmany(1000)
+        if rows is None:
             break
-        records.append(dict(row))
+        records += list(map(dict, rows))
+        
     if len(records) < 1:
         return no_update
     model = create_model()
