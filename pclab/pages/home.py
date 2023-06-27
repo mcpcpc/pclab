@@ -144,7 +144,7 @@ def update_selected(selected_data):
 def update_figure(project_id):
     if project_id is None:
         return no_update
-    rows = []
+    records = []
     cursor = get_db().execute(
         """
         SELECT
@@ -163,11 +163,11 @@ def update_figure(project_id):
         row = cursor.fetchone()
         if row is None:
             break
-        rows.append(dict(row))
-    if len(rows) < 1:
+        records.append(dict(row))
+    if len(records) < 1:
         return no_update
     model = create_model()
-    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), rows))
+    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
     pcs = model.fit_transform(list(map(to_array, blobs)))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
