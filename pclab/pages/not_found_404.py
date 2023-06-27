@@ -19,7 +19,7 @@ layout = Stack(
     pt="lg",
     children=[
         DashIconify(
-            size=50,
+            width=50,
             icon="fa6-regular:face-sad-cry",
         ),
         Text(
