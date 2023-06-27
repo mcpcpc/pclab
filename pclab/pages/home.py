@@ -144,7 +144,6 @@ def update_selected(selected_data):
 def update_figure(project_id):
     if project_id is None:
         return no_update
-    records = []
     cursor = get_db().execute(
         """
         SELECT
@@ -159,8 +158,9 @@ def update_figure(project_id):
         """,
         (project_id,),
     )
+    records = []
     while True:
-        rows = cursor.fetchmany(1000)
+        rows = cursor.fetchmany(100)
         if rows is None:
             break
         records += list(map(dict, rows))
