@@ -164,9 +164,10 @@ def update_figure(project_id):
     while True:
         rows = cursor.fetchmany(100)
         print(rows)
-        if rows is None:
+        if not isinstance(list, rows):
             break
-        print("append") 
+        if len(rows) < 1:
+            break 
         records += list(map(dict, rows))
     if len(records) < 1:
         return no_update
