@@ -25,52 +25,54 @@ from pclab.utils.preprocess import to_image
 
 register_page(
     __name__,
-    path="/",
-    title="Home | PCLab",
+    path_template="/project/<project_id>",
+    title="Labeler | PCLab",
     description="Principle Component Labeler",
 )
 
-layout = [
-    dcc.Interval(id="interval", max_intervals=0),
-    Grid(
-        px="sm",
-        py="lg",
-        children=[
-            Col(
-                sm=9,
-                xs=12,
-                children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=dcc.Graph(id="graph"),
-                    )
-                ]
-            ),
-            Col(
-                sm=3,
-                xs=12,
-                children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=Image(
-                            id="image",
-                            withPlaceholder=True,
-                            fit="cover",
-                            height=200,
-                        ), 
-                    ),
-                    SegmentedControl(
-                        id="label",
-                        radius=0,
-                        fullWidth=True,
-                        disabled=True,
-                        data=[],
-                    ),
-                ]
-            ),
-        ],
-    )
-]
+def layout(project_id=None):
+    return [
+        dcc.Store(id="project_id", data=project_id),
+        dcc.Interval(id="interval", max_intervals=0),
+        Grid(
+            px="sm",
+            py="lg",
+            children=[
+                Col(
+                    sm=9,
+                    xs=12,
+                    children=[
+                        LoadingOverlay(
+                            loaderProps={"variant": "bars"},
+                            children=dcc.Graph(id="graph"),
+                        )
+                    ]
+                ),
+                Col(
+                    sm=3,
+                    xs=12,
+                    children=[
+                        LoadingOverlay(
+                            loaderProps={"variant": "bars"},
+                            children=Image(
+                                id="image",
+                                withPlaceholder=True,
+                                fit="cover",
+                                height=200,
+                            ), 
+                        ),
+                        SegmentedControl(
+                            id="label",
+                            radius=0,
+                            fullWidth=True,
+                            disabled=True,
+                            data=[],
+                        ),
+                    ]
+                ),
+            ],
+        )
+    ]
 
 
 @callback(
@@ -136,11 +138,12 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("interval", "n_intervals"),
+    inputs=Input("project_id", "data"),
     background=True,
 )
-def update_figure(figure):
-    rows = []
+def update_figure(project_id):
+    if project_id is None:
+        return no_update
     cursor = get_db().execute(
         """
         SELECT
@@ -151,17 +154,35 @@ def update_figure(figure):
             label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
-        """
+        WHERE project_id = ?
+        """,
+        (project_id,),
     )
+    records = []
     while True:
-        row = cursor.fetchone()
-        if row is None:
+        rows = cursor.fetchmany(1000)
+        if not isinstance(rows, list):
             break
-        rows.append(dict(row))
-    if len(rows) < 1:
+        if len(rows) < 1:
+            break 
+        records += list(map(dict, rows))
+    if len(records) < 1:
         return no_update
     model = create_model()
-    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), rows))
+    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
     pcs = model.fit_transform(list(map(to_array, blobs)))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
+
+
+@callback(
+    Output("select", "data"),
+    Input("select", "data"),
+)
+def update_select(data):
+    rows = get_db().execute("SELECT title, id FROM project")
+    if rows is None:
+        return no_update
+    records = map(dict, rows)
+    data = [dict(label=r["title"], value=r["id"]) for r in records]
+    return data

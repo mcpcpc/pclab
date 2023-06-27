@@ -16,6 +16,7 @@ from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
 from dash_mantine_components import NotificationsProvider
+from dash_mantine_components import Select
 from dash_mantine_components import Text
 
 header = Header(
@@ -26,9 +27,18 @@ header = Header(
         Group(
             position="apart",
             children=[
-                Text(children="PC Lab"),
+                Text(children="PC Lab", weight=600, variant="gradient"),
                 Group(
                     children=[
+                        Select(
+                            id="select",
+                            searchable=True,
+                            clearable=True,
+                            nothingFound="No match found",
+                            icon=DashIconify(
+                                icon="radix-icons:magnifying-glass"
+                            ),
+                        ),
                         ActionIcon(
                             id="source",
                             variant="transparent",
@@ -46,7 +56,7 @@ header = Header(
                                     icon="radix-icons:blending-mode",
                                 ),
                             ]
-                        ),
+                        ), 
                     ],
                 ),
             ],
@@ -64,6 +74,7 @@ wrapper = Container(
 footer = Footer(
     height=50,
     p="sm",
+    withBorder=False,
     children=[
         Text(
             color="dimmed",
@@ -104,6 +115,18 @@ clientside_callback(
     State("theme-store", "data"),
 )
 
+clientside_callback(
+    """
+    function(value) {
+        if (value) {
+            return value
+        }
+    }
+    """,
+    Output("url", "pathname"),
+    Input("select", "value"),
+)
+
 def layout(navigation_values):
     return MantineProvider(
         id="theme-provider",
@@ -119,6 +142,7 @@ def layout(navigation_values):
                 inherit=True,
                 children=[
                     dcc.Store(id="theme-store", storage_type="local"),
+                    dcc.Location(id="url", refresh="callback-nav"),
                     NotificationsProvider(
                         children=[header, wrapper, footer],
                     ),
