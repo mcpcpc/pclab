@@ -164,7 +164,7 @@ def update_figure(project_id):
     while True:
         rows = cursor.fetchmany(100)
         print(rows)
-        if not isinstance(list, rows):
+        if not isinstance(rows, list):
             break
         if len(rows) < 1:
             break 
