@@ -118,7 +118,7 @@ clientside_callback(
     """
     function(value) {
         if (value) {
-            return "?project_id=" + value
+            return value
         }
     }
     """,

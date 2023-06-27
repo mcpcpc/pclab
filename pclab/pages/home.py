@@ -25,52 +25,54 @@ from pclab.utils.preprocess import to_image
 
 register_page(
     __name__,
-    path="/",
+    path="/<project_id>",
     title="Home | PCLab",
     description="Principle Component Labeler",
 )
 
-layout = [
-    dcc.Interval(id="interval", max_intervals=0),
-    Grid(
-        px="sm",
-        py="lg",
-        children=[
-            Col(
-                sm=9,
-                xs=12,
-                children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=dcc.Graph(id="graph"),
-                    )
-                ]
-            ),
-            Col(
-                sm=3,
-                xs=12,
-                children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=Image(
-                            id="image",
-                            withPlaceholder=True,
-                            fit="cover",
-                            height=200,
-                        ), 
-                    ),
-                    SegmentedControl(
-                        id="label",
-                        radius=0,
-                        fullWidth=True,
-                        disabled=True,
-                        data=[],
-                    ),
-                ]
-            ),
-        ],
-    )
-]
+def layout(project_id=None):
+    return [
+        dcc.Store(id="project_id", data=project_id),
+        dcc.Interval(id="interval", max_intervals=0),
+        Grid(
+            px="sm",
+            py="lg",
+            children=[
+                Col(
+                    sm=9,
+                    xs=12,
+                    children=[
+                        LoadingOverlay(
+                            loaderProps={"variant": "bars"},
+                            children=dcc.Graph(id="graph"),
+                        )
+                    ]
+                ),
+                Col(
+                    sm=3,
+                    xs=12,
+                    children=[
+                        LoadingOverlay(
+                            loaderProps={"variant": "bars"},
+                            children=Image(
+                                id="image",
+                                withPlaceholder=True,
+                                fit="cover",
+                                height=200,
+                            ), 
+                        ),
+                        SegmentedControl(
+                            id="label",
+                            radius=0,
+                            fullWidth=True,
+                            disabled=True,
+                            data=[],
+                        ),
+                    ]
+                ),
+            ],
+        )
+    ]
 
 
 @callback(
@@ -136,16 +138,12 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=[
-        Input("interval", "n_intervals"),
-        State("url", "search"),
-    ],
+    inputs=Input("project_id", "data"),
     background=True,
 )
-def update_figure(figure, search):
-    if search is None:
+def update_figure(project_id):
+    if project_id is None:
         return no_update
-    project_id = search.split("=")[1]
     rows = []
     cursor = get_db().execute(
         """
