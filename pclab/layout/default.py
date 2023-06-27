@@ -27,7 +27,7 @@ header = Header(
         Group(
             position="apart",
             children=[
-                Text(children="PC Lab", weight=600, vairant="gradient"),
+                Text(children="PC Lab", weight=600, variant="gradient"),
                 Group(
                     children=[
                         Select(
