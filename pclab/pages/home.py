@@ -25,7 +25,7 @@ from pclab.utils.preprocess import to_image
 
 register_page(
     __name__,
-    path="/<project_id>",
+    path_template="/<project_id>",
     title="Home | PCLab",
     description="Principle Component Labeler",
 )
