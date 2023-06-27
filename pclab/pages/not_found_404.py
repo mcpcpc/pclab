@@ -9,7 +9,7 @@ from dash_mantine_components import Text
 
 register_page(
     __name__,
-    path="/404"
+    path="/404",
     title="404 Error | PCLab",
     description="Principle Component Labeler",
 )
