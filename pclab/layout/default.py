@@ -122,7 +122,7 @@ clientside_callback(
         }
     }
     """,
-    Output("url", "search"),
+    Output("url", "pathname"),
     Input("select", "value"),
 )
 
