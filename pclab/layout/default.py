@@ -15,54 +15,76 @@ from dash_mantine_components import Footer
 from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import MantineProvider
+from dash_mantine_components import MediaQuery
 from dash_mantine_components import NotificationsProvider
 from dash_mantine_components import Select
 from dash_mantine_components import Text
 
-header = Header(
-    height=70,
-    p="lg",
-    fixed=True,
-    children=[
-        Group(
-            position="apart",
-            children=[
-                Text(children="PC Lab", weight=600, variant="gradient"),
-                Group(
-                    children=[
-                        Select(
-                            id="select",
-                            searchable=True,
-                            clearable=True,
-                            nothingFound="No match found",
-                            icon=DashIconify(
-                                icon="radix-icons:magnifying-glass"
+def header(version):
+    return Header(
+        height=70,
+        p="lg",
+        fixed=True,
+        children=[
+            Group(
+                position="apart",
+                children=[
+                    MediaQuery(
+                        smallerThan="sm",
+                        styles={"display": "none"},
+                        children=Group(
+                            spacing="xs",
+                            children=[
+                                Text(children="PC Lab", size="xl", weight=600, variant="gradient"),
+                                Text(children="v" + version, size="xs", color="dimmed"),
+                            ]
+                        ),
+                    ),
+                    MediaQuery(
+                        largerThan="sm",
+                        styles={"display": "none"},
+                        children=Group(
+                            spacing="xs",
+                            children=[
+                                Text(children="PC Lab", size="xl", weight=600, variant="gradient"),
+                            ]
+                        ),
+                    ),
+                    Group(
+                        children=[
+                            Select(
+                                id="select",
+                                searchable=True,
+                                clearable=True,
+                                nothingFound="No match found",
+                                icon=DashIconify(
+                                    icon="radix-icons:magnifying-glass"
+                                ),
                             ),
-                        ),
-                        ActionIcon(
-                            id="source",
-                            variant="transparent",
-                            children=[
-                                DashIconify(
-                                    icon="radix-icons:github-logo",
-                                ),
-                            ]
-                        ),
-                        ActionIcon(
-                            id="color-scheme-toggle",
-                            variant="transparent",
-                            children=[
-                                DashIconify(
-                                    icon="radix-icons:blending-mode",
-                                ),
-                            ]
-                        ), 
-                    ],
-                ),
-            ],
-        ),
-    ]
-)
+                            ActionIcon(
+                                id="source",
+                                variant="transparent",
+                                children=[
+                                    DashIconify(
+                                        icon="radix-icons:github-logo",
+                                    ),
+                                ]
+                            ),
+                            ActionIcon(
+                                id="color-scheme-toggle",
+                                variant="transparent",
+                                children=[
+                                    DashIconify(
+                                        icon="radix-icons:blending-mode",
+                                    ),
+                                ]
+                            ), 
+                        ],
+                    ),
+                ],
+            ),
+        ]
+    )
 
 wrapper = Container(
     id="wrapper",
@@ -127,7 +149,7 @@ clientside_callback(
     Input("select", "value"),
 )
 
-def layout(navigation_values):
+def layout(version):
     return MantineProvider(
         id="theme-provider",
         theme={"colorScheme": "light"},
@@ -144,7 +166,7 @@ def layout(navigation_values):
                     dcc.Store(id="theme-store", storage_type="local"),
                     dcc.Location(id="url", refresh="callback-nav"),
                     NotificationsProvider(
-                        children=[header, wrapper, footer],
+                        children=[header(version), wrapper, footer],
                     ),
                 ],
             )
