@@ -165,9 +165,10 @@ def update_figure(project_id):
         rows = cursor.fetchmany(100)
         if rows is None:
             break
+        print("append") 
         records += list(map(dict, rows))
-        
     if len(records) < 1:
+        print("no data found")
         return no_update
     model = create_model()
     ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
