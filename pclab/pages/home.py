@@ -137,11 +137,9 @@ def update_selected(selected_data):
 
 
 @callback(
-    #output=Output("graph", "figure"),
-    #inputs=Input("project_id", "data"),
-    #background=True,
-    Output("graph", "figure"),
-    Input("project_id", "data"),
+    output=Output("graph", "figure"),
+    inputs=Input("project_id", "data"),
+    background=True,
 )
 def update_figure(project_id):
     if project_id is None:
