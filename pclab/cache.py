@@ -24,7 +24,7 @@ def create_cache_manager(app):
         manager = CeleryManager(celery_app)
     else:
         cache = Cache(
-            path.join(app.instance_path, ".cache")
+            path.join(app.instance_path, ".cache"),
             cache_by=[lambda: launch_uid],
             expire=60,
         )
