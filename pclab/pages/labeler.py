@@ -93,19 +93,20 @@ def update_label_data(value):
 def update_selected_label(label_id, selected_data):
     if selected_data is None:
         return no_update
-    id = selected_data["points"][0]["customdata"]
     db = get_db()
-    db.execute("PRAGMA foreign_keys = ON")
-    db.execute(
-        """
-        UPDATE sample SET
-            updated_at = CURRENT_TIMESTAMP,
-            label_id = ?
-        WHERE id = ?
-        """,
-        (label_id, id),
-    )
-    db.commit()
+    for point in selected_data["points"]:
+        id = point["customdata"]
+        db.execute("PRAGMA foreign_keys = ON")
+        db.execute(
+            """
+            UPDATE sample SET
+                updated_at = CURRENT_TIMESTAMP,
+                label_id = ?
+            WHERE id = ?
+            """,
+            (label_id, id),
+        )
+        db.commit()
     return no_update
 
 
