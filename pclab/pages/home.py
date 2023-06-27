@@ -136,10 +136,16 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("interval", "n_intervals"),
+    inputs=[
+        Input("interval", "n_intervals"),
+        State("url", "search"),
+    ],
     background=True,
 )
-def update_figure(figure):
+def update_figure(figure, search):
+    if search is None:
+        return no_update
+    project_id = search.split("=")[1]
     rows = []
     cursor = get_db().execute(
         """
@@ -151,7 +157,9 @@ def update_figure(figure):
             label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
-        """
+        WHERE project_id = ?
+        """,
+        (project_id,),
     )
     while True:
         row = cursor.fetchone()
@@ -172,9 +180,9 @@ def update_figure(figure):
     Input("select", "data"),
 )
 def update_select(data):
-    rows = get_db().execute("SELECT title, slug FROM project")
+    rows = get_db().execute("SELECT title, id FROM project")
     if rows is None:
         return no_update
     records = map(dict, rows)
-    data = [dict(label=r["title"], value=r["slug"]) for r in records]
+    data = [dict(label=r["title"], value=r["id"]) for r in records]
     return data
