@@ -37,7 +37,7 @@ def layout(project_id=None):
         Grid(
             #px="sm",
             #py="lg",
-            gutter="xs",
+            gutter="sm",
             children=[
                 Col(
                     sm=9,
