@@ -20,7 +20,7 @@ from dash_mantine_components import NotificationsProvider
 from dash_mantine_components import Select
 from dash_mantine_components import Text
 
-def header(version):
+def header(values, version):
     return Header(
         height=70,
         p="lg",
@@ -36,8 +36,17 @@ def header(version):
                         children=Group(
                             spacing="xs",
                             children=[
-                                Text(children="PC Lab", size="xl", weight=600, variant="gradient"),
-                                Text(children="v" + version, size="xs", color="dimmed"),
+                                Text(
+                                    children="PC Lab",
+                                    size="xl",
+                                    weight=600,
+                                    variant="gradient",
+                                ),
+                                Text(
+                                    children="v" + version,
+                                    size="xs",
+                                    color="dimmed",
+                                ),
                             ]
                         ),
                     ),
@@ -47,7 +56,12 @@ def header(version):
                         children=Group(
                             spacing="xs",
                             children=[
-                                Text(children="PCL", size="xl", weight=600, variant="gradient"),
+                                Text(
+                                    children="PCL",
+                                    size="xl",
+                                    weight=600,
+                                    variant="gradient",
+                                ),
                             ]
                         ),
                     ),
@@ -150,7 +164,7 @@ clientside_callback(
     Input("select", "value"),
 )
 
-def layout(version):
+def layout(values, version):
     return MantineProvider(
         id="theme-provider",
         theme={"colorScheme": "light"},
@@ -167,7 +181,7 @@ def layout(version):
                     dcc.Store(id="theme-store", storage_type="local"),
                     dcc.Location(id="url", refresh="callback-nav"),
                     NotificationsProvider(
-                        children=[header(version), wrapper, footer],
+                        children=[header(values, version), wrapper, footer],
                     ),
                 ],
             )
