@@ -35,7 +35,7 @@ def layout(project_id=None):
         dcc.Store(id="project_id", data=project_id),
         dcc.Interval(id="interval", max_intervals=0),
         Grid(
-            px="sm",
+            px="xs",
             py="lg",
             children=[
                 Col(
