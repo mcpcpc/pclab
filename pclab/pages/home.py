@@ -201,5 +201,5 @@ def update_select(data):
     if rows is None:
         return no_update
     records = map(dict, rows)
-    data = [dict(label=r["title"], value=r["id"]) for r in records]
+    data = [dict(label=r["title"], value=str(r["id"])) for r in records]
     return data
