@@ -7,10 +7,7 @@ from dash_mantine_components import Anchor
 from dash_mantine_components import Stack
 from dash_mantine_components import Text
 
-register_page(
-    __name__,
-    path="/404"
-)
+register_page(__name__, path="/404")
 
 layout = [
     Stack(

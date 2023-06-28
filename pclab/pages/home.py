@@ -25,12 +25,7 @@ from pclab.utils.model import create_model
 from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
 
-register_page(
-    __name__,
-    path="/",
-    title="Home | PCLab",
-    description="Principle Component Labeler",
-)
+register_page(__name__, path="/")
 
 def layout():
     return [

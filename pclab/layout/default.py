@@ -21,6 +21,10 @@ from dash_mantine_components import Select
 from dash_mantine_components import Text
 
 def header(values, version):
+    data = [
+        {"label": v["name"], "value": v["path"]}
+        for v in values if v["name"] not in ["Not found 404"]
+    ]
     return Header(
         height=70,
         p="lg",
@@ -75,6 +79,7 @@ def header(values, version):
                                 icon=DashIconify(
                                     icon="radix-icons:magnifying-glass"
                                 ),
+                                data=data,
                             ),
                             ActionIcon(
                                 id="source",
