@@ -81,7 +81,14 @@ def layout(project_id=None):
     Input("label", "data"),
 )
 def update_label_data(value):
-    rows = get_db().execute("SELECT title, id FROM label").fetchall()
+    rows = get_db().execute(
+        """
+        SELECT
+            title,
+            id
+        FROM label
+        """
+    ).fetchall()
     data = [{"label": r["title"], "value": str(r["id"])} for r in rows]
     return data
     
