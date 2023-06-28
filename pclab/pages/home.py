@@ -35,13 +35,14 @@ layout = [
         align="stretch",
         children=[
             Col(
-                span=12,
+                sm=3,
+                xs=12,
                 children=[
                     ChipGroup(id="chip_group"),
                 ],
             ),
             Col(
-                sm=9,
+                sm=6,
                 xs=12,
                 children=[
                     LoadingOverlay(
