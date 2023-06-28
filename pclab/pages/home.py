@@ -81,7 +81,7 @@ layout = [
                                 children=[
                                     SegmentedControl(
                                         id="label",
-                                        m="md",
+                                        my="md",
                                         fullWidth=True,
                                         disabled=True,
                                         data=[],
