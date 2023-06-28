@@ -49,7 +49,6 @@ layout = [
                 xs=12,
                 children=[
                     Card(
-                        withBorder=True,
                         p=0,
                         children=[
                             LoadingOverlay(
