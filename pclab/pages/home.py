@@ -33,7 +33,6 @@ register_page(
 
 def layout():
     return [
-        dcc.Store(id="project_id", data=project_id),
         dcc.Interval(id="interval", max_intervals=0),
         Grid(
             pt="sm",
