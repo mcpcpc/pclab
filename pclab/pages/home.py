@@ -10,6 +10,7 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Chip
 from dash_mantine_components import ChipGroup
 from dash_mantine_components import Col
 from dash_mantine_components import Image
@@ -155,7 +156,7 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("chip_group", "data"),
+    inputs=Input("chip_group", "value"),
     background=True,
 )
 def update_figure(project_id):
@@ -193,13 +194,13 @@ def update_figure(project_id):
 
 
 @callback(
-    Output("chip_group", "data"),
-    Input("chip_group", "data"),
+    Output("chip_group", "children"),
+    Input("chip_group", "children"),
 )
 def update_select(data):
     rows = get_db().execute("SELECT title, id FROM project")
     if rows is None:
         return no_update
     records = map(dict, rows)
-    data = [dict(label=r["title"], value=str(r["id"])) for r in records]
-    return data
+    children = [Chip(children=r["title"], value=str(r["id"])) for r in records]
+    return children
