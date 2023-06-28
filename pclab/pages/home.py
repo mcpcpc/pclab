@@ -31,7 +31,7 @@ register_page(
     description="Principle Component Labeler",
 )
 
-def layout(project_id=None):
+def layout():
     return [
         dcc.Store(id="project_id", data=project_id),
         dcc.Interval(id="interval", max_intervals=0),
@@ -156,7 +156,7 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("project_id", "data"),
+    inputs=Input("chip_group", "data"),
     background=True,
 )
 def update_figure(project_id):
