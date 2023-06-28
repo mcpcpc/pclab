@@ -10,6 +10,7 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import ChipGroup
 from dash_mantine_components import Col
 from dash_mantine_components import Image
 from dash_mantine_components import Grid
@@ -25,8 +26,8 @@ from pclab.utils.preprocess import to_image
 
 register_page(
     __name__,
-    path_template="/project/<project_id>",
-    title="Labeler | PCLab",
+    path="/",
+    title="Home | PCLab",
     description="Principle Component Labeler",
 )
 
@@ -39,6 +40,12 @@ def layout(project_id=None):
             gutter="sm",
             align="stretch",
             children=[
+                Col(
+                    span=12,
+                    children=[
+                        ChipGroup(id="chip_group"),
+                    ],
+                ),
                 Col(
                     sm=9,
                     xs=12,
@@ -187,8 +194,8 @@ def update_figure(project_id):
 
 
 @callback(
-    Output("select", "data"),
-    Input("select", "data"),
+    Output("chip_group", "data"),
+    Input("chip_group", "data"),
 )
 def update_select(data):
     rows = get_db().execute("SELECT title, id FROM project")
