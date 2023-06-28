@@ -151,7 +151,6 @@ def update_selected(selected_data):
     output=Output("graph", "figure"),
     inputs=Input("chip_group", "value"),
     background=True,
-    cache_args_to_ignore=["chip_group"],
 )
 def update_figure(project_id):
     if project_id is None:
