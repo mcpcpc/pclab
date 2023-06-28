@@ -7,17 +7,14 @@ from dash_mantine_components import Anchor
 from dash_mantine_components import Stack
 from dash_mantine_components import Text
 
-register_page(
-    __name__,
-    path="/404"
-)
+register_page(__name__, path="/404")
 
 layout = [
     Stack(
         align="center",
         p="xl",
         children=[
-            DashIconify(icon="ri:emotion-sad-line", width=50),
+            DashIconify(icon="fxemoji:crying", width=50),
             Text(
                 [
                     "If you think this page should exist, create an issue ",

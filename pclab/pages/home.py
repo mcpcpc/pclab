@@ -10,6 +10,8 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Chip
+from dash_mantine_components import ChipGroup
 from dash_mantine_components import Col
 from dash_mantine_components import Image
 from dash_mantine_components import Grid
@@ -23,56 +25,57 @@ from pclab.utils.model import create_model
 from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
 
-register_page(
-    __name__,
-    path_template="/project/<project_id>",
-    title="Labeler | PCLab",
-    description="Principle Component Labeler",
-)
+register_page(__name__, path="/")
 
-def layout(project_id=None):
-    return [
-        dcc.Store(id="project_id", data=project_id),
-        dcc.Interval(id="interval", max_intervals=0),
-        Grid(
-            px="sm",
-            py="lg",
-            children=[
-                Col(
-                    sm=9,
-                    xs=12,
-                    children=[
-                        LoadingOverlay(
-                            loaderProps={"variant": "bars"},
-                            children=dcc.Graph(id="graph"),
-                        )
-                    ]
-                ),
-                Col(
-                    sm=3,
-                    xs=12,
-                    children=[
-                        LoadingOverlay(
-                            loaderProps={"variant": "bars"},
-                            children=Image(
-                                id="image",
-                                withPlaceholder=True,
-                                fit="cover",
-                                height=200,
-                            ), 
-                        ),
-                        SegmentedControl(
-                            id="label",
-                            radius=0,
-                            fullWidth=True,
-                            disabled=True,
-                            data=[],
-                        ),
-                    ]
-                ),
-            ],
-        )
-    ]
+layout = [
+    dcc.Interval(id="interval", max_intervals=0),
+    Grid(
+        pt="sm",
+        gutter="sm",
+        align="stretch",
+        children=[
+            Col(
+                sm=3,
+                xs=12,
+                children=[
+                    ChipGroup(id="chip_group"),
+                ],
+            ),
+            Col(
+                sm=6,
+                xs=12,
+                children=[
+                    LoadingOverlay(
+                        loaderProps={"variant": "bars"},
+                        children=dcc.Graph(id="graph"),
+                    )
+                ]
+            ),
+            Col(
+                sm=3,
+                xs=12,
+                children=[
+                    LoadingOverlay(
+                        loaderProps={"variant": "bars"},
+                        children=Image(
+                            id="image",
+                            withPlaceholder=True,
+                            fit="cover",
+                            height=200,
+                        ), 
+                    ),
+                    SegmentedControl(
+                        id="label",
+                        radius=0,
+                        fullWidth=True,
+                        disabled=True,
+                        data=[],
+                    ),
+                ]
+            ),
+        ],
+    )
+]
 
 
 @callback(
@@ -80,9 +83,16 @@ def layout(project_id=None):
     Input("label", "data"),
 )
 def update_label_data(value):
-    rows = get_db().execute("SELECT title, id FROM label").fetchall()
-    data = [{"label": r["title"], "value": str(r["id"])} for r in rows]
-    return data
+    rows = get_db().execute(
+        """
+        SELECT
+            title,
+            id
+        FROM label
+        """
+    ).fetchall()
+    data = map(lambda r: dict(label=r["title"], value=r["id"]), rows)
+    return list(data)
     
 
 @callback(
@@ -93,19 +103,20 @@ def update_label_data(value):
 def update_selected_label(label_id, selected_data):
     if selected_data is None:
         return no_update
-    id = selected_data["points"][0]["customdata"]
     db = get_db()
-    db.execute("PRAGMA foreign_keys = ON")
-    db.execute(
-        """
-        UPDATE sample SET
-            updated_at = CURRENT_TIMESTAMP,
-            label_id = ?
-        WHERE id = ?
-        """,
-        (label_id, id),
-    )
-    db.commit()
+    for point in selected_data["points"]:
+        id = point["customdata"]
+        db.execute("PRAGMA foreign_keys = ON")
+        db.execute(
+            """
+            UPDATE sample SET
+                updated_at = CURRENT_TIMESTAMP,
+                label_id = ?
+            WHERE id = ?
+            """,
+            (label_id, id),
+        )
+        db.commit()
     return no_update
 
 
@@ -138,7 +149,7 @@ def update_selected(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("project_id", "data"),
+    inputs=Input("chip_group", "value"),
     background=True,
 )
 def update_figure(project_id):
@@ -176,13 +187,13 @@ def update_figure(project_id):
 
 
 @callback(
-    Output("select", "data"),
-    Input("select", "data"),
+    Output("chip_group", "children"),
+    Input("chip_group", "children"),
 )
 def update_select(data):
     rows = get_db().execute("SELECT title, id FROM project")
     if rows is None:
         return no_update
     records = map(dict, rows)
-    data = [dict(label=r["title"], value=r["id"]) for r in records]
-    return data
+    children = [Chip(children=r["title"], value=str(r["id"])) for r in records]
+    return children

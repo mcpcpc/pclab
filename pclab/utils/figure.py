@@ -11,7 +11,7 @@ def create_figure(ids: list, labels: list, pcs: list, titles: list, colors: list
     figure.update_layout(modebar_orientation="v", showlegend=False)
     figure.update_layout(clickmode="event+select")
     figure.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
-    figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
+    figure.update_yaxes(showticklabels=False, showgrid=False, zeroline=False) 
     if len(ids) < 1:
         return figure
     for title, label, color in set(zip(titles, labels, colors)):
