@@ -10,6 +10,8 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Card
+from dash_mantine_components import CardSection
 from dash_mantine_components import Chip
 from dash_mantine_components import ChipGroup
 from dash_mantine_components import Col
@@ -18,6 +20,7 @@ from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import SegmentedControl
+from dash_mantine_components import Stack
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
@@ -45,31 +48,47 @@ layout = [
                 sm=6,
                 xs=12,
                 children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=dcc.Graph(id="graph"),
-                    )
-                ]
+                    Card(
+                        children=[
+                            LoadingOverlay(
+                                loaderProps={"variant": "bars"},
+                                children=dcc.Graph(id="graph"),
+                            ),
+                        ]
+                    ),
+                ],
             ),
             Col(
                 sm=3,
                 xs=12,
                 children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=Image(
-                            id="image",
-                            withPlaceholder=True,
-                            fit="cover",
-                            height=200,
-                        ), 
-                    ),
-                    SegmentedControl(
-                        id="label",
-                        radius=0,
-                        fullWidth=True,
-                        disabled=True,
-                        data=[],
+                    Card(
+                        children=[
+                            CardSection(
+                                children=[
+                                    LoadingOverlay(
+                                        loaderProps={"variant": "bars"},
+                                        children=Image(
+                                            id="image",
+                                            withPlaceholder=True,
+                                            fit="cover",
+                                            height=200,
+                                        ), 
+                                    ),
+                                ]
+                            ),
+                            Stack(
+                                children=[
+                                    SegmentedControl(
+                                        id="label",
+                                        m="md",
+                                        fullWidth=True,
+                                        disabled=True,
+                                        data=[],
+                                    ),
+                                ],
+                            ),
+                        ]
                     ),
                 ]
             ),
