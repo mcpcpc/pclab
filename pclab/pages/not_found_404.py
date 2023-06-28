@@ -14,7 +14,7 @@ layout = [
         align="center",
         p="xl",
         children=[
-            DashIconify(icon="ri:emotion-sad-line", width=50),
+            DashIconify(icon="fxemoji:crying", width=50),
             Text(
                 [
                     "If you think this page should exist, create an issue ",
