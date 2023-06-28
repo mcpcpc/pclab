@@ -47,9 +47,10 @@ layout = [
             Col(
                 sm=6,
                 xs=12,
-                p=0,
                 children=[
                     Card(
+                        withBorder=True,
+                        p=0,
                         children=[
                             LoadingOverlay(
                                 loaderProps={"variant": "bars"},
@@ -64,6 +65,7 @@ layout = [
                 xs=12,
                 children=[
                     Card(
+                        withBorder=True,
                         children=[
                             CardSection(
                                 children=[
