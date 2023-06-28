@@ -47,6 +47,7 @@ layout = [
             Col(
                 sm=6,
                 xs=12,
+                p=0,
                 children=[
                     Card(
                         children=[
