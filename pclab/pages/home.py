@@ -27,55 +27,54 @@ from pclab.utils.preprocess import to_image
 
 register_page(__name__, path="/")
 
-def layout():
-    return [
-        dcc.Interval(id="interval", max_intervals=0),
-        Grid(
-            pt="sm",
-            gutter="sm",
-            align="stretch",
-            children=[
-                Col(
-                    span=12,
-                    children=[
-                        ChipGroup(id="chip_group"),
-                    ],
-                ),
-                Col(
-                    sm=9,
-                    xs=12,
-                    children=[
-                        LoadingOverlay(
-                            loaderProps={"variant": "bars"},
-                            children=dcc.Graph(id="graph"),
-                        )
-                    ]
-                ),
-                Col(
-                    sm=3,
-                    xs=12,
-                    children=[
-                        LoadingOverlay(
-                            loaderProps={"variant": "bars"},
-                            children=Image(
-                                id="image",
-                                withPlaceholder=True,
-                                fit="cover",
-                                height=200,
-                            ), 
-                        ),
-                        SegmentedControl(
-                            id="label",
-                            radius=0,
-                            fullWidth=True,
-                            disabled=True,
-                            data=[],
-                        ),
-                    ]
-                ),
-            ],
-        )
-    ]
+layout = [
+    dcc.Interval(id="interval", max_intervals=0),
+    Grid(
+        pt="sm",
+        gutter="sm",
+        align="stretch",
+        children=[
+            Col(
+                span=12,
+                children=[
+                    ChipGroup(id="chip_group"),
+                ],
+            ),
+            Col(
+                sm=9,
+                xs=12,
+                children=[
+                    LoadingOverlay(
+                        loaderProps={"variant": "bars"},
+                        children=dcc.Graph(id="graph"),
+                    )
+                ]
+            ),
+            Col(
+                sm=3,
+                xs=12,
+                children=[
+                    LoadingOverlay(
+                        loaderProps={"variant": "bars"},
+                        children=Image(
+                            id="image",
+                            withPlaceholder=True,
+                            fit="cover",
+                            height=200,
+                        ), 
+                    ),
+                    SegmentedControl(
+                        id="label",
+                        radius=0,
+                        fullWidth=True,
+                        disabled=True,
+                        data=[],
+                    ),
+                ]
+            ),
+        ],
+    )
+]
 
 
 @callback(
