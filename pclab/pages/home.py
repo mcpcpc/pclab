@@ -19,6 +19,7 @@ from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
+from dash_mantine_components import Progress
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import Stack
 from dash_mantine_components import TextInput
@@ -41,7 +42,9 @@ layout = [
             Col(
                 xs=12,
                 children=[
-                    ChipGroup(id="chips"),
+                    Progress(
+                        id="progress",
+                    )
                 ],
             ),
             Col(
@@ -63,6 +66,12 @@ layout = [
                 sm=3,
                 xs=12,
                 children=[
+                    Card(
+                        withBorder=True,
+                        children=[
+                            ChipGroup(id="chips"),
+                        ]
+                    ),
                     Card(
                         withBorder=True,
                         children=[
