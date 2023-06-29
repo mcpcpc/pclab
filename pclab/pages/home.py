@@ -21,6 +21,7 @@ from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import Stack
+from dash_mantine_components import TextInput
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
@@ -81,9 +82,13 @@ layout = [
                             ),
                             Stack(
                                 children=[
+                                    TextInput(
+                                        id="filename",
+                                        mt="md",
+                                        disabled=True,
+                                    ),
                                     SegmentedControl(
                                         id="label",
-                                        mt="md",
                                         fullWidth=True,
                                         disabled=True,
                                         data=[],
@@ -142,7 +147,7 @@ def update_selected_label(label_id, selected_data):
 
 
 @callback(
-    Output("image", "alt"),
+    Output("filename", "value"),
     Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
