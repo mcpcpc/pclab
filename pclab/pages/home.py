@@ -39,14 +39,7 @@ layout = [
         align="stretch",
         children=[
             Col(
-                sm=3,
-                xs=12,
-                children=[
-                    ChipGroup(id="chip_group"),
-                ],
-            ),
-            Col(
-                sm=6,
+                sm=9,
                 xs=12,
                 children=[
                     Card(
@@ -64,6 +57,7 @@ layout = [
                 sm=3,
                 xs=12,
                 children=[
+                    ChipGroup(id="chip_group"),
                     Card(
                         withBorder=True,
                         children=[
