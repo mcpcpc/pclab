@@ -92,6 +92,7 @@ layout = [
                                     ),
                                     SegmentedControl(
                                         id="label",
+                                        persistence=True,
                                         fullWidth=True,
                                         disabled=True,
                                         data=[],
