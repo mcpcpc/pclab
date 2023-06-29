@@ -42,6 +42,7 @@ layout = [
             Col(
                 xs=12,
                 children=[
+                    ChipGroup(id="chips"),
                     Progress(
                         id="progress",
                     )
@@ -69,11 +70,6 @@ layout = [
                     Card(
                         withBorder=True,
                         children=[
-                            CardSection(
-                                children=[
-                                    ChipGroup(id="chips"),
-                                ],
-                            ),
                             CardSection(
                                 children=[
                                     LoadingOverlay(
