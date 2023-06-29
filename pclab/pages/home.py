@@ -10,6 +10,8 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Card
+from dash_mantine_components import CardSection
 from dash_mantine_components import Chip
 from dash_mantine_components import ChipGroup
 from dash_mantine_components import Col
@@ -18,6 +20,8 @@ from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import SegmentedControl
+from dash_mantine_components import Stack
+from dash_mantine_components import TextInput
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
@@ -35,41 +39,67 @@ layout = [
         align="stretch",
         children=[
             Col(
-                sm=3,
                 xs=12,
                 children=[
-                    ChipGroup(id="chip_group"),
+                    ChipGroup(id="chips"),
                 ],
             ),
             Col(
-                sm=6,
+                sm=9,
                 xs=12,
                 children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=dcc.Graph(id="graph"),
-                    )
-                ]
+                    Card(
+                        p=0,
+                        children=[
+                            LoadingOverlay(
+                                loaderProps={"variant": "bars"},
+                                children=dcc.Graph(id="graph"),
+                            ),
+                        ]
+                    ),
+                ],
             ),
             Col(
                 sm=3,
                 xs=12,
                 children=[
-                    LoadingOverlay(
-                        loaderProps={"variant": "bars"},
-                        children=Image(
-                            id="image",
-                            withPlaceholder=True,
-                            fit="cover",
-                            height=200,
-                        ), 
-                    ),
-                    SegmentedControl(
-                        id="label",
-                        radius=0,
-                        fullWidth=True,
-                        disabled=True,
-                        data=[],
+                    Card(
+                        withBorder=True,
+                        children=[
+                            CardSection(
+                                children=[
+                                    LoadingOverlay(
+                                        loaderProps={"variant": "bars"},
+                                        children=Image(
+                                            id="image",
+                                            withPlaceholder=True,
+                                            fit="cover",
+                                            height=200,
+                                        ), 
+                                    ),
+                                ]
+                            ),
+                            Stack(
+                                children=[
+                                    TextInput(
+                                        id="filename",
+                                        icon=DashIconify(
+                                            icon="ic:baseline-image"
+                                        ),
+                                        mt="md",
+                                        placeholder="Select a sample",
+                                        disabled=True,
+                                    ),
+                                    SegmentedControl(
+                                        id="label",
+                                        persistence=True,
+                                        fullWidth=True,
+                                        disabled=True,
+                                        data=[],
+                                    ),
+                                ],
+                            ),
+                        ]
                     ),
                 ]
             ),
@@ -91,7 +121,7 @@ def update_label_data(value):
         FROM label
         """
     ).fetchall()
-    data = map(lambda r: dict(label=r["title"], value=r["id"]), rows)
+    data = map(lambda r: dict(label=r["title"], value=str(r["id"])), rows)
     return list(data)
     
 
@@ -121,35 +151,67 @@ def update_selected_label(label_id, selected_data):
 
 
 @callback(
-    Output("image", "alt"),
-    Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
     Input("graph", "selectedData"),
 )
-def update_selected(selected_data):
+def updated_selected_label(selected_data):
     if selected_data is None:
-        return None, None, None, True
+        return None, True
     id = selected_data["points"][0]["customdata"]
     row = get_db().execute(
         """
         SELECT
-            label_id,
-            filename,
-            blob
+            label_id
         FROM sample WHERE id = ?
         """,
         (id,)
     ).fetchone()
     label_id = str(dict(row)["label_id"])
-    alt = dict(row)["filename"]
-    src = to_image(dict(row)["blob"])
-    return alt, src, label_id, False
+    return label_id, False
+
+
+@callback(
+    Output("filename", "value"),
+    Input("graph", "selectedData"),
+)
+def update_selected_filename(selected_data):
+    if selected_data is None:
+        return None
+    id = selected_data["points"][0]["customdata"]
+    row = get_db().execute(
+        """
+        SELECT
+            filename
+        FROM sample WHERE id = ?
+        """,
+        (id,)
+    ).fetchone()
+    return dict(row)["filename"]
+
+
+@callback(
+    Output("image", "src"),
+    Input("graph", "selectedData"),
+)
+def update_selected_image(selected_data):
+    if selected_data is None:
+        return None
+    id = selected_data["points"][0]["customdata"]
+    row = get_db().execute(
+        """
+        SELECT
+            blob
+        FROM sample WHERE id = ?
+        """,
+        (id,)
+    ).fetchone()
+    return to_image(dict(row)["blob"])
 
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("chip_group", "value"),
+    inputs=Input("chips", "value"),
     background=True,
 )
 def update_figure(project_id):
@@ -187,13 +249,13 @@ def update_figure(project_id):
 
 
 @callback(
-    Output("chip_group", "children"),
-    Input("chip_group", "children"),
+    Output("chips", "children"),
+    Input("chips", "children"),
 )
 def update_select(data):
     rows = get_db().execute("SELECT title, id FROM project")
     if rows is None:
         return no_update
     records = map(dict, rows)
-    children = [Chip(children=r["title"], value=str(r["id"])) for r in records]
-    return children
+    children = map(lambda r: Chip(r["title"], value=str(r["id"])), records)
+    return list(children)
