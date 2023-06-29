@@ -149,30 +149,61 @@ def update_selected_label(label_id, selected_data):
 
 
 @callback(
-    Output("filename", "value"),
-    Output("image", "src"),
     Output("label", "value"),
     Output("label", "disabled"),
     Input("graph", "selectedData"),
 )
-def update_selected(selected_data):
+def updated_selected_label(selected_data):
     if selected_data is None:
-        return None, None, None, True
+        return None, True
     id = selected_data["points"][0]["customdata"]
     row = get_db().execute(
         """
         SELECT
-            label_id,
-            filename,
+            label_id
+        FROM sample WHERE id = ?
+        """,
+        (id,)
+    ).fetchone()
+    label_id = str(dict(row)["label_id"])
+    return label_id, False
+
+@callback(
+    Output("filename", "value"),
+    Input("graph", "selectedData"),
+)
+def update_selected_filename(selected_data):
+    if selected_data is None:
+        return None
+    id = selected_data["points"][0]["customdata"]
+    row = get_db().execute(
+        """
+        SELECT
+            filename
+        FROM sample WHERE id = ?
+        """,
+        (id,)
+    ).fetchone()
+    return dict(row)["filename"]
+
+
+@callback(
+    Output("image", "src"),
+    Input("graph", "selectedData"),
+)
+def update_selected_image(selected_data):
+    if selected_data is None:
+        return None
+    id = selected_data["points"][0]["customdata"]
+    row = get_db().execute(
+        """
+        SELECT
             blob
         FROM sample WHERE id = ?
         """,
         (id,)
     ).fetchone()
-    alt = dict(row)["filename"]
-    src = to_image(dict(row)["blob"])
-    label_id = str(dict(row)["label_id"])
-    return alt, src, label_id, False
+    return to_image(dict(row)["blob"])
 
 
 @callback(
