@@ -91,6 +91,7 @@ layout = [
                                     ),
                                     SegmentedControl(
                                         id="label",
+                                        radius=0,
                                         fullWidth=True,
                                         disabled=True,
                                         data=[],
@@ -223,5 +224,6 @@ def update_select(data):
     if rows is None:
         return no_update
     records = map(dict, rows)
-    children = [Chip(children=r["title"], value=str(r["id"])) for r in records]
-    return children
+    children = map(lambda r: Chip(r["title"], value=str(r["id"])), records)
+    #children = [Chip(children=r["title"], value=str(r["id"])) for r in records]
+    return list(children)
