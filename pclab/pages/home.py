@@ -87,6 +87,7 @@ layout = [
                                             icon="ic:baseline-image"
                                         ),
                                         mt="md",
+                                        placeholder="Select a sample",
                                         disabled=True,
                                     ),
                                     SegmentedControl(
