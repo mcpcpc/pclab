@@ -39,6 +39,12 @@ layout = [
         align="stretch",
         children=[
             Col(
+                xs=12,
+                children=[
+                    ChipGroup(id="chip_group"),
+                ],
+            ),
+            Col(
                 sm=9,
                 xs=12,
                 children=[
@@ -57,7 +63,6 @@ layout = [
                 sm=3,
                 xs=12,
                 children=[
-                    ChipGroup(id="chip_group"),
                     Card(
                         withBorder=True,
                         children=[
@@ -78,7 +83,9 @@ layout = [
                                 children=[
                                     TextInput(
                                         id="filename",
-                                        icon=DashIconify(icon="ic:baseline-image"),
+                                        icon=DashIconify(
+                                            icon="ic:baseline-image"
+                                        ),
                                         mt="md",
                                         disabled=True,
                                     ),
