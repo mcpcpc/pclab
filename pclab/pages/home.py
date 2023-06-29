@@ -19,7 +19,6 @@ from dash_mantine_components import Image
 from dash_mantine_components import Grid
 from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
-from dash_mantine_components import Progress
 from dash_mantine_components import SegmentedControl
 from dash_mantine_components import Stack
 from dash_mantine_components import TextInput
@@ -45,10 +44,6 @@ layout = [
                     Stack(
                         children=[
                             ChipGroup(id="chips"),
-                            Progress(
-                                id="progress",
-                                size="xs",
-                            ),
                         ],
                     ),  
                 ],
