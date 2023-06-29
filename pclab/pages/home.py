@@ -69,12 +69,11 @@ layout = [
                     Card(
                         withBorder=True,
                         children=[
-                            ChipGroup(id="chips"),
-                        ]
-                    ),
-                    Card(
-                        withBorder=True,
-                        children=[
+                            CardSection(
+                                children=[
+                                    ChipGroup(id="chips"),
+                                ],
+                            ),
                             CardSection(
                                 children=[
                                     LoadingOverlay(
