@@ -91,7 +91,6 @@ layout = [
                                     ),
                                     SegmentedControl(
                                         id="label",
-                                        radius=0,
                                         fullWidth=True,
                                         disabled=True,
                                         data=[],
@@ -120,8 +119,6 @@ def update_label_data(value):
         FROM label
         """
     ).fetchall()
-    #data = [{"label": r["title"], "value": str(r["id"])} for r in rows]
-    #return data
     data = map(lambda r: dict(label=r["title"], value=str(r["id"])), rows)
     return list(data)
     
