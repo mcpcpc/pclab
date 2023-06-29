@@ -41,7 +41,7 @@ layout = [
             Col(
                 xs=12,
                 children=[
-                    ChipGroup(id="chip_group"),
+                    ChipGroup(id="chips"),
                 ],
             ),
             Col(
@@ -209,7 +209,7 @@ def update_selected_image(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("chip_group", "value"),
+    inputs=Input("chips", "value"),
     background=True,
 )
 def update_figure(project_id):
@@ -247,8 +247,8 @@ def update_figure(project_id):
 
 
 @callback(
-    Output("chip_group", "children"),
-    Input("chip_group", "children"),
+    Output("chips", "children"),
+    Input("chips", "children"),
 )
 def update_select(data):
     rows = get_db().execute("SELECT title, id FROM project")
