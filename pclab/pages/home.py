@@ -169,9 +169,9 @@ def update_selected(selected_data):
         """,
         (id,)
     ).fetchone()
-    label_id = str(dict(row)["label_id"])
     alt = dict(row)["filename"]
     src = to_image(dict(row)["blob"])
+    label_id = str(dict(row)["label_id"])
     return alt, src, label_id, False
 
 
