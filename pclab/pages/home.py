@@ -168,6 +168,7 @@ def updated_selected_label(selected_data):
     label_id = str(dict(row)["label_id"])
     return label_id, False
 
+
 @callback(
     Output("filename", "value"),
     Input("graph", "selectedData"),
