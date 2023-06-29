@@ -42,10 +42,14 @@ layout = [
             Col(
                 xs=12,
                 children=[
-                    ChipGroup(id="chips"),
-                    Progress(
-                        id="progress",
-                    )
+                    Stack(
+                        children=[
+                            ChipGroup(id="chips"),
+                            Progress(
+                                id="progress",
+                            ),
+                        ],
+                    ),  
                 ],
             ),
             Col(
