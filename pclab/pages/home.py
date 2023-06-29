@@ -78,6 +78,7 @@ layout = [
                                 children=[
                                     TextInput(
                                         id="filename",
+                                        icon=DashIconify(icon="ic:baseline-image"),
                                         mt="md",
                                         disabled=True,
                                     ),
