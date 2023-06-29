@@ -47,6 +47,7 @@ layout = [
                             ChipGroup(id="chips"),
                             Progress(
                                 id="progress",
+                                size="xs",
                             ),
                         ],
                     ),  
