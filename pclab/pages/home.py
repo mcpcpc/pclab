@@ -127,7 +127,7 @@ def update_label_data(value):
     ).fetchall()
     data = map(lambda r: dict(label=r["title"], value=str(r["id"])), rows)
     return list(data)
-    
+
 
 @callback(
     Output("interval", "n_intervals"),
