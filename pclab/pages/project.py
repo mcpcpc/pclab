@@ -299,5 +299,5 @@ def update_title(project_id):
         (project_id,)
     ).fetchone()
     if row is None:
-        return "N/A"
+        return "Unknown"
     return dict(row)["title"]
