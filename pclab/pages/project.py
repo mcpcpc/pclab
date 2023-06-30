@@ -17,7 +17,7 @@ from dash_mantine_components import LoadingOverlay
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
-from pclab.utils.pipeline import create_model
+from pclab.utils.pipeline import create_pipeline
 from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
 
@@ -25,7 +25,6 @@ register_page(__name__, path_template="/project/<slug>")
 
 def layout(slug = None):
     return [
-        dcc.Interval(id="interval", max_intervals=0),
         dcc.Store(id="slug", data=slug),
         dcc.Store(id="store"),
         Grid(
@@ -57,7 +56,13 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    rowModelType="infinite",
+                                    defaultColDef={"sortable": True},
+                                    rowModelType="infinite", 
+                                    dashGridOptions={
+                                        "rowBuffer": 0,
+                                        "maxBlocksInCache": 1,
+                                        "rowSelection": "multiple",
+                                    },
                                 ),
                             ]
                         ),
@@ -66,31 +71,6 @@ def layout(slug = None):
             ],
         )
     ]
-
-
-@callback(
-    Output("interval", "n_intervals"),
-    Input("label", "value"),
-    State("graph", "selectedData"),
-)
-def update_selected_label(label_id, selected_data):
-    if selected_data is None:
-        return no_update
-    db = get_db()
-    for point in selected_data["points"]:
-        id = point["customdata"]
-        db.execute("PRAGMA foreign_keys = ON")
-        db.execute(
-            """
-            UPDATE sample SET
-                updated_at = CURRENT_TIMESTAMP,
-                label_id = ?
-            WHERE id = ?
-            """,
-            (label_id, id),
-        )
-        db.commit()
-    return no_update
 
 
 @callback(
@@ -129,12 +109,20 @@ def update_figure(slug):
         records += list(map(dict, rows))
     if len(records) < 1:
         return no_update
-    ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
-    model = create_model()
-    pcs = model.fit_transform(list(map(to_array, blobs))).tolist()
-    data = list(zip(ids, labels, pcs, titles, colors))
-    print(data[0:5])
-    return data
+    arrays = list(map(lambda r: to_array(r["blob"]), records))
+    pipeline = create_pipeline()
+    pcs = pipeline.fit_transform(arrays).tolist()
+    data = map(
+        lambda x: {
+            "id": x[0]["id"],
+            "label": x[0]["label"],
+            "pc": x[1],
+            "title": x[0]["title"],
+            "color": x[0]["color"],
+        }, 
+        zip(records, pcs)
+    )
+    return list(data)
 
 
 @callback(
@@ -144,7 +132,18 @@ def update_figure(slug):
 def update_figure(data):
     if data is None:
         return no_update
-    ids, labels, pcs, titles, colors = zip(*data)
+    ids, labels, pcs, titles, colors = zip(*map(lambda x: x.values(), records))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
-    
+
+
+@output(
+    Output("grid", "getRowsResponse"),
+    Input("grid", "getRowsRequest"),
+    State("store", "data"),
+)
+def update_row_request(request):
+    if request is None:
+        return no_update
+    partial = data[request["startRow"] : request["endRow"]]
+    return {"rowData": partial, "rowCount": len(data)}
