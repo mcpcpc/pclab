@@ -272,6 +272,7 @@ def update_figure(slug):
     records = []
     while True:
         rows = cursor.fetchmany(1000)
+        print(rows)
         if not isinstance(rows, list):
             break
         if len(rows) < 1:
