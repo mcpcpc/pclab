@@ -20,6 +20,7 @@ register_page(__name__, path_template="/")
 layout = [
     Stack(
         spacing="lg",
+        p="xl",
         align="center",
         justify="center",
         children=[
