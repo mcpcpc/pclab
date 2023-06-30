@@ -249,9 +249,10 @@ def update_selected_image(selected_data):
 @callback(
     output=Output("graph", "figure"),
     inputs=Input("slug", "data"),
+    progress=Output("size", "children"),
     background=True,
 )
-def update_figure(slug):
+def update_figure(set_progress, slug):
     if slug is None:
         return no_update
     cursor = get_db().execute(
@@ -268,6 +269,7 @@ def update_figure(slug):
         INNER JOIN project
             ON project.id = sample.project_id
         WHERE project.slug = ?
+        ORDER BY RANDOM()
         """,
         (slug,),
     )
@@ -281,6 +283,7 @@ def update_figure(slug):
         records += list(map(dict, rows))
     if len(records) < 1:
         return no_update
+    set_progress(f"{len(records)}")
     model = create_model()
     ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
     pcs = model.fit_transform(list(map(to_array, blobs)))
