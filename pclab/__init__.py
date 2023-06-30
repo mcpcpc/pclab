@@ -14,7 +14,7 @@ from pclab.cache import create_cache_manager
 from pclab.db import init_app
 from pclab.layout.default import layout
 
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 
 
 def create_app(test_config=None):
