@@ -25,6 +25,7 @@ layout = [
         justify="center",
         children=[
             Group(
+                align="center",
                 children=[
                     Title("Data Labeling Assisted by"),
                     Title("Machine Learning", variant="gradient")
