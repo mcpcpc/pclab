@@ -137,7 +137,7 @@ def update_figure(data):
     return figure
 
 
-@output(
+@callback(
     Output("grid", "getRowsResponse"),
     Input("grid", "getRowsRequest"),
     State("store", "data"),
