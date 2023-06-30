@@ -306,7 +306,7 @@ def update_title(slug):
 
 
 @callback(
-    Output("title", "children"),
+    Output("size", "children"),
     Input("slug", "data"),
 )
 def update_size(slug):
