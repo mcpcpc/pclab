@@ -220,7 +220,6 @@ def update_selected_image(selected_data):
     inputs=Input("chips", "value"),
     background=True,
     progress=Output("badge", "children"),
-    progress_default="0 samples loaded",
 )
 def update_figure(set_progress, project_id):
     if project_id is None:
