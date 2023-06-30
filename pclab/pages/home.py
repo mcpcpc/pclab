@@ -53,7 +53,7 @@ def update_projects_list(children):
             href=f"/project/{r['id']}",
             children=[
                 Button(
-                    children=r["title"]},
+                    children=r["title"],
                     radius="xl",
                     size="xl",
                 )
