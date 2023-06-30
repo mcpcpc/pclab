@@ -9,7 +9,6 @@ from dash import register_page
 from dash_mantine_components import Anchor
 from dash_mantine_components import Button
 from dash_mantine_components import Group
-from dash_mantine_components import LoadingOverlay
 from dash_mantine_components import Stack
 from dash_mantine_components import Text
 from dash_mantine_components import Title
@@ -26,14 +25,10 @@ layout = [
         children=[
             Title("Data Labeling Assisted by Machine Learning"),
             Text("Select a project from the list below to begin labeling.", size="xl"),
-            LoadingOverlay(
-                children=[
-                    Group(
-                        id="group",
-                        position="center",
-                        spacing="xl",
-                    ),
-                ],
+            Group(
+                id="group",
+                position="center",
+                spacing="xl",
             ),
         ],
     ),
