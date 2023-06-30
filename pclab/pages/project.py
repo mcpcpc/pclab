@@ -261,11 +261,12 @@ def update_figure(set_progress, slug):
             sample.id AS id,
             sample.label_id AS label_id,
             sample.blob AS blob,
+            label.slug AS slug,
             label.title AS label_title,
             label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
-        WHERE label.slug = ?
+        WHERE slug = ?
         """,
         (slug,),
     )
