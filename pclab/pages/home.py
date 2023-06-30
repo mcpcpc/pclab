@@ -44,19 +44,19 @@ layout = [
     Input("grid", "children"),
 )
 def update_projects_list(children):
-    def create_col(title, id):
-        return Anchor(
-            href=f"/project/{id}",
-            children=[
-                Button(
-                    children=title,
-                    radius="xl",
-                    size="xl",
-                )
-            ],
-        )
     rows = get_db().execute("SELECT * FROM project").fetchall()
     if len(rows) < 1:
         return "No projects found."
     records = list(map(dict, rows))
-    return [create_col(r["title"], r["id"]) for r in records]
+    return [
+        Anchor(
+            href=f"/project/{r['id']}",
+            children=[
+                Button(
+                    children=r["title"]},
+                    radius="xl",
+                    size="xl",
+                )
+            ],
+        ) for r in records
+    ]
