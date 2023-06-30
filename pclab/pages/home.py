@@ -10,6 +10,7 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_iconify import DashIconify
+from dash_mantine_components import Badge
 from dash_mantine_components import Card
 from dash_mantine_components import CardSection
 from dash_mantine_components import Chip
@@ -44,6 +45,7 @@ layout = [
                     Group(
                         children=[
                             ChipGroup(id="chips"),
+                            Badge(id="badge"),
                         ],
                     ),  
                 ],
@@ -217,8 +219,9 @@ def update_selected_image(selected_data):
     output=Output("graph", "figure"),
     inputs=Input("chips", "value"),
     background=True,
+    progress=Output("badge", "children"),
 )
-def update_figure(project_id):
+def update_figure(set_progress, project_id):
     if project_id is None:
         return no_update
     cursor = get_db().execute(
@@ -243,6 +246,7 @@ def update_figure(project_id):
         if len(rows) < 1:
             break 
         records += list(map(dict, rows))
+        set_progress(f"{len(records)} samples")
     if len(records) < 1:
         return no_update
     model = create_model()
