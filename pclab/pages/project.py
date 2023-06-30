@@ -248,7 +248,7 @@ def update_selected_image(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("id", "data"),
+    inputs=Input("project_id", "data"),
     background=True,
     progress=Output("size", "children"),
 )
