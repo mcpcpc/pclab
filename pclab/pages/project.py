@@ -47,7 +47,7 @@ def layout(id = None):
                             align="center",
                             p="xl",
                             children=[
-                                Text("Project Name", color="dimmed"),
+                                Text("Project Name", color="dimmed", size="xs"),
                                 Text(id="title", children="Unknown"),
                             ]
                         )
@@ -61,7 +61,7 @@ def layout(id = None):
                             align="center",
                             p="xl",
                             children=[
-                                Text("Population", color="dimmed"),
+                                Text("Population", color="dimmed", size="xs"),
                                 Text(id="size", children="Unknown"),
                             ]
                         )
@@ -75,7 +75,7 @@ def layout(id = None):
                             align="center",
                             p="xl",
                             children=[
-                                Text("Anomaly Rate", color="dimmed"),
+                                Text("Anomaly Rate", color="dimmed", size="xs"),
                                 Text(id="rate", children="Unknown"),
                             ]
                         )
