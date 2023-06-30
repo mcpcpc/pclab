@@ -41,7 +41,7 @@ layout = [
             Col(
                 xs=12,
                 children=[
-                    Stack(
+                    Group(
                         children=[
                             ChipGroup(id="chips"),
                         ],
