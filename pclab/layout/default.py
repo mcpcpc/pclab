@@ -34,25 +34,31 @@ def header(values, version):
                 position="apart",
                 noWrap=True,
                 children=[
-                    MediaQuery(
-                        smallerThan="sm",
-                        styles={"display": "none"},
-                        children=Group(
-                            spacing="xs",
-                            children=[
-                                Text(
-                                    children="PC Lab",
-                                    size="xl",
-                                    weight=600,
-                                    variant="gradient",
+                    Anchor(
+                        href="/",
+                        underline=False,
+                        children=[
+                            MediaQuery(
+                                smallerThan="sm",
+                                styles={"display": "none"},
+                                children=Group(
+                                    spacing="xs",
+                                    children=[
+                                        Text(
+                                            children="PC Lab",
+                                            size="xl",
+                                            weight=600,
+                                            variant="gradient",
+                                        ),
+                                        Text(
+                                            children="v" + version,
+                                            size="xs",
+                                            color="dimmed",
+                                        ),
+                                    ]
                                 ),
-                                Text(
-                                    children="v" + version,
-                                    size="xs",
-                                    color="dimmed",
-                                ),
-                            ]
-                        ),
+                            ),
+                        ]
                     ),
                     MediaQuery(
                         largerThan="sm",
