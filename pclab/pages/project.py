@@ -265,7 +265,9 @@ def update_figure(slug):
         FROM sample
         INNER JOIN label
             ON label.id = sample.label_id
-        WHERE label.slug = ?
+        INNER JOIN project
+            ON project.id = sample.project_id
+        WHERE project.slug = ?
         """,
         (slug,),
     )
