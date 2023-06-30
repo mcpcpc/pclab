@@ -24,7 +24,12 @@ layout = [
         align="center",
         justify="center",
         children=[
-            Title("Data Labeling Assisted by Machine Learning"),
+            Group(
+                children=[
+                    Title("Data Labeling Assisted by"),
+                    Title("Machine Learning", variant="gradient")
+                ]
+            ),
             Text("Select a project from the list below to begin labeling.", size="xl"),
             Group(
                 id="group",
