@@ -5,4 +5,4 @@ from sklearn.decomposition import PCA
 
 
 def create_model() -> PCA:
-    return PCA(n_components=2, random_state=0)
+    return PCA(n_components=2)
