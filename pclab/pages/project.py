@@ -132,7 +132,7 @@ def update_figure(slug):
     ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
     model = create_model()
     pcs = model.fit_transform(list(map(to_array, blobs)))
-    return zip((ids, labels, pcs, titles, colors))
+    return list(zip((ids, labels, pcs, titles, colors)))
 
 
 @callback(
