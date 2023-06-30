@@ -9,18 +9,11 @@ from dash import Output
 from dash import no_update
 from dash import State
 from dash import register_page
-from dash_iconify import DashIconify
+from dash_ag_grid import AgGrid
 from dash_mantine_components import Card
-from dash_mantine_components import CardSection
 from dash_mantine_components import Col
-from dash_mantine_components import Image
 from dash_mantine_components import Grid
-from dash_mantine_components import Group
 from dash_mantine_components import LoadingOverlay
-from dash_mantine_components import SegmentedControl
-from dash_mantine_components import Stack
-from dash_mantine_components import Text
-from dash_mantine_components import TextInput
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
@@ -34,53 +27,12 @@ def layout(slug = None):
     return [
         dcc.Interval(id="interval", max_intervals=0),
         dcc.Store(id="slug", data=slug),
+        dcc.Store(id="store"),
         Grid(
             pt="sm",
             gutter="sm",
             align="stretch",
             children=[
-                Col(
-                    sm=4,
-                    xs=12,
-                    children=[
-                        Stack(
-                            align="center",
-                            p="xl",
-                            children=[
-                                Text("Project Name", color="dimmed", size="xs"),
-                                Text(id="title", children="Unknown"),
-                            ]
-                        )
-                    ],
-                ),
-                Col(
-                    sm=4,
-                    xs=12,
-                    children=[
-                        Stack(
-                            align="center",
-                            p="xl",
-                            children=[
-                                Text("Population", color="dimmed", size="xs"),
-                                Text(id="size", children="Unknown"),
-                            ]
-                        )
-                    ],
-                ),
-                Col(
-                    sm=4,
-                    xs=12,
-                    children=[
-                        Stack(
-                            align="center",
-                            p="xl",
-                            children=[
-                                Text("Anomaly Rate", color="dimmed", size="xs"),
-                                Text(id="rate", children="Unknown"),
-                            ]
-                        )
-                    ],
-                ),
                 Col(
                     sm=9,
                     xs=12,
@@ -103,38 +55,9 @@ def layout(slug = None):
                         Card(
                             withBorder=True,
                             children=[
-                                CardSection(
-                                    children=[
-                                        LoadingOverlay(
-                                            loaderProps={"variant": "bars"},
-                                            children=Image(
-                                                id="image",
-                                                withPlaceholder=True,
-                                                fit="cover",
-                                                height=200,
-                                            ), 
-                                        ),
-                                    ]
-                                ),
-                                Stack(
-                                    children=[
-                                        TextInput(
-                                            id="filename",
-                                            icon=DashIconify(
-                                                icon="ic:baseline-image"
-                                            ),
-                                            mt="md",
-                                            placeholder="Select a sample",
-                                            disabled=True,
-                                        ),
-                                        SegmentedControl(
-                                            id="label",
-                                            persistence=True,
-                                            fullWidth=True,
-                                            disabled=True,
-                                            data=[],
-                                        ),
-                                    ],
+                                AgGrid(
+                                    id="grid",
+                                    rowModelType="infinite",
                                 ),
                             ]
                         ),
@@ -143,23 +66,6 @@ def layout(slug = None):
             ],
         )
     ]
-
-
-@callback(
-    Output("label", "data"),
-    Input("label", "data"),
-)
-def update_label_data(value):
-    rows = get_db().execute(
-        """
-        SELECT
-            title,
-            id
-        FROM label
-        """
-    ).fetchall()
-    data = map(lambda r: dict(label=r["title"], value=str(r["id"])), rows)
-    return list(data)
 
 
 @callback(
@@ -188,66 +94,7 @@ def update_selected_label(label_id, selected_data):
 
 
 @callback(
-    Output("label", "value"),
-    Output("label", "disabled"),
-    Input("graph", "selectedData"),
-)
-def updated_selected_label(selected_data):
-    if selected_data is None:
-        return None, True
-    id = selected_data["points"][0]["customdata"]
-    row = get_db().execute(
-        """
-        SELECT
-            label_id
-        FROM sample WHERE id = ?
-        """,
-        (id,)
-    ).fetchone()
-    label_id = str(dict(row)["label_id"])
-    return label_id, False
-
-
-@callback(
-    Output("filename", "value"),
-    Input("graph", "selectedData"),
-)
-def update_selected_filename(selected_data):
-    if selected_data is None:
-        return None
-    id = selected_data["points"][0]["customdata"]
-    row = get_db().execute(
-        """
-        SELECT
-            filename
-        FROM sample WHERE id = ?
-        """,
-        (id,)
-    ).fetchone()
-    return dict(row)["filename"]
-
-
-@callback(
-    Output("image", "src"),
-    Input("graph", "selectedData"),
-)
-def update_selected_image(selected_data):
-    if selected_data is None:
-        return None
-    id = selected_data["points"][0]["customdata"]
-    row = get_db().execute(
-        """
-        SELECT
-            blob
-        FROM sample WHERE id = ?
-        """,
-        (id,)
-    ).fetchone()
-    return to_image(dict(row)["blob"])
-
-
-@callback(
-    output=Output("graph", "figure"),
+    output=Output("store", "data"),
     inputs=Input("slug", "data"),
     background=True,
 )
@@ -282,48 +129,20 @@ def update_figure(slug):
         records += list(map(dict, rows))
     if len(records) < 1:
         return no_update
-    model = create_model()
     ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
+    model = create_model()
     pcs = model.fit_transform(list(map(to_array, blobs)))
+    return zip((ids, labels, pcs, titles, colors))
+
+
+@callback(
+    Output("graph", "figure"),
+    Input("store", "data"),
+)
+def update_figure(data):
+    if data is None:
+        return no_update
+    ids, labels, pcs, titles, colors = zip(*data)
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
-
-
-@callback(
-    Output("title", "children"),
-    Input("slug", "data"),
-)
-def update_title(slug):
-    row = get_db().execute(
-        """
-        SELECT title FROM project WHERE slug = ?
-        """,
-        (slug,)
-    ).fetchone()
-    if row is None:
-        return "Unknown"
-    return dict(row)["title"]
-
-
-@callback(
-    Output("size", "children"),
-    Input("slug", "data"),
-)
-def update_size(slug):
-    rows = get_db().execute(
-        """
-        SELECT
-            sample.id
-        FROM sample
-        INNER JOIN label
-            ON label.id = sample.label_id
-        INNER JOIN project
-            ON project.id = sample.project_id
-        WHERE project.slug = ?
-        ORDER BY RANDOM()
-        """,
-        (slug,)
-    ).fetchall()
-    if rows is None:
-        return no_update
-    return f"{len(rows)}"
+    
