@@ -313,7 +313,7 @@ def update_size(slug):
     rows = get_db().execute(
         """
         SELECT
-            id
+            sample.id
         FROM sample
         INNER JOIN label
             ON label.id = sample.label_id
