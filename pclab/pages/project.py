@@ -28,12 +28,12 @@ from pclab.utils.pipeline import create_model
 from pclab.utils.preprocess import to_array
 from pclab.utils.preprocess import to_image
 
-register_page(__name__, path_template="/project/<id>")
+register_page(__name__, path_template="/project/<slug>")
 
-def layout(id = None):
+def layout(slug = None):
     return [
         dcc.Interval(id="interval", max_intervals=0),
-        dcc.Store(id="project_id", data=id),
+        dcc.Store(id="slug", data=slug),
         Grid(
             pt="sm",
             gutter="sm",
@@ -248,12 +248,12 @@ def update_selected_image(selected_data):
 
 @callback(
     output=Output("graph", "figure"),
-    inputs=Input("project_id", "data"),
+    inputs=Input("slug", "data"),
     background=True,
     progress=Output("size", "children"),
 )
-def update_figure(set_progress, project_id):
-    if project_id is None:
+def update_figure(set_progress, slug):
+    if slug is None:
         return no_update
     cursor = get_db().execute(
         """
@@ -265,9 +265,9 @@ def update_figure(set_progress, project_id):
             label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
-        WHERE project_id = ?
+        WHERE label.slug = ?
         """,
-        (project_id,),
+        (slug,),
     )
     records = []
     while True:
@@ -289,14 +289,14 @@ def update_figure(set_progress, project_id):
 
 @callback(
     Output("title", "children"),
-    Input("project_id", "data"),
+    Input("slug", "data"),
 )
-def update_title(project_id):
+def update_title(slug):
     row = get_db().execute(
         """
-        SELECT title FROM project WHERE id = ?
+        SELECT title FROM project WHERE slug = ?
         """,
-        (project_id,)
+        (slug,)
     ).fetchone()
     if row is None:
         return "Unknown"

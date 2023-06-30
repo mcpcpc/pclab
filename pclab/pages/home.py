@@ -42,11 +42,11 @@ layout = [
 def update_projects_list(children):
     rows = get_db().execute("SELECT * FROM project").fetchall()
     if len(rows) < 1:
-        return "No projects found."
+        return no_update
     records = list(map(dict, rows))
     return [
         Anchor(
-            href=f"/project/{r['id']}",
+            href=f"/project/{r['slug']}",
             children=[
                 Button(
                     children=r["title"],
