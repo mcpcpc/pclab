@@ -220,6 +220,7 @@ def update_selected_image(selected_data):
     inputs=Input("chips", "value"),
     background=True,
     progress=Output("badge", "children"),
+    progress_default="0 samples loaded",
 )
 def update_figure(set_progress, project_id):
     if project_id is None:
@@ -246,7 +247,7 @@ def update_figure(set_progress, project_id):
         if len(rows) < 1:
             break 
         records += list(map(dict, rows))
-        set_progress(f"{len(records)} samples")
+        set_progress(f"{len(records)} samples loaded")
     if len(records) < 1:
         return no_update
     model = create_model()
