@@ -266,7 +266,7 @@ def update_figure(set_progress, slug):
             label.color AS color
         FROM sample
             INNER JOIN label ON label.id = sample.label_id
-        WHERE slug = ?
+        WHERE label.slug = ?
         """,
         (slug,),
     )
