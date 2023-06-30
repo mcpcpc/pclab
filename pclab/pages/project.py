@@ -133,7 +133,7 @@ def update_figure(slug):
     model = create_model()
     pcs = model.fit_transform(list(map(to_array, blobs))).tolist()
     data = list(zip(ids, labels, pcs, titles, colors))
-    print(data)
+    print(data[0:5])
     return data
 
 
