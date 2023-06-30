@@ -250,9 +250,8 @@ def update_selected_image(selected_data):
     output=Output("graph", "figure"),
     inputs=Input("slug", "data"),
     background=True,
-    progress=Output("size", "children"),
 )
-def update_figure(set_progress, slug):
+def update_figure(slug):
     if slug is None:
         return no_update
     cursor = get_db().execute(
@@ -265,7 +264,8 @@ def update_figure(set_progress, slug):
             label.title AS label_title,
             label.color AS color
         FROM sample
-            INNER JOIN label ON label.id = sample.label_id
+        INNER JOIN label
+            ON label.id = sample.label_id
         WHERE label.slug = ?
         """,
         (slug,),
@@ -278,7 +278,6 @@ def update_figure(set_progress, slug):
         if len(rows) < 1:
             break 
         records += list(map(dict, rows))
-        set_progress(f"{len(records)}")
     if len(records) < 1:
         return no_update
     model = create_model()
