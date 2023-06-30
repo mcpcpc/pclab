@@ -1,4 +1,4 @@
-# pclab
+# PC Lab
 
 Principle Component Labeler for Image Data
 
