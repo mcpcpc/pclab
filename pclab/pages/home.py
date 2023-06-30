@@ -50,7 +50,7 @@ def update_projects_list(children):
                 Button(
                     children=r["title"],
                     radius="xl",
-                    size="xl",
+                    size="lg",
                 )
             ],
         ) for r in records
