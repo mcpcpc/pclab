@@ -131,7 +131,7 @@ def update_figure(slug):
         return no_update
     ids, labels, blobs, titles, colors = zip(*map(lambda x: x.values(), records))
     model = create_model()
-    pcs = model.fit_transform(list(map(to_array, blobs)))
+    pcs = model.fit_transform(list(map(to_array, blobs))).tolist()
     data = list(zip(ids, labels, pcs, titles, colors))
     print(data)
     return data
