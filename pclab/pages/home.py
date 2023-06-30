@@ -35,8 +35,8 @@ layout = [
 ]
 
 @callback(
-    Output("grid", "children"),
-    Input("grid", "children"),
+    Output("group", "children"),
+    Input("group", "children"),
 )
 def update_projects_list(children):
     rows = get_db().execute("SELECT * FROM project").fetchall()
