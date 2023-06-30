@@ -260,7 +260,6 @@ def update_figure(slug):
             sample.id AS id,
             sample.label_id AS label_id,
             sample.blob AS blob,
-            label.slug AS slug,
             label.title AS label_title,
             label.color AS color
         FROM sample
