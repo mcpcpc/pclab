@@ -36,7 +36,9 @@ dagcomponentfuncs.CustomNoRowsOverlay = function (props) {
         'div',
         {
             style: {
+                border: '1pt solid grey',
                 color: 'grey',
+                padding: 10,
                 fontSize: props.fontSize
             },
         },
