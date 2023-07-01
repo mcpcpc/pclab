@@ -65,8 +65,6 @@ def layout(slug = None):
                                             "field": "label",
                                             "checkboxSelection": True,
                                             "headerCheckboxSelection": True,
-                                            "width": 100,
-                                        },
                                         {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
