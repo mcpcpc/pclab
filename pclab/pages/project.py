@@ -145,6 +145,7 @@ def update_row_request(request, selected_data):
         row = get_db().execute(
             """
             SELECT
+                sample.blob AS image,
                 sample.filename AS filename,
                 label.title AS label
             FROM sample
