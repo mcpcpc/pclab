@@ -13,6 +13,7 @@ from dash_ag_grid import AgGrid
 from dash_mantine_components import Card
 from dash_mantine_components import Col
 from dash_mantine_components import Grid
+from dash_mantine_components import Image
 from dash_mantine_components import LoadingOverlay
 
 from pclab.db import get_db
@@ -145,7 +146,7 @@ def update_row_request(request, selected_data):
         row = get_db().execute(
             """
             SELECT
-                sample.blob AS image,
+                sample.blob AS blob,
                 sample.filename AS filename,
                 label.title AS label
             FROM sample
@@ -157,6 +158,6 @@ def update_row_request(request, selected_data):
         ).fetchone()
         data.append(dict(row))
     for i, d in enumerate(data):
-        data[i]["image"] = html.Img(to_image(d["image"]))
+        data[i]["image"] = Image(src=to_image(d["blib"]))
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
