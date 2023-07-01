@@ -58,7 +58,7 @@ def layout(slug = None):
                                 AgGrid(
                                     id="grid",
                                     defaultColDef={
-                                        "suppressMovable": True,
+                                        "suppressMovable": True, 
                                     },
                                     rowModelType="infinite",
                                     dashGridOptions={
@@ -98,9 +98,15 @@ def update_column_defs(column_defs):
             "cellEditorParams": {
                 "values": [row["title"] for row in rows],
             },
+            "cellStyle": {
+                "vertical-align": "center",
+            },
         },
         {
             "field": "filename",
+            "cellStyle": {
+                "vertical-align": "center",
+            },
         },
         {
             "field": "image",
