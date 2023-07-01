@@ -26,7 +26,6 @@ register_page(__name__, path_template="/project/<slug>")
 def layout(slug = None):
     return [
         dcc.Store(id="slug", data=slug),
-        dcc.Store(id="store"),
         Grid(
             pt="sm",
             gutter="sm",
