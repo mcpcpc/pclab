@@ -60,6 +60,20 @@ def layout(slug = None):
                                     defaultColDef={
                                         "suppressMovable": True, 
                                     },
+                                    columnDefs=[
+                                        {
+                                            "field": "label",
+                                        },
+                                        {
+                                            "field": "filename",
+                                        },
+                                        {
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                            "width": 100,
+                                            "pinned": "right",
+                                        },
+                                    ],
                                     rowModelType="infinite",
                                     dashGridOptions={
                                         "rowBuffer": 0,
@@ -78,32 +92,23 @@ def layout(slug = None):
 
 
 @callback(
-    Output("grid", "columnDefs"),
-    Input("grid", "columnDefs"),
+    Output("grid", "getRowStyle"),
+    Input("grid", "getRowStyle"),
 )
 def update_column_defs(column_defs):
     if column_defs is None:
         no_update
-    rows = get_db().execute("SELECT title FROM label").fetchall()
-    return [
-        {
-            "field": "label",
-            "editable": True, 
-            "cellEditor": "agSelectCellEditor",
-            "cellEditorParams": {
-                "values": [row["title"] for row in rows],
-            },
-        },
-        {
-            "field": "filename",
-        },
-        {
-            "field": "image",
-            "cellRenderer": "ImgThumbnail",
-            "width": 100,
-            "pinned": "right",
-        },
-    ]
+    rows = get_db().execute("SELECT * FROM label").fetchall()
+    records = list(map(dict, rows))
+    return = {
+        "styleConditions": [
+            {
+                "condition": f"params.data.label == \"{record['title']}\"",
+                "style": {f"backgroundColor": f"{record['color']}"},
+            }
+            for record in records
+        ]
+    }
 
 
 @callback(
