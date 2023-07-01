@@ -57,6 +57,7 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
+                                    columnDefs=[{"field": "id"}],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
@@ -146,7 +147,5 @@ def update_row_request(request, data):
         return no_update
     if not isinstance(data, list):
         return no_update
-    print(request["startRow"])
-    print(request["endRow"])
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
