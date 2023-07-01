@@ -62,7 +62,10 @@ def layout(slug = None):
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
-                                            "pinned": "left"
+                                            "pinned": "left",
+                                            "headerCheckboxSelection": True,
+                                            "headerCheckboxSelectionFilteredOnly": True,
+                                            "checkboxSelection": True,
                                         },
                                         {
                                             "field": "label"
