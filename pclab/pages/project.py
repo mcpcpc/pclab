@@ -102,8 +102,8 @@ def update_column_defs(column_defs):
     return {
         "styleConditions": [
             {
-                "condition": f"params.data.label_id == \"{record['id']}\"",
-                "style": {f"backgroundColor": f"{record['color']}"},
+                "condition": f"params.data.label_id == {record['id']}",
+                "style": {"backgroundColor": record['color']},
             }
             for record in records
         ]
