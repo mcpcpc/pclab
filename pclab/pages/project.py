@@ -88,9 +88,6 @@ def update_column_defs(column_defs):
     rows = get_db().execute("SELECT title FROM label").fetchall()
     return [
         {
-            "field": "id",
-        },
-        {
             "field": "label",
             "editable": True, 
             "cellEditor": "agSelectCellEditor",
