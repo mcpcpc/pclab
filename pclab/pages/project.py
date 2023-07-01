@@ -63,10 +63,10 @@ def layout(slug = None):
                                             "cellRenderer": "ImgThumbnail",
                                         },
                                         {
-                                            "field": "filename"
+                                            "field": "label"
                                         },
                                         {
-                                            "field": "label"
+                                            "field": "filename"
                                         },
                                     ],
                                     defaultColDef={"sortable": True},
