@@ -57,21 +57,6 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    columnDefs=[
-                                        {
-                                            "field": "label",
-                                            "cellEditor": "agSelectCellEditor",
-                                        },
-                                        {
-                                            "field": "filename"
-                                        },
-                                        {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
-                                            "pinned": "right",
-                                        },
-                                    ],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
