@@ -57,8 +57,16 @@ def layout(slug = None):
                                 AgGrid(
                                     id="grid",
                                     columnDefs=[
-                                        {"field": "filename"},
-                                        {"field": "label"},
+                                        {
+                                            "field": "filename"
+                                        },
+                                        {
+                                            "field": "label"
+                                        },
+                                        {
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                        }, 
                                     ],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
