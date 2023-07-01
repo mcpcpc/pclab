@@ -62,6 +62,7 @@ def layout(slug = None):
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
+                                            "autoHeight":True,
                                         },
                                         {
                                             "field": "label"
@@ -70,7 +71,7 @@ def layout(slug = None):
                                             "field": "filename"
                                         },
                                     ],
-                                    defaultColDef={"sortable": True},
+                                    #defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
                                         "rowBuffer": 0,
