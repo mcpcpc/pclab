@@ -85,7 +85,7 @@ def update_column_defs(column_defs):
     rows = get_db().execute("SELECT title FROM label").fetchall()
     return [
         {
-            "field": "id"
+            "field": "id",
         },
         {
             "field": "label",
@@ -96,7 +96,7 @@ def update_column_defs(column_defs):
             },
         },
         {
-            "field": "filename"
+            "field": "filename",
         },
         {
             "field": "image",
