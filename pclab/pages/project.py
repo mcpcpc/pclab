@@ -61,7 +61,7 @@ def layout(slug = None):
                                         "suppressMovable": True, 
                                     },
                                     columnDefs=[
-                                         {
+                                        {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
