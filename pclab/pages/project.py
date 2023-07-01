@@ -132,7 +132,7 @@ def update_figure(slug):
 def update_figure(data):
     if data is None:
         return no_update
-    ids, labels, pcs, titles, colors = zip(*map(lambda x: x.values(), records))
+    ids, labels, pcs, titles, colors = zip(*map(lambda x: x.values(), data))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
 
