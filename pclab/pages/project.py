@@ -62,7 +62,7 @@ def layout(slug = None):
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
-                                            "autoHeight":True,
+                                            #"autoHeight":True,
                                         },
                                         {
                                             "field": "label"
@@ -77,7 +77,7 @@ def layout(slug = None):
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
-                                        #"rowHeight": 100,
+                                        "rowHeight": 100,
                                     },
                                 ),
                             ]
