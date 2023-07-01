@@ -115,9 +115,9 @@ def update_figure(slug):
     data = map(
         lambda x: {
             "id": x[0]["id"],
-            "label": x[0]["label"],
+            "label": x[0]["label_id"],
             "pc": x[1],
-            "title": x[0]["title"],
+            "title": x[0]["label_title"],
             "color": x[0]["color"],
         }, 
         zip(records, pcs)
