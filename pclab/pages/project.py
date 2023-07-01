@@ -58,11 +58,9 @@ def layout(slug = None):
                                 AgGrid(
                                     id="grid",
                                     defaultColDef={
-                                        "sortable": True,
                                         "suppressMovable": True,
                                     },
                                     rowModelType="infinite",
-                                    rowData=[],
                                     dashGridOptions={
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
