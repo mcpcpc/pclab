@@ -60,9 +60,7 @@ def layout(slug = None):
                                     columnDefs=[
                                         {
                                             "field": "label",
-                                            "headerCheckboxSelection": True,
-                                            "headerCheckboxSelectionFilteredOnly": True,
-                                            "checkboxSelection": True,
+                                            "cellEditor": "agSelectCellEditor",
                                         },
                                         {
                                             "field": "filename"
@@ -90,6 +88,32 @@ def layout(slug = None):
             ],
         )
     ]
+
+
+@callback(
+    Output("grid", "columnDefs"),
+    Input("grid", "columnDefs"),
+)
+def update_column_defs(column_defs):
+    if column_defs is None:
+        no_update
+    rows = get_db().execute("SELECT title FROM label").fetchall()
+    return {
+        "field": "label",
+        "cellEditor": "agSelectCellEditor",
+        "cellEditorParams": {
+            "values": ["red", "yellow", "green"],
+        },
+    },
+    {
+        "field": "filename"
+    },
+    {
+        "field": "image",
+        "cellRenderer": "ImgThumbnail",
+        "width": 100,
+        "pinned": "right",
+    },
 
 
 @callback(
