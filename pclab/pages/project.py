@@ -144,5 +144,7 @@ def update_figure(data):
 def update_row_request(request, data):
     if request is None:
         return no_update
+    print(request["startRow"])
+    print(request["endRow"])
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
