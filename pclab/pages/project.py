@@ -67,6 +67,11 @@ def layout(slug = None):
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
                                         "rowHeight": 100,
+                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                                        "noRowsOverlayComponentParams": {
+                                            "message": "Select samples first",
+                                            "fontSize": 12,
+                                        },
                                     },
                                 ),
                             ]
