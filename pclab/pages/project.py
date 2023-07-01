@@ -146,7 +146,7 @@ def update_row_request(request, selected_data):
         row = get_db().execute(
             """
             SELECT
-                sample.blob AS blob,
+                sample.blob AS image,
                 sample.filename AS filename,
                 label.title AS label
             FROM sample
@@ -158,6 +158,6 @@ def update_row_request(request, selected_data):
         ).fetchone()
         data.append(dict(row))
     for i, d in enumerate(data):
-        data[i]["image"] = Image(src=to_image(d["blob"]))
+        data[i]["image"] = Image(src=to_image(d["image"]))
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
