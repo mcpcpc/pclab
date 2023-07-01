@@ -138,7 +138,7 @@ def update_row_request(request, selected_data):
             """
             SELECT
                 sample.filename AS filename,
-                label.title AS title
+                label.title AS label
             FROM sample
             INNER JOIN label
                 ON label.id = sample.label_id
