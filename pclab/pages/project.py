@@ -139,12 +139,13 @@ def update_figure(data):
 @callback(
     Output("grid", "getRowsResponse"),
     Input("grid", "getRowsRequest"),
-    State("store", "data"),
+    Input("store", "data"),
 )
 def update_row_request(request, data):
     if request is None:
         return no_update
-    print(len(data)) 
+    if not isinstance(data, list):
+        return no_update
     print(request["startRow"])
     print(request["endRow"])
     partial = data[request["startRow"] : request["endRow"]]
