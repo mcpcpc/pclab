@@ -140,9 +140,9 @@ def update_figure(data):
 @callback(
     Output("grid", "getRowsResponse"),
     Input("grid", "getRowsRequest"),
-    Input("store", "data"),
+    Input("graph", "selectedData"),
 )
-def update_row_request(request, data):
+def update_row_request(request, selected_data):
     if request is None:
         return no_update
     if not isinstance(data, list):
