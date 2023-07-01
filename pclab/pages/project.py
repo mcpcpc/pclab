@@ -74,7 +74,7 @@ def layout(slug = None):
 
 
 @callback(
-    output=Output("store", "data"),
+    output=Output("graph", "figure"),
     inputs=Input("slug", "data"),
     background=True,
 )
@@ -112,27 +112,6 @@ def update_figure(slug):
     arrays = list(map(lambda r: to_array(r["blob"]), records))
     pipeline = create_pipeline()
     pcs = pipeline.fit_transform(arrays).tolist()
-    data = map(
-        lambda x: {
-            "id": x[0]["id"],
-            "label": x[0]["label_id"],
-            "pc": x[1],
-            "title": x[0]["label_title"],
-            "color": x[0]["color"],
-        }, 
-        zip(records, pcs)
-    )
-    return list(data)
-
-
-@callback(
-    Output("graph", "figure"),
-    Input("store", "data"),
-)
-def update_figure(data):
-    if data is None:
-        return no_update
-    ids, labels, pcs, titles, colors = zip(*map(lambda x: x.values(), data))
     figure = create_figure(ids, labels, pcs, titles, colors)
     return figure
 
