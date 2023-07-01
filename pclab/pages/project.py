@@ -53,6 +53,7 @@ def layout(slug = None):
                     children=[
                         Card(
                             withBorder=True,
+                            p=0,
                             children=[
                                 AgGrid(
                                     id="grid",
@@ -142,7 +143,7 @@ def update_figure(data):
     Input("grid", "getRowsRequest"),
     State("store", "data"),
 )
-def update_row_request(request):
+def update_row_request(request, data):
     if request is None:
         return no_update
     partial = data[request["startRow"] : request["endRow"]]
