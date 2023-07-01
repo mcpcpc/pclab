@@ -66,11 +66,6 @@ def layout(slug = None):
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
                                         "rowHeight": 100,
-                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
-                                        "noRowsOverlayComponentParams": {
-                                            "message": "Select samples first",
-                                            "fontSize": 12,
-                                        },
                                     },
                                 ),
                             ]
@@ -98,15 +93,9 @@ def update_column_defs(column_defs):
             "cellEditorParams": {
                 "values": [row["title"] for row in rows],
             },
-            "cellStyle": {
-                "vertical-align": "center",
-            },
         },
         {
             "field": "filename",
-            "cellStyle": {
-                "vertical-align": "center",
-            },
         },
         {
             "field": "image",
