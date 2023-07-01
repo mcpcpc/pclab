@@ -71,7 +71,7 @@ def layout(slug = None):
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
-                                            "pinned": "righ",
+                                            "pinned": "right",
                                         },
                                     ],
                                     defaultColDef={"sortable": True},
