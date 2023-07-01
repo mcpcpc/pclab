@@ -57,7 +57,10 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    defaultColDef={"sortable": True},
+                                    defaultColDef={
+                                        "sortable": True,
+                                        "columnSize": "sizeToFit",
+                                    },
                                     rowModelType="infinite", 
                                     dashGridOptions={
                                         "rowBuffer": 0,
