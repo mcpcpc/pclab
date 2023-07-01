@@ -156,5 +156,7 @@ def update_row_request(request, selected_data):
             (id,),
         ).fetchone()
         data.append(dict(row))
+    for i, d in enumerate(data):
+        d[i]["image"] = html.Image(to_image(d))
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
