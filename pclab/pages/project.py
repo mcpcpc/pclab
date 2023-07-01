@@ -145,7 +145,9 @@ def update_figure(data):
 def update_row_request(request, selected_data):
     if request is None:
         return no_update
-    if not isinstance(data, list):
+    if selected_data is None:
         return no_update
+    points = selected_data["points"]
+    ids = list(map(lambda x: x[0]["customdata"], points)) 
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
