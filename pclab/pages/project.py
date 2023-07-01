@@ -97,12 +97,12 @@ def layout(slug = None):
 def update_column_defs(column_defs):
     if column_defs is None:
         no_update
-    rows = get_db().execute("SELECT * FROM label").fetchall()
+    rows = get_db().execute("SELECT id, color FROM label").fetchall()
     records = list(map(dict, rows))
     return {
         "styleConditions": [
             {
-                "condition": f"params.data.label == \"{record['title']}\"",
+                "condition": f"params.data.label_id == \"{record['id']}\"",
                 "style": {f"backgroundColor": f"{record['color']}"},
             }
             for record in records
@@ -175,6 +175,7 @@ def update_row_request(request, selected_data):
                 sample.id AS id,
                 sample.blob AS image,
                 sample.filename AS filename,
+                sample.label_id AS label_id,
                 label.title AS label
             FROM sample
             INNER JOIN label
