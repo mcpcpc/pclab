@@ -85,6 +85,9 @@ def update_column_defs(column_defs):
     rows = get_db().execute("SELECT title FROM label").fetchall()
     return [
         {
+            "field": "id"
+        },
+        {
             "field": "label",
             "editable": True, 
             "cellEditor": "agSelectCellEditor",
@@ -166,6 +169,7 @@ def update_row_request(request, selected_data):
         row = get_db().execute(
             """
             SELECT
+                sample.id AS id,
                 sample.blob AS image,
                 sample.filename AS filename,
                 label.title AS label
