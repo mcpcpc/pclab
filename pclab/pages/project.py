@@ -63,12 +63,12 @@ def layout(slug = None):
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
                                             "pinned": "left",
+                                        },
+                                        {
+                                            "field": "label",
                                             "headerCheckboxSelection": True,
                                             "headerCheckboxSelectionFilteredOnly": True,
                                             "checkboxSelection": True,
-                                        },
-                                        {
-                                            "field": "label"
                                         },
                                         {
                                             "field": "filename"
