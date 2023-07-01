@@ -57,7 +57,7 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    columnDefs=[{"field": "id"}],
+                                    columnDefs=[{"field": "filename"}],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
@@ -147,7 +147,18 @@ def update_row_request(request, selected_data):
         return no_update
     if selected_data is None:
         return no_update
-    points = selected_data["points"]
-    ids = list(map(lambda x: x[0]["customdata"], points)) 
+    data = [] 
+    for point in selected_data["points"]:
+        id = point["customdata"]
+        row = get_db().execute(
+            """
+            SELECT
+                filename
+            FROM sample
+            WHERE id = ? 
+            """,
+            (id,),
+        ).fetchone()
+        data.append(dict(row))
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
