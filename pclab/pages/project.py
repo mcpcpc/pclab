@@ -53,7 +53,7 @@ def layout(slug = None):
                     children=[
                         Card(
                             withBorder=True,
-                            p=0,
+                            px=0,
                             children=[
                                 AgGrid(
                                     id="grid",
