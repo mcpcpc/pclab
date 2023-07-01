@@ -143,7 +143,7 @@ def update_row_request(request, selected_data):
         return no_update
     if selected_data is None:
         return no_update
-    if len(selected_data["points"] < 1):
+    if len(selected_data["points"]) < 1:
         return no_update
     data = [] 
     for point in selected_data["points"]:
