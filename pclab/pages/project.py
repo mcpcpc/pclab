@@ -59,12 +59,6 @@ def layout(slug = None):
                                     id="grid",
                                     columnDefs=[
                                         {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
-                                            "pinned": "left",
-                                        },
-                                        {
                                             "field": "label",
                                             "headerCheckboxSelection": True,
                                             "headerCheckboxSelectionFilteredOnly": True,
@@ -72,6 +66,12 @@ def layout(slug = None):
                                         },
                                         {
                                             "field": "filename"
+                                        },
+                                        {
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                            "width": 100,
+                                            "pinned": "righ",
                                         },
                                     ],
                                     defaultColDef={"sortable": True},
