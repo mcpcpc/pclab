@@ -61,17 +61,16 @@ def layout(slug = None):
                                         "suppressMovable": True, 
                                     },
                                     columnDefs=[
+                                         {
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                            "width": 100,
+                                        },
                                         {
                                             "field": "label",
                                         },
                                         {
                                             "field": "filename",
-                                        },
-                                        {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
-                                            "pinned": "right",
                                         },
                                     ],
                                     rowModelType="infinite",
