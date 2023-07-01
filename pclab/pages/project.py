@@ -78,15 +78,6 @@ def layout(slug = None):
     ]
 
 
-@app.callback(
-    Output("editing-grid-output2", "children"),
-    Input("grid", "cellValueChanged"),
-)
-def update(cell_value_changed):
-    print
-    return no_update
-
-
 @callback(
     Output("grid", "columnDefs"),
     Input("grid", "columnDefs"),
