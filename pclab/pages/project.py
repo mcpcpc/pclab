@@ -86,6 +86,7 @@ def update_column_defs(column_defs):
     return [
         {
             "field": "label",
+            "editable": True, 
             "cellEditor": "agSelectCellEditor",
             "cellEditorParams": {
                 "values": ["red", "yellow", "green"],
