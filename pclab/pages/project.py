@@ -63,8 +63,6 @@ def layout(slug = None):
                                     columnDefs=[
                                         {
                                             "field": "label",
-                                            "checkboxSelection": True,
-                                            "headerCheckboxSelection": True,
                                         },
                                         {
                                             "field": "image",
