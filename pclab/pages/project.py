@@ -60,6 +60,9 @@ def layout(slug = None):
                                     defaultColDef={
                                         "sortable": True,
                                         "suppressMovable": True,
+                                        "cellStyle": {
+                                            "vertical-align": "center"
+                                        },
                                     },
                                     rowModelType="infinite", 
                                     dashGridOptions={
