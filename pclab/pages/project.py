@@ -65,7 +65,7 @@ def layout(slug = None):
                                         },
                                         {
                                             "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
+                                            #"cellRenderer": "ImgThumbnail",
                                         }, 
                                     ],
                                     defaultColDef={"sortable": True},
