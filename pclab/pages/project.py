@@ -62,14 +62,11 @@ def layout(slug = None):
                                     },
                                     columnDefs=[
                                         {
-                                            "field": "id",
-                                            "checkboxSelection": True,
-                                            "headerCheckboxSelection": True,
-                                        },
-                                        {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
+                                            "checkboxSelection": True,
+                                            "headerCheckboxSelection": True,
                                         },
                                         {
                                             "field": "label",
