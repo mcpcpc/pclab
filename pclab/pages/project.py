@@ -158,6 +158,6 @@ def update_row_request(request, selected_data):
         ).fetchone()
         data.append(dict(row))
     for i, d in enumerate(data):
-        data[i]["image"] = Image(src=to_image(d["blib"]))
+        data[i]["image"] = Image(src=to_image(d["blob"]))
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
