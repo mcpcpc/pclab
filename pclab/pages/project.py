@@ -90,6 +90,7 @@ def layout(slug = None):
     ]
 
 
+x="""
 @callback(
     Output("grid", "getRowStyle"),
     Input("grid", "getRowStyle"),
@@ -108,6 +109,7 @@ def update_column_defs(column_defs):
             for record in records
         ]
     }
+"""
 
 
 @callback(
