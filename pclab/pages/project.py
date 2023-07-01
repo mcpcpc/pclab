@@ -62,14 +62,14 @@ def layout(slug = None):
                                     },
                                     columnDefs=[
                                         {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
+                                            "field": "label",
                                             "checkboxSelection": True,
                                             "headerCheckboxSelection": True,
                                         },
                                         {
-                                            "field": "label",
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                            "width": 100,
                                         },
                                         {
                                             "field": "filename",
