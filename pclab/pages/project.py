@@ -59,7 +59,6 @@ def layout(slug = None):
                                     id="grid",
                                     defaultColDef={
                                         "sortable": True,
-                                        "columnSize": "sizeToFit",
                                     },
                                     rowModelType="infinite", 
                                     dashGridOptions={
