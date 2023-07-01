@@ -100,7 +100,7 @@ def update_column_defs(column_defs):
         no_update
     rows = get_db().execute("SELECT * FROM label").fetchall()
     records = list(map(dict, rows))
-    return = {
+    return {
         "styleConditions": [
             {
                 "condition": f"params.data.label == \"{record['title']}\"",
