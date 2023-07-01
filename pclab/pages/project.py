@@ -59,15 +59,15 @@ def layout(slug = None):
                                     id="grid",
                                     columnDefs=[
                                         {
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                        },
+                                        {
                                             "field": "filename"
                                         },
                                         {
                                             "field": "label"
                                         },
-                                        {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                        }, 
                                     ],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
