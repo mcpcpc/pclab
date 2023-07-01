@@ -60,9 +60,7 @@ def layout(slug = None):
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
-                                        "rowBuffer": 0,
-                                        "maxBlocksInCache": 1,
-                                        "rowSelection": "multiple",
+                                        "pagination": True,
                                     },
                                 ),
                             ]
