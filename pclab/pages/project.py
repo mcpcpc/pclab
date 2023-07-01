@@ -89,7 +89,7 @@ def update_column_defs(column_defs):
             "editable": True, 
             "cellEditor": "agSelectCellEditor",
             "cellEditorParams": {
-                "values": ["red", "yellow", "green"],
+                "values": [row["title"] for row in rows],
             },
         },
         {
