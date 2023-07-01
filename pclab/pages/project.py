@@ -61,7 +61,8 @@ def layout(slug = None):
                                         "sortable": True,
                                         "suppressMovable": True,
                                     },
-                                    rowModelType="infinite", 
+                                    rowModelType="infinite",
+                                    rowData=[],
                                     dashGridOptions={
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
