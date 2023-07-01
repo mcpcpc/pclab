@@ -110,6 +110,7 @@ def update_figure(slug):
     if len(records) < 1:
         return no_update
     arrays = list(map(lambda r: to_array(r["blob"]), records))
+    ids, labels, _, titles, colors = zip(*map(lambda x: x.values(), records))
     pipeline = create_pipeline()
     pcs = pipeline.fit_transform(arrays).tolist()
     figure = create_figure(ids, labels, pcs, titles, colors)
