@@ -142,7 +142,7 @@ def update_row_request(request, selected_data):
             FROM sample
             INNER JOIN label
                 ON label.id = sample.label_id
-            WHERE id = ? 
+            WHERE sample.id = ? 
             """,
             (id,),
         ).fetchone()
