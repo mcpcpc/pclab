@@ -62,11 +62,14 @@ def layout(slug = None):
                                     },
                                     columnDefs=[
                                         {
+                                            "field": "id",
+                                            "checkboxSelection": True,
+                                            "headerCheckboxSelection": True,
+                                        },
+                                        {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
                                             "width": 100,
-                                            "checkboxSelection": True,
-                                            "headerCheckboxSelection": True,
                                         },
                                         {
                                             "field": "label",
@@ -90,28 +93,6 @@ def layout(slug = None):
             ],
         )
     ]
-
-
-x="""
-@callback(
-    Output("grid", "getRowStyle"),
-    Input("grid", "getRowStyle"),
-)
-def update_column_defs(column_defs):
-    if column_defs is None:
-        no_update
-    rows = get_db().execute("SELECT id, color FROM label").fetchall()
-    records = list(map(dict, rows))
-    return {
-        "styleConditions": [
-            {
-                "condition": f"params.data.label_id == {record['id']}",
-                "style": {"backgroundColor": record['color']},
-            }
-            for record in records
-        ]
-    }
-"""
 
 
 @callback(
