@@ -56,7 +56,10 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    columnDefs=[{"field": "filename"}],
+                                    columnDefs=[
+                                        {"field": "filename"},
+                                        {"field": "label"},
+                                    ],
                                     defaultColDef={"sortable": True},
                                     rowModelType="infinite", 
                                     dashGridOptions={
@@ -134,8 +137,11 @@ def update_row_request(request, selected_data):
         row = get_db().execute(
             """
             SELECT
-                filename
+                sample.filename AS filename,
+                label.title AS title
             FROM sample
+            INNER JOIN label
+                ON label.id = sample.label_id
             WHERE id = ? 
             """,
             (id,),
