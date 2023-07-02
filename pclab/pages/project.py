@@ -37,9 +37,6 @@ def layout(slug = None):
                     id="grid",
                     style={"flex": 1},
                     className="ag-grid",
-                    defaultColDef={
-                        "suppressMovable": True, 
-                    },
                     columnDefs=[
                         {
                             "field": "filename",
