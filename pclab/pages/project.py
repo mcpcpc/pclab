@@ -28,13 +28,15 @@ def layout(slug = None):
                 "flex-wrap": "wrap"
             },
             children=[
-                dcc.Graph(
-                    id="graph",
+                html.Div(
                     style={
                         "flex": 1,
                         "min-width": 700,
                         "border": "1px solid rgb(186, 191, 199)",
                     },
+                    children=[
+                        dcc.Graph(id="graph"),
+                    ]
                 ),
                 AgGrid(
                     id="grid",
