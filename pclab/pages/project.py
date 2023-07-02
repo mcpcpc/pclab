@@ -31,7 +31,7 @@ def layout(slug = None):
                 html.Div(
                     style={
                         "flex": 1,
-                        "min-width": 700,
+                        "min-width": 200,
                         "border": "1px solid rgb(186, 191, 199)",
                     },
                     children=[
@@ -42,7 +42,7 @@ def layout(slug = None):
                     id="grid",
                     style={
                         "flex": 1,
-                        "min-width": 700,
+                        "min-width": 200,
                     },
                     columnDefs=[  
                         {
