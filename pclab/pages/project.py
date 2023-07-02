@@ -50,6 +50,7 @@ def layout(slug = None):
                     rowData=[],
                     columnDefs=[  
                         {
+                            "headerName": "Sample",
                             "field": "image",
                             "cellRenderer": "ImgThumbnail",
                              "width": 100,

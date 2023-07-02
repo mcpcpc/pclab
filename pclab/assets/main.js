@@ -33,6 +33,7 @@ dagcomponentfuncs.ImgThumbnail = function (props) {
     );
 };
 
+
 dagcomponentfuncs.CustomNoRowsOverlay = function (props) {
     return React.createElement(
         'div',
