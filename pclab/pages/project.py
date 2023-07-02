@@ -82,6 +82,7 @@ def layout(slug = None):
                                         "rowSelection": "multiple",
                                     #    "rowHeight": 100,
                                     },
+                                    columnSize="autoSize",
                                 ),
                             ]
                         ),
