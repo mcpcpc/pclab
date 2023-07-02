@@ -42,6 +42,9 @@ def layout(slug = None):
                     },
                     columnDefs=[
                         {
+                            "field": "filename",
+                        }, 
+                        {
                             "field": "image",
                             "cellRenderer": "ImgThumbnail",
                             "width": 100,
@@ -49,7 +52,6 @@ def layout(slug = None):
                     ],
                     rowModelType="infinite",
                     dashGridOptions={
-                        "headerHeight": 0,
                         "rowBuffer": 0,
                         "maxBlocksInCache": 1,
                         "rowSelection": "multiple",
