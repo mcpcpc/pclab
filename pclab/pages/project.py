@@ -33,7 +33,6 @@ def layout(slug = None):
                     style={
                         "flex": 1,
                         "border": "1px solid rgb(186, 191, 199)",
-                        #"min-width": 200,
                     },
                     children=[
                         dcc.Loading(
@@ -47,7 +46,6 @@ def layout(slug = None):
                     id="grid",
                     style={
                         "flex": 1,
-                        #"min-width": 200,
                     },
                     columnDefs=[  
                         {
@@ -68,6 +66,11 @@ def layout(slug = None):
                         "maxBlocksInCache": 1,
                         "rowSelection": "multiple",
                         "rowHeight": 100,
+                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                        "noRowsOverlayComponentParams": {
+                            "message": "Please check again later",
+                            "fontSize": 12,
+                        },
                     },
                 ),
             ],
