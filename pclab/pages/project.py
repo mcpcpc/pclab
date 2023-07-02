@@ -76,6 +76,7 @@ def layout(slug = None):
                                     ],
                                     rowModelType="infinite",
                                     dashGridOptions={
+                                        "headerHeight": 0,
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
