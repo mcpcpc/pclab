@@ -36,7 +36,6 @@ def layout(slug = None):
                 AgGrid(
                     id="grid",
                     style={"flex": 1},
-                    className="ag-grid",
                     columnDefs=[
                         {
                             "field": "filename",
