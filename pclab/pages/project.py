@@ -47,6 +47,7 @@ def layout(slug = None):
                     style={
                         "flex": 1,
                     },
+                    rowData=[],
                     columnDefs=[  
                         {
                             "field": "image",
