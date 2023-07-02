@@ -38,7 +38,7 @@ def layout(slug = None):
                     children=[
                         dcc.Loading(
                             children=[
-                                dcc.Graph(id="graph", responsive=True),
+                                dcc.Graph(id="graph"),
                             ]
                         ),
                     ]
