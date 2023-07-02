@@ -47,7 +47,6 @@ def layout(slug = None):
                     style={
                         "flex": 1,
                     },
-                    rowData=[],
                     columnDefs=[  
                         {
                             "headerName": "Sample",
@@ -128,15 +127,16 @@ def update_figure(slug):
     Output("grid", "getRowsResponse"),
     Input("grid", "getRowsRequest"),
     Input("graph", "selectedData"),
-    prevent_initial_call=True,
 )
 def update_row_request(request, selected_data):
     if request is None:
         return no_update
     if selected_data is None:
-        return no_update
+        #return no_update
+        {"rowData": [], "rowCount": 0}
     if len(selected_data["points"]) < 1:
-        return no_update
+        #return no_update
+        {"rowData": [], "rowCount": 0}
     data = [] 
     for point in selected_data["points"]:
         id = point["customdata"]
