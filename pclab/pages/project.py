@@ -135,7 +135,7 @@ def update_row_request(request, selected_data):
         return no_update
     if len(selected_data["points"]) < 1:
         #return no_update
-        return {"rowData": [], "rowCount": 0}
+        return {"rowData": [], "rowCount": None}
     data = [] 
     for point in selected_data["points"]:
         id = point["customdata"]
