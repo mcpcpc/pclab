@@ -25,11 +25,12 @@ def layout(slug = None):
         html.Div(
             children=[
                 dcc.Loading(
+                    style={"flex": 1},
                     children=[
                         dcc.Graph(
                             id="graph",
                             #responsive=True,
-                            style={"flex": 1},
+                            #style={"flex": 1},
                         ),
                     ], 
                 ),
