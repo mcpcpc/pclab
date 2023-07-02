@@ -25,7 +25,8 @@ def layout(slug = None):
         html.Div(
             style={
                 "display": "flex",
-                "flex-wrap": "wrap"
+                "flex-wrap": "wrap",
+                "align-items": "stretch",
             },
             children=[
                 html.Div(
