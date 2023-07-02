@@ -131,12 +131,13 @@ def update_figure(slug):
 def update_row_request(request, selected_data):
     if request is None:
         return no_update
-    if selected_data is None:
+    #if selected_data is None:
         #return no_update
-        {"rowData": [], "rowCount": 0}
+    if not isinstance(selected_data["points"], list):
+        return {"rowData": [], "rowCount": 0}
     if len(selected_data["points"]) < 1:
         #return no_update
-        {"rowData": [], "rowCount": 0}
+        return {"rowData": [], "rowCount": 0}
     data = [] 
     for point in selected_data["points"]:
         id = point["customdata"]
