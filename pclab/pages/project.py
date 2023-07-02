@@ -43,37 +43,33 @@ def layout(slug = None):
                         ),
                     ]
                 ),
-                html.Div(
+                AgGrid(
+                    id="grid",
                     style={
                         "flex": 1,
                         #"min-width": 200,
                     },
-                    children=[
-                        AgGrid(
-                            id="grid",
-                            columnDefs=[  
-                                {
-                                    "field": "image",
-                                    "cellRenderer": "ImgThumbnail",
-                                    "width": 100,
-                                },
-                                {
-                                    "field": "label",
-                                },
-                                {
-                                    "field": "filename",
-                                },
-                            ],
-                            rowModelType="infinite",
-                            dashGridOptions={
-                                "rowBuffer": 0,
-                                "maxBlocksInCache": 1,
-                                "rowSelection": "multiple",
-                                "rowHeight": 100,
-                            },
-                        ),
+                    columnDefs=[  
+                        {
+                            "field": "image",
+                            "cellRenderer": "ImgThumbnail",
+                             "width": 100,
+                        },
+                        {
+                            "field": "label",
+                        },
+                        {
+                            "field": "filename",
+                        },
                     ],
-                ), 
+                    rowModelType="infinite",
+                    dashGridOptions={
+                        "rowBuffer": 0,
+                        "maxBlocksInCache": 1,
+                        "rowSelection": "multiple",
+                        "rowHeight": 100,
+                    },
+                ),
             ],
         )
     ]
