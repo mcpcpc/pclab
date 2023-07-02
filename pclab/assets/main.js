@@ -25,7 +25,6 @@ dagcomponentfuncs.ImgThumbnail = function (props) {
                 style: {
                     width: '100%',
                     height: 'auto',
-                    borderRadius: '5px'
                 },
                 src: props.value,
 
