@@ -133,6 +133,8 @@ def update_row_request(request, selected_data):
         return no_update
     #if selected_data is None:
         #return no_update
+    if not isinstance(selected_data, dict):
+        return {"rowData": [], "rowCount": 0}
     if not isinstance(selected_data["points"], list):
         return {"rowData": [], "rowCount": 0}
     if len(selected_data["points"]) < 1:
