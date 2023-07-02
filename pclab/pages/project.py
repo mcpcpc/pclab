@@ -23,13 +23,17 @@ def layout(slug = None):
     return [
         dcc.Store(id="slug", data=slug),
         html.Div(
+            style={
+                "display": "flex",
+                "flex-wrap": "wrap"
+            },
             children=[
                 dcc.Loading(
                     style={"flex": 1},
                     children=[
                         dcc.Graph(
                             id="graph",
-                            #responsive=True,
+                            responsive=True,
                             #style={"flex": 1},
                         ),
                     ], 
