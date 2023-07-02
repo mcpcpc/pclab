@@ -33,6 +33,7 @@ def layout(slug = None):
                     style={
                         "flex": 1,
                         "min-width": 700,
+                        "border": "1px solid rgb(186, 191, 199)",
                     },
                 ),
                 AgGrid(
