@@ -23,9 +23,6 @@ def layout(slug = None):
     return [
         dcc.Store(id="slug", data=slug),
         html.Div(
-            pt="sm",
-            gutter="sm",
-            align="stretch",
             children=[
                 dcc.Loading(
                     children=[
