@@ -28,19 +28,20 @@ def layout(slug = None):
                 "flex-wrap": "wrap"
             },
             children=[
-                dcc.Loading(
-                    #style={"flex": 1},
-                    children=[
-                        dcc.Graph(
-                            id="graph",
-                            responsive=True,
-                            style={"flex": 1},
-                        ),
-                    ], 
+                dcc.Graph(
+                    id="graph",
+                    responsive=True,
+                    style={
+                        "flex": 1,
+                        "min-width": 700,
+                    },
                 ),
                 AgGrid(
                     id="grid",
-                    style={"flex": 1},
+                    style={
+                        "flex": 1,
+                        "min-width": 700,
+                    },
                     columnDefs=[  
                         {
                             "field": "image",
