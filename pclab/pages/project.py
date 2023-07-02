@@ -62,17 +62,17 @@ def layout(slug = None):
                                         "suppressMovable": True, 
                                     },
                                     columnDefs=[
-                                        {
-                                            "field": "label",
-                                        },
+                                        #{
+                                        #    "field": "label",
+                                        #},
                                         {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
+                                        #    "width": 100,
                                         },
-                                        {
-                                            "field": "filename",
-                                        },
+                                        #{
+                                        #    "field": "filename",
+                                        #},
                                     ],
                                     rowModelType="infinite",
                                     dashGridOptions={
@@ -80,7 +80,7 @@ def layout(slug = None):
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
-                                        "rowHeight": 100,
+                                    #    "rowHeight": 100,
                                     },
                                 ),
                             ]
