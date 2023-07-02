@@ -32,13 +32,11 @@ def layout(slug = None):
                 html.Div(
                     style={
                         "flex": 1,
+                        "border": "1px solid rgb(186, 191, 199)",
                         #"min-width": 200,
                     },
                     children=[
                         dcc.Loading(
-                            style={
-                                "border": "1px solid rgb(186, 191, 199)",
-                            },
                             children=[
                                 dcc.Graph(id="graph"),
                             ]
