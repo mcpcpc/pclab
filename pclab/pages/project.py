@@ -68,8 +68,7 @@ def layout(slug = None):
                                         {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
-                                            "autoHeight": True,
-                                        #    "width": 100,
+                                            "width": 100,
                                         },
                                         #{
                                         #    "field": "filename",
@@ -81,9 +80,8 @@ def layout(slug = None):
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
-                                    #    "rowHeight": 100,
+                                        "rowHeight": 100,
                                     },
-                                    columnSize="autoSize",
                                 ),
                             ]
                         ),
