@@ -36,14 +36,17 @@ def layout(slug = None):
                 AgGrid(
                     id="grid",
                     style={"flex": 1},
-                    columnDefs=[
-                        {
-                            "field": "filename",
-                        }, 
+                    columnDefs=[  
                         {
                             "field": "image",
                             "cellRenderer": "ImgThumbnail",
                             "width": 100,
+                        },
+                        {
+                            "field": "label",
+                        },
+                        {
+                            "field": "filename",
                         },
                     ],
                     rowModelType="infinite",
