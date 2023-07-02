@@ -131,9 +131,8 @@ def update_figure(slug):
 def update_row_request(request, selected_data):
     if request is None:
         return no_update
-    #if selected_data is None:
-        #return no_update
     if selected_data is None:
+        #return no_update
         return {"rowData": [], "rowCount": 0}
     if not isinstance(selected_data["points"], list):
         return {"rowData": [], "rowCount": 0}
