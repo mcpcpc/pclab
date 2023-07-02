@@ -68,6 +68,7 @@ def layout(slug = None):
                                         {
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
+                                            "width": "100%",
                                         #    "width": 100,
                                         },
                                         #{
