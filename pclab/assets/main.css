@@ -3,3 +3,7 @@
 input:invalid {
     outline: none !important;
 }
+
+.ag-grid {
+    --ag-borders: none;
+}
