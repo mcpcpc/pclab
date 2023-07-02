@@ -132,16 +132,9 @@ def update_row_request(request, selected_data):
     if request is None:
         return no_update
     if selected_data is None:
-        print("not initialized")
-        #return no_update
-        return {"rowData": [], "rowCount": None}
-    if not isinstance(selected_data["points"], list):
-        print("points do not exist")
-        return {"rowData": [], "rowCount": None}
+        return no_update
     if len(selected_data["points"]) < 1:
-        print("not points selected")
-        #return no_update
-        return {"rowData": [], "rowCount": None}
+        return no_update
     data = [] 
     for point in selected_data["points"]:
         id = point["customdata"]
