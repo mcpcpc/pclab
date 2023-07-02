@@ -29,7 +29,7 @@ def layout(slug = None):
                 "align-items": "stretch",
             },
             children=[
-                dcc.Loading(
+                html.Div(
                     style={
                         "flex": 1,
                         #"min-width": 200,
