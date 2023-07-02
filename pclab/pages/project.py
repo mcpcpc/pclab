@@ -35,11 +35,13 @@ def layout(slug = None):
                         #"min-width": 200,
                     },
                     children=[
-                        dcc.Graph(
-                            id="graph",
-                            style={
-                                "border": "1px solid rgb(186, 191, 199)",
-                            },
+                        dcc.Loading(
+                            dcc.Graph(
+                                id="graph",
+                                style={
+                                    "border": "1px solid rgb(186, 191, 199)",
+                                },
+                            ),
                         ),
                     ]
                 ),
