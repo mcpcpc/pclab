@@ -24,14 +24,10 @@ def layout(slug = None):
         dcc.Store(id="slug", data=slug),
         html.Div(
             children=[
-                dcc.Loading(
-                    children=[
-                        dcc.Graph(
-                            id="graph",
-                            responsive=True,
-                            style={"flex": 1},
-                        ),
-                    ], 
+                dcc.Graph(
+                    id="graph",
+                    responsive=True,
+                    style={"flex": 1},
                 ),
                 AgGrid(
                     id="grid",
