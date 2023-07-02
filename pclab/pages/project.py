@@ -69,7 +69,7 @@ def layout(slug = None):
                         "rowHeight": 100,
                         "noRowsOverlayComponent": "CustomNoRowsOverlay",
                         "noRowsOverlayComponentParams": {
-                            "message": "Please check again later",
+                            "message": "No data selected",
                             "fontSize": 12,
                         },
                     },
@@ -127,6 +127,7 @@ def update_figure(slug):
     Output("grid", "getRowsResponse"),
     Input("grid", "getRowsRequest"),
     Input("graph", "selectedData"),
+    prevent_initial_call=True,
 )
 def update_row_request(request, selected_data):
     if request is None:
