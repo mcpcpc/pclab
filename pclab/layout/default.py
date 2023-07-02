@@ -13,4 +13,4 @@ wrapper = html.Div(
 def layout(values, version):
     return [
         wrapper,
-    )
+    ]
