@@ -31,40 +31,48 @@ def layout(slug = None):
                 html.Div(
                     style={
                         "flex": 1,
-                        "min-width": 200,
-                        "border": "1px solid rgb(186, 191, 199)",
+                        #"min-width": 200,
                     },
                     children=[
-                        dcc.Graph(id="graph"),
+                        dcc.Graph(
+                            id="graph",
+                            style={
+                                "border": "1px solid rgb(186, 191, 199)",
+                            },
+                        ),
                     ]
                 ),
-                AgGrid(
-                    id="grid",
+                html.Div(
                     style={
                         "flex": 1,
-                        "min-width": 200,
+                        #"min-width": 200,
                     },
-                    columnDefs=[  
-                        {
-                            "field": "image",
-                            "cellRenderer": "ImgThumbnail",
-                            "width": 100,
-                        },
-                        {
-                            "field": "label",
-                        },
-                        {
-                            "field": "filename",
-                        },
+                    children=[
+                        AgGrid(
+                            id="grid",
+                            columnDefs=[  
+                                {
+                                    "field": "image",
+                                    "cellRenderer": "ImgThumbnail",
+                                    "width": 100,
+                                },
+                                {
+                                    "field": "label",
+                                },
+                                {
+                                    "field": "filename",
+                                },
+                            ],
+                            rowModelType="infinite",
+                            dashGridOptions={
+                                "rowBuffer": 0,
+                                "maxBlocksInCache": 1,
+                                "rowSelection": "multiple",
+                                "rowHeight": 100,
+                            },
+                        ),
                     ],
-                    rowModelType="infinite",
-                    dashGridOptions={
-                        "rowBuffer": 0,
-                        "maxBlocksInCache": 1,
-                        "rowSelection": "multiple",
-                        "rowHeight": 100,
-                    },
-                ),
+                ), 
             ],
         )
     ]
