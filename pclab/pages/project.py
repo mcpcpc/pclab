@@ -10,11 +10,6 @@ from dash import no_update
 from dash import State
 from dash import register_page
 from dash_ag_grid import AgGrid
-from dash_mantine_components import Card
-from dash_mantine_components import Col
-from dash_mantine_components import Grid
-from dash_mantine_components import Image
-from dash_mantine_components import LoadingOverlay
 
 from pclab.db import get_db
 from pclab.utils.figure import create_figure
@@ -27,66 +22,42 @@ register_page(__name__, path_template="/project/<slug>")
 def layout(slug = None):
     return [
         dcc.Store(id="slug", data=slug),
-        Grid(
+        html.Div(
             pt="sm",
             gutter="sm",
             align="stretch",
             children=[
-                Col(
-                    sm=9,
-                    xs=12,
+                dcc.Loading(
                     children=[
-                        Card(
-                            p=0,
-                            children=[
-                                LoadingOverlay(
-                                    loaderProps={"variant": "bars"},
-                                    children=dcc.Graph(id="graph"),
-                                ),
-                            ]
+                        dcc.Graph(
+                            id="graph",
+                            responsive=True,
+                            style={"flex": 1},
                         ),
-                    ],
+                    ], 
                 ),
-                Col(
-                    sm=3,
-                    xs=12,
-                    children=[
-                        Card(
-                            withBorder=True,
-                            #px=0,
-                            p=0,
-                            children=[
-                                AgGrid(
-                                    id="grid",
-                                    className="ag-grid",
-                                    defaultColDef={
-                                        "suppressMovable": True, 
-                                    },
-                                    columnDefs=[
-                                        #{
-                                        #    "field": "label",
-                                        #},
-                                        {
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
-                                        },
-                                        #{
-                                        #    "field": "filename",
-                                        #},
-                                    ],
-                                    rowModelType="infinite",
-                                    dashGridOptions={
-                                        "headerHeight": 0,
-                                        "rowBuffer": 0,
-                                        "maxBlocksInCache": 1,
-                                        "rowSelection": "multiple",
-                                        "rowHeight": 100,
-                                    },
-                                ),
-                            ]
-                        ),
-                    ]
+                AgGrid(
+                    id="grid",
+                    style={"flex": 1},
+                    className="ag-grid",
+                    defaultColDef={
+                        "suppressMovable": True, 
+                    },
+                    columnDefs=[
+                        {
+                            "field": "image",
+                            "cellRenderer": "ImgThumbnail",
+                            "width": 100,
+                        },
+                    ],
+                    rowModelType="infinite",
+                    dashGridOptions={
+                        "headerHeight": 0,
+                        "rowBuffer": 0,
+                        "maxBlocksInCache": 1,
+                        "rowSelection": "multiple",
+                        "rowHeight": 100,
+                    },
                 ),
             ],
         )
