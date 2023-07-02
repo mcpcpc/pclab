@@ -30,7 +30,6 @@ def layout(slug = None):
             children=[
                 dcc.Graph(
                     id="graph",
-                    responsive=True,
                     style={
                         "flex": 1,
                         "min-width": 700,
