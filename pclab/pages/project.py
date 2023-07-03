@@ -46,7 +46,6 @@ def layout(slug = None):
                 html.Div(
                     style={
                         "flex": 1,
-                        "background-color": "green",
                     },
                     children=[
                         AgGrid(
