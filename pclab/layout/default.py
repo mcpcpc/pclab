@@ -23,7 +23,7 @@ header = html.Header(
 wrapper = html.Div(
     id="wrapper",
     style={
-        "padding-top": "50px",
+        #"padding-top": "50px",
     },
     children=page_container,
 )
