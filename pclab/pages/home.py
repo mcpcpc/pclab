@@ -26,8 +26,6 @@ layout = [
         children=[
             Group(
                 children=[
-                    #Title("Data Labeling Assisted by"),
-                    #Title("Machine Learning", variant="gradient"),
                     Title(
                         children=[
                             "Data labeling assisted by",
