@@ -44,38 +44,42 @@ def layout(slug = None):
                         ),
                     ]
                 ),
-                AgGrid(
-                    id="grid",
+                html.Div(
                     style={
                         "flex": 1,
                         "background-color": "green",
                     },
-                    columnDefs=[  
-                        {
-                            "headerName": "Sample",
-                            "field": "image",
-                            "cellRenderer": "ImgThumbnail",
-                             "width": 100,
-                        },
-                        {
-                            "field": "label",
-                        },
-                        {
-                            "field": "filename",
-                        },
-                    ],
-                    rowModelType="infinite",
-                    dashGridOptions={
-                        "rowBuffer": 0,
-                        "maxBlocksInCache": 1,
-                        "rowSelection": "multiple",
-                        "rowHeight": 100,
-                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
-                        "noRowsOverlayComponentParams": {
-                            "message": "No data selected",
-                            "fontSize": 12,
-                        },
-                    },
+                    children=[
+                        AgGrid(
+                            id="grid",
+                            columnDefs=[  
+                                {
+                                    "headerName": "Sample",
+                                    "field": "image",
+                                    "cellRenderer": "ImgThumbnail",
+                                     "width": 100,
+                                },
+                                {
+                                    "field": "label",
+                                },
+                                {
+                                    "field": "filename",
+                                },
+                            ],
+                            rowModelType="infinite",
+                            dashGridOptions={
+                                "rowBuffer": 0,
+                                "maxBlocksInCache": 1,
+                                "rowSelection": "multiple",
+                                "rowHeight": 100,
+                                "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                                "noRowsOverlayComponentParams": {
+                                    "message": "No data selected",
+                                    "fontSize": 12,
+                                },
+                            },
+                        ),
+                    ]
                 ),
             ],
         )
