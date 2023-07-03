@@ -7,7 +7,7 @@ from dash import page_container
 header = html.Header(
     id="header",
     style={
-        "position": "fixed",
+        #"position": "fixed",
         "width": "100%",
         "display": "block",
         "height": "50px",
