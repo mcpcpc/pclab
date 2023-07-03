@@ -162,3 +162,20 @@ def update_row_request(request, selected_data):
         data[i]["image"] = to_image(d["image"])
     partial = data[request["startRow"] : request["endRow"]]
     return {"rowData": partial, "rowCount": len(data)}
+
+
+@callback(
+    Output("grid", "getRowStyle"),
+    Input("grid", "getRowStyle"),
+)
+def update_row_style(row_style):
+    rows = get_db().execute("SELECT * FROM label").fetchall()
+    records = list(map(dict, rows))
+    return {
+        "styleConditions": [
+            {
+                "condition": f"params.data.label == {record['title']}",
+                "style": {"backgroundColor": record["color"]},
+            } for record in records
+        ]
+    }
