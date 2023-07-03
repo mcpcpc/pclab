@@ -8,7 +8,7 @@ header = html.Header(
     id="header",
     style={
         "position": "fixed",
-        "display"; "block",
+        "display": "block",
         "height": "50px",
         "padding": "0 auto",
         "border-bottom": "1px solid rgb(186, 191, 199)",
