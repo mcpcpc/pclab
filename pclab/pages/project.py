@@ -32,7 +32,7 @@ def layout(slug = None):
             children=[
                 html.Div(
                     style={
-                        "flex": 1,
+                        #"flex": 1,
                         "border": "1px solid rgb(186, 191, 199)",
                     },
                     children=[
@@ -49,7 +49,7 @@ def layout(slug = None):
                 AgGrid(
                     id="grid",
                     style={
-                        "flex": 1,
+                        #"flex": 1,
                     },
                     columnDefs=[  
                         {
