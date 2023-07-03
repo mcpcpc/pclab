@@ -58,30 +58,35 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    className="ag-grid",
+                                    style={"height": "100%"},
                                     defaultColDef={
                                         "suppressMovable": True, 
                                     },
-                                    columnDefs=[
-                                        #{
-                                        #    "field": "label",
-                                        #},
+                                    columnDefs=[  
                                         {
+                                            "headerName": "Sample",
                                             "field": "image",
                                             "cellRenderer": "ImgThumbnail",
-                                            "width": 100,
+                                             "width": 100,
                                         },
-                                        #{
-                                        #    "field": "filename",
-                                        #},
+                                        {
+                                            "field": "label",
+                                        },
+                                        {
+                                            "field": "filename",
+                                        },
                                     ],
                                     rowModelType="infinite",
                                     dashGridOptions={
-                                        "headerHeight": 0,
                                         "rowBuffer": 0,
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
                                         "rowHeight": 100,
+                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                                        "noRowsOverlayComponentParams": {
+                                            "message": "No data selected",
+                                            "fontSize": 12,
+                                        },
                                     },
                                 ),
                             ]
