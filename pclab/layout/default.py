@@ -8,6 +8,7 @@ header = html.Header(
     id="header",
     style={
         "position": "fixed",
+        "width": "100%",
         "display": "block",
         "height": "50px",
         "padding": "0 auto",
