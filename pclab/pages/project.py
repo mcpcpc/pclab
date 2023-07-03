@@ -58,7 +58,6 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    #style={"height": "100%"},
                                     defaultColDef={
                                         "suppressMovable": True, 
                                     },
@@ -82,11 +81,6 @@ def layout(slug = None):
                                         "maxBlocksInCache": 1,
                                         "rowSelection": "multiple",
                                         "rowHeight": 100,
-                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
-                                        "noRowsOverlayComponentParams": {
-                                            "message": "No data selected",
-                                            "fontSize": 12,
-                                        },
                                     },
                                 ),
                             ]
@@ -191,7 +185,8 @@ def update_row_style(row_style):
             {
                 "condition": f"params.data.label == \"{record['title']}\"",
                 "style": {
-                    "backgroundColor": record["color"]
+                    #"backgroundColor": record["color"],
+                    "color": record["color"]
                 },
             } for record in records
         ]
