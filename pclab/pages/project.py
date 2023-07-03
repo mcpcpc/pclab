@@ -166,7 +166,7 @@ def update_row_request(request, selected_data):
 
 @callback(
     Output("grid", "getRowStyle"),
-    Input("grid", "getRowStyle"),
+    Input("graph", "selectedData"),
 )
 def update_row_style(row_style):
     rows = get_db().execute("SELECT * FROM label").fetchall()
@@ -174,8 +174,10 @@ def update_row_style(row_style):
     return {
         "styleConditions": [
             {
-                "condition": "params.data.label === " + record["title"],
-                "style": {"backgroundColor": record["color"]},
+                "condition": f"params.data.label == \"{record['title']}\"",
+                "style": {
+                    "backgroundColor": record["color"]
+                },
             } for record in records
         ]
     }
