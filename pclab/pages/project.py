@@ -51,6 +51,7 @@ def layout(slug = None):
                     children=[
                         AgGrid(
                             id="grid",
+                            style={"height": "100%"},
                             columnDefs=[  
                                 {
                                     "headerName": "Sample",
