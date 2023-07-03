@@ -26,8 +26,18 @@ layout = [
         children=[
             Group(
                 children=[
-                    Title("Data Labeling Assisted by"),
-                    Title("Machine Learning", variant="gradient")
+                    #Title("Data Labeling Assisted by"),
+                    #Title("Machine Learning", variant="gradient"),
+                    Title(
+                        children=[
+                            "Data labeling assisted by",
+                            Text(
+                                children="machine learning",
+                                variant="gradient",
+                                inherit=True,
+                            ),
+                        ],
+                    ),
                 ]
             ),
             Text("Select a project from the list below to begin labeling.", size="xl"),
