@@ -11,6 +11,7 @@ header = html.Header(
         "height": "3em",
     },
     children=[
+        "Decomposition Labeler"
     ], 
 )
 
