@@ -27,6 +27,7 @@ layout = [
             Group(
                 children=[
                     Title(
+                        align="center",
                         children=[
                             "Data labeling assisted by",
                             Text(
