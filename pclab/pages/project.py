@@ -48,40 +48,36 @@ def layout(slug = None):
                     style={
                         "flex": 1,
                     },
-                    children=[
-                        dcc.Loading(
-                            children=[
-                                AgGrid(
-                                    id="grid",
-                                    style={"height": "100%"},
-                                    columnDefs=[  
-                                        {
-                                            "headerName": "Sample",
-                                            "field": "image",
-                                            "cellRenderer": "ImgThumbnail",
-                                             "width": 100,
-                                        },
-                                        {
-                                            "field": "label",
-                                        },
-                                        {
-                                            "field": "filename",
-                                        },
-                                    ],
-                                    rowModelType="infinite",
-                                    dashGridOptions={
-                                        "rowBuffer": 0,
-                                        "maxBlocksInCache": 1,
-                                        "rowSelection": "multiple",
-                                        "rowHeight": 100,
-                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
-                                        "noRowsOverlayComponentParams": {
-                                            "message": "No data selected",
-                                            "fontSize": 12,
-                                        },
-                                    },
-                                ),
+                    children=[ 
+                        AgGrid(
+                            id="grid",
+                            style={"height": "100%"},
+                            columnDefs=[  
+                                {
+                                    "headerName": "Sample",
+                                    "field": "image",
+                                    "cellRenderer": "ImgThumbnail",
+                                    "width": 100,
+                                },
+                                {
+                                    "field": "label",
+                                },
+                                {
+                                    "field": "filename",
+                                },
                             ],
+                            rowModelType="infinite",
+                            dashGridOptions={
+                                "rowBuffer": 0,
+                                "maxBlocksInCache": 1,
+                                "rowSelection": "multiple",
+                                "rowHeight": 100,
+                                "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                                "noRowsOverlayComponentParams": {
+                                    "message": "No data selected",
+                                    "fontSize": 12,
+                                },
+                            },
                         ),
                     ]
                 ),
