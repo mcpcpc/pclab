@@ -58,7 +58,7 @@ def layout(slug = None):
                             children=[
                                 AgGrid(
                                     id="grid",
-                                    style={"height": "100%"},
+                                    #style={"height": "100%"},
                                     defaultColDef={
                                         "suppressMovable": True, 
                                     },
