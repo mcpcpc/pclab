@@ -8,7 +8,10 @@ header = html.Header(
     id="header",
     style={
         "position": "fixed",
-        "height": "3em",
+        "height": "50px",
+        "padding": "0 auto",
+        "border-bottom": "1px solid rgb(186, 191, 199)",
+        
     },
     children=[
         "PC LAb"
@@ -17,7 +20,9 @@ header = html.Header(
 
 wrapper = html.Div(
     id="wrapper",
-    style={"padding-top": "3em"},
+    style={
+        "padding-top": "50px",
+    },
     children=page_container,
 )
 
