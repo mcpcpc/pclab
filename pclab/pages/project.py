@@ -49,35 +49,39 @@ def layout(slug = None):
                         "flex": 1,
                     },
                     children=[
-                        AgGrid(
-                            id="grid",
-                            style={"height": "100%"},
-                            columnDefs=[  
-                                {
-                                    "headerName": "Sample",
-                                    "field": "image",
-                                    "cellRenderer": "ImgThumbnail",
-                                     "width": 100,
-                                },
-                                {
-                                    "field": "label",
-                                },
-                                {
-                                    "field": "filename",
-                                },
+                        dcc.Loading(
+                            children=[
+                                AgGrid(
+                                    id="grid",
+                                    style={"height": "100%"},
+                                    columnDefs=[  
+                                        {
+                                            "headerName": "Sample",
+                                            "field": "image",
+                                            "cellRenderer": "ImgThumbnail",
+                                             "width": 100,
+                                        },
+                                        {
+                                            "field": "label",
+                                        },
+                                        {
+                                            "field": "filename",
+                                        },
+                                    ],
+                                    rowModelType="infinite",
+                                    dashGridOptions={
+                                        "rowBuffer": 0,
+                                        "maxBlocksInCache": 1,
+                                        "rowSelection": "multiple",
+                                        "rowHeight": 100,
+                                        "noRowsOverlayComponent": "CustomNoRowsOverlay",
+                                        "noRowsOverlayComponentParams": {
+                                            "message": "No data selected",
+                                            "fontSize": 12,
+                                        },
+                                    },
+                                ),
                             ],
-                            rowModelType="infinite",
-                            dashGridOptions={
-                                "rowBuffer": 0,
-                                "maxBlocksInCache": 1,
-                                "rowSelection": "multiple",
-                                "rowHeight": 100,
-                                "noRowsOverlayComponent": "CustomNoRowsOverlay",
-                                "noRowsOverlayComponentParams": {
-                                    "message": "No data selected",
-                                    "fontSize": 12,
-                                },
-                            },
                         ),
                     ]
                 ),
