@@ -33,7 +33,6 @@ def layout(slug = None):
                 html.Div(
                     style={
                         "flex": 1,
-                        "background-color": "green",
                         "border": "1px solid rgb(186, 191, 199)",
                     },
                     children=[
