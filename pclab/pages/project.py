@@ -40,7 +40,7 @@ def layout(slug = None):
                             children=[
                                 dcc.Graph( 
                                     id="graph",
-                                    responsive=True, 
+                                    #responsive=True, 
                                 ),
                             ]
                         ),
