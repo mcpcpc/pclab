@@ -184,7 +184,8 @@ def update_row_style(row_style):
         "styleConditions": [
             {
                 "condition": f"params.data.label == \"{record['title']}\"",
-                "style": {"backgroundColor": record["color"]},
+                "style": {"color": record["color"]},
+                #"style": {"backgroundColor": record["color"]},
             } for record in records
         ]
     }
