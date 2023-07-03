@@ -11,7 +11,7 @@ header = html.Header(
         "width": "100%",
         "display": "block",
         "height": "50px",
-        "padding": "0 auto",
+        "padding": "auto 1em",
         "border-bottom": "1px solid rgb(186, 191, 199)",
         
     },
