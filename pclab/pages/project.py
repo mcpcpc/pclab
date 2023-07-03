@@ -28,7 +28,7 @@ def layout(slug = None):
                 "flex-wrap": "wrap",
                 "align-items": "stretch",
                 "gap": "1em",
-                "padding": "1em 0",
+                "padding": "1em",
             },
             children=[
                 html.Div(
