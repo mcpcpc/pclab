@@ -7,7 +7,6 @@ from dash import page_container
 header = html.Header(
     id="header",
     style={
-        #"position": "fixed",
         "width": "100%",
         "display": "block",
         "height": "50px",
@@ -16,14 +15,13 @@ header = html.Header(
         
     },
     children=[
-        "PC LAb"
+        "PC Lab"
     ], 
 )
 
 wrapper = html.Div(
     id="wrapper",
     style={
-        #"padding-top": "50px",
     },
     children=page_container,
 )
